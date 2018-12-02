@@ -12,7 +12,7 @@ description: "A blog about functional programming, and programming in general"
 
 short_url: 'blog.kubukoz.com'
 google_analytics: UA-55943015-8
-disqus: kubukoz
+disqus: kubukoz-blog
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: /
 
