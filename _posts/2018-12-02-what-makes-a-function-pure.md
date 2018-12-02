@@ -19,11 +19,7 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
 in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
 or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.
 
-I'm by no means an expert in functional programming - I haven't read even
-a fraction of a significant part of all the papers published in the field.
-I haven't got a lot of war-proven experience in it either - most of my knowledge comes
-from other people's blogposts, talks, and stories, as well as a short period of writing
-production code using FP. But the definition of a pure function that I consider to be true
+I'm by no means an expert in functional programming, but the definition of a pure function that I consider to be true
 is the same one as plenty of people use.
 
 That definition doesn't distinguish pure and impure functions, though - all functions are
@@ -35,7 +31,7 @@ The point of this post is to answer that question in a way that'll be relatively
 to understand for people with basic to intermediate experience with programming and Scala.
 
 The definition for a function (and for functional programming) I use is very similar
-to the one [John A de Goes tweeted some time ago](https://twitter.com/jdegoes/status/936301872066977792). Functions are:
+to the one [John A de Goes tweeted some time ago](https://twitter.com/jdegoes/status/936301872066977792){:target="_blank"}. Functions are:
 
 1. Total - they are defined for every input
 1. Deterministic - a function will always return the same value given the same input.
@@ -486,18 +482,18 @@ you don't miss anything readworthy.
 ## Links
 
 To learn more about referential transparency, first-class effects and IO,
-check out [the documentation of cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html),
-or [Fabio Labella's comments in this Reddit thread](https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b).
-You may also want to see [Luka Jacobowitz's talk about the other benefits of RT](https://www.youtube.com/watch?v=X-cEGEJMx_4),
-[Rob Norris's introduction to Effects](https://www.youtube.com/watch?v=po3wmq4S15A)
-and [Fabio's talk about shared mutable state in pure FP](https://vimeo.com/294736344).
+check out [the documentation of cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html){:target="_blank"},
+or [Fabio Labella's comments in this Reddit thread](https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b){:target="_blank"}.
+You may also want to see [Luka Jacobowitz's talk about the other benefits of RT](https://www.youtube.com/watch?v=X-cEGEJMx_4){:target="_blank"},
+[Rob Norris's introduction to Effects](https://www.youtube.com/watch?v=po3wmq4S15A){:target="_blank"}
+and [Fabio's talk about shared mutable state in pure FP](https://vimeo.com/294736344){:target="_blank"}.
 
 If you don't mind seeing a bunch of slides without an audible explanation,
-you can also check out [the slides for my latest talk](https://kubukoz.github.io/talks/incremental-purity/slides),
+you can also check out [the slides for my latest talk](https://kubukoz.github.io/talks/incremental-purity/slides){:target="_blank"},
 but sooner or later I'm planning to have it recorded and the video published.
 
-For examples with ZIO, see [ZIO's page on purity](https://scalaz.github.io/scalaz-zio/usage/purity.html).
+For examples with ZIO, see [ZIO's page on purity](https://scalaz.github.io/scalaz-zio/usage/purity.html){:target="_blank"}.
 
-I also recommend following [the Typelevel blog](https://typelevel.org/blog/) and
-chatting to folks who love FP on [the cats gitter](https://gitter.im/typelevel/cats) and
-[other](https://gitter.im/typelevel/cats-effect) related [rooms](https://gitter.im/typelevel/general).
+I also recommend following [the Typelevel blog](https://typelevel.org/blog/){:target="_blank"} and
+chatting to folks who love FP on [the cats gitter](https://gitter.im/typelevel/cats){:target="_blank"} and
+[other](https://gitter.im/typelevel/cats-effect) related [rooms](https://gitter.im/typelevel/general){:target="_blank"}.
