@@ -226,6 +226,14 @@ h2 {
     letter-spacing: -1px;
 }
 
+.post-content {
+    margin-top: 32px;
+}
+
+.post-content h2 a {
+    text-decoration: none;
+}
+
 h3 {
     font-size: 3rem;
     letter-spacing: -0.6px;

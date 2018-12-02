@@ -18,8 +18,7 @@
 	  <pubDate>2018-12-02T12:00:00+00:00</pubDate>
 	  <guid>//what-makes-a-function-pure</guid>
 	  <description><![CDATA[
-	     <p><br />
-Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
+	     <p>Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
 in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
 or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.</p>
 
@@ -48,7 +47,7 @@ programming with functions,without procedures.</p>
 
 <p>Let’s look at these properties and see how they differ from those of what I defined as procedures.</p>
 
-<h2 id="totality">Totality</h2>
+<h2 id="totality"><a href="#totality">Totality</a></h2>
 
 <p>For a function to be total, we must make sure that it returns a value
 for every kind of input that the compiler allows it to take.
@@ -112,7 +111,7 @@ like typed errors, that’d probably involve creating an ADT for possible errors
 
 <p>and our function becomes total, because invalid inputs will give us a value (e.g. a <code class="highlighter-rouge">Left</code>)</p>
 
-<h2 id="determinism">Determinism</h2>
+<h2 id="determinism"><a href="#determinism">Determinism</a></h2>
 
 <p>In order for a function to be deterministic, it has to return the same value
 every time it’s called with the same arguments. Because of that, something like the following is not pure:</p>
@@ -157,9 +156,9 @@ it’ll yield different results. A functional, yet implausible solution would be
 pass the state of the database as input to the function, or use some sort of <code class="highlighter-rouge">State</code> monad.
 An alternative, arguably better solution would be to suspend
 the side effect (reading from external mutable state) in an effect,
-which is what we’ll discuss in the part of this post about <strong>First-class effects</strong>.</p>
+which is what we’ll discuss in <a href="#first-class-effects">the part of this post about First-class effects</a>.</p>
 
-<h2 id="purity">Purity</h2>
+<h2 id="purity"><a href="#purity">Purity</a></h2>
 
 <p>I already said that a function is pure because its only effect is computing its output.
 Does it mean that by programming with functions we aren’t allowed to write to a database or to standard output?</p>
@@ -172,7 +171,7 @@ we’re allowed to have functions with side effects.</p>
 external systems) without side effects? We need referential transparency.
 And side effects are its exact opposite.</p>
 
-<h2 id="referential-transparency">Referential transparency</h2>
+<h2 id="referential-transparency"><a href="#referential-transparency">Referential transparency</a></h2>
 
 <p>A definition of referential transparency found in
 <a href="https://www.manning.com/books/functional-programming-in-scala">The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)</a>
@@ -331,7 +330,7 @@ does it mean we’re doomed to have side effects in meaningful Scala programs?</
 
 <p>Thankfully, it doesn’t.</p>
 
-<h2 id="first-class-effects">First-class effects</h2>
+<h2 id="first-class-effects"><a href="#first-class-effects">First-class effects</a></h2>
 
 <p>A term often used to describe effects without side effects is “first class effects”. They are effects that don’t break
 referential transparency. A workaround often used to simulate support for first class effects in Scala
@@ -406,7 +405,7 @@ a handle to an already running computation.</p>
 <p>Again, running <code class="highlighter-rouge">prog1</code> and/or <code class="highlighter-rouge">prog2</code> will involve printing twice in each of them. That’s why
 we say IO is referentially transparent, or pure.</p>
 
-<h2 id="a-word-on-determinism-and-io">A word on determinism and IO</h2>
+<h2 id="a-word-on-determinism-and-io"><a href="#a-word-on-determinism-and-io">A word on determinism and IO</a></h2>
 
 <p>Earlier, I claimed that a function needs to return the same output for the same input. Would this be a function, then?</p>
 
@@ -458,7 +457,7 @@ the original behavior:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h2 id="thanks-for-reading">Thanks for reading</h2>
+<h2 id="thanks-for-reading"><a href="#thanks-for-reading">Thanks for reading</a></h2>
 
 <p>I hope that you liked this not-so-short explanation of pure functions and that you’ll benefit from it as much as me
 and other people who believe in functional programming. If you still have any questions,
@@ -470,7 +469,7 @@ please leave a comment ;)</p>
 <p>If you want to keep an eye out for the next thing I write, follow me and I’ll make sure
 you don’t miss anything readworthy.</p>
 
-<h2 id="links">Links</h2>
+<h2 id="links"><a href="#links">Links</a></h2>
 
 <p>To learn more about referential transparency, first-class effects and IO,
 check out <a href="https://typelevel.org/cats-effect/datatypes/io.html" target="_blank">the documentation of cats.effect.IO</a>,
