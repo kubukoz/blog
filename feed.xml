@@ -11,11 +11,13 @@
         <title>What makes a function pure?</title>
         
           <description>&lt;p&gt;&lt;br /&gt;
-Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things in computer science and programming in general. In addition, sometimes a single word has multiple meanings, or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.&lt;/p&gt;
+Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
+in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
+or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.&lt;/p&gt;
 
 </description>
         
-        <pubDate>Sat, 01 Dec 2018 12:00:00 +0000</pubDate>
+        <pubDate>Sun, 02 Dec 2018 12:00:00 +0000</pubDate>
         <link>
         /what-makes-a-function-pure</link>
         <guid isPermaLink="true">/what-makes-a-function-pure</guid>

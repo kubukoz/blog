@@ -35,13 +35,13 @@
     <meta property="og:title" content="What makes a function pure?" />
     <meta property="og:description" content="A blog about functional programming, and programming in general" />
     <meta property="og:url" content="//what-makes-a-function-pure" />
-    <meta property="og:image" content="/assets/images/cover7.jpg" />
+    <meta property="og:image" content="/assets/images/pure-function-bg.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="What makes a function pure?" />
     <meta name="twitter:description" content="A blog about functional programming, and programming in general" />
     <meta name="twitter:url" content="//what-makes-a-function-pure" />
-    <meta name="twitter:image:src" content="/assets/images/cover7.jpg" />
+    <meta name="twitter:image:src" content="/assets/images/pure-function-bg.jpg" />
 
     <script type="application/ld+json">
 {
@@ -50,7 +50,7 @@
     "publisher": "Jakub Kozłowski",
     "name": "What makes a function pure?",
     "url": "//what-makes-a-function-pure",
-    "image": "/assets/images/cover7.jpg",
+    "image": "/assets/images/pure-function-bg.jpg",
     "description": "A blog about functional programming, and programming in general"
 }
     </script>
@@ -70,15 +70,10 @@
     </a>
     <ul>
         <li class="nav-home " role="presentation"><a href="/">Home</a></li>
-        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
-        <li class="nav-fables " role="presentation"><a href="/tag/fables">Fables</a></li>
-        <li class="nav-speeches " role="presentation"><a href="/tag/speeches">Speeches</a></li>
-        <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/edgar">Edgar</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/abraham">Abraham</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/martin">Martin</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/lewis">Lewis</a></li>
+        <li class="scala " role="presentation"><a href="/tag/scala">Scala</a></li>
+        <!--<li class="nav-speeches " role="presentation"><a href="/tag/speeches">Speeches</a></li>-->
+        <!--<li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>-->
+        <!--<li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>-->
     </ul>
     <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
 </div>
@@ -96,9 +91,9 @@
 <!-- Everything inside the #post tags pulls data from the post -->
 <!-- #post -->
 
-<header class="main-header post-head " style="background-image: url(/assets/images/cover7.jpg) ">
+<header class="main-header post-head " style="background-image: url(/assets/images/pure-function-bg.jpg) ">
     <nav class="main-nav  overlay  clearfix">
-        <a class="blog-logo" href="/"><img src="/assets/images/ghost.png" alt="Blog Logo" /></a>
+        <a class="blog-logo" href="/"><img src="/assets/images/jk_white.svg" alt="Blog Logo" /></a>
         
             <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
@@ -119,17 +114,21 @@
                     <a href='/author/kubukoz'>Jakub Kozłowski</a>
                 
             
-            <time class="post-date" datetime="2018-12-01">01 Dec 2018</time>
+            <time class="post-date" datetime="2018-12-02">02 Dec 2018</time>
                 <!-- [[tags prefix=" on "]] -->
                 
                 on
                 
                     
-                       <a href='/tag/fables'>Fables</a>,
+                       <a href='/tag/scala'>Scala</a>,
                     
                 
                     
-                       <a href='/tag/fiction'>Fiction</a>
+                       <a href='/tag/functional programming'>Functional programming</a>,
+                    
+                
+                    
+                       <a href='/tag/cats'>Cats</a>
                     
                 
                 
@@ -139,17 +138,27 @@
         <section class="post-content">
 
             <p><br />
-Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things in computer science and programming in general. In addition, sometimes a single word has multiple meanings, or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.</p>
+Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
+in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
+or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.</p>
 
-<p>I’m by no means an expert in functional programming - I haven’t read even a fraction of a significant part of all the papers published in the field. I haven’t got a lot of war-proven experience in it either - most of my knowledge comes from other people’s blogposts, talks, and stories, as well as a short period of writing production code using FP. But the definition of a pure function that I consider to be true is the same one as plenty of people use.</p>
+<p>I’m by no means an expert in functional programming - I haven’t read even
+a fraction of a significant part of all the papers published in the field.
+I haven’t got a lot of war-proven experience in it either - most of my knowledge comes
+from other people’s blogposts, talks, and stories, as well as a short period of writing
+production code using FP. But the definition of a pure function that I consider to be true
+is the same one as plenty of people use.</p>
 
-<p>That definition doesn’t distinguish pure and impure functions, though - all functions are pure, but the impure things we sometimes call functions, aren’t. They are impure, and I call them procedures.</p>
+<p>That definition doesn’t distinguish pure and impure functions, though - all functions are
+pure, but the impure things we sometimes call functions, aren’t. They are impure, and I call them procedures.</p>
 
 <p>What makes a function a function, then?</p>
 
-<p>The point of this post is to answer that question in a way that’ll be relatively easy to understand for people with basic to intermediate experience with programming and Scala.</p>
+<p>The point of this post is to answer that question in a way that’ll be relatively easy
+to understand for people with basic to intermediate experience with programming and Scala.</p>
 
-<p>The definition for a function (and for functional programming) I use is very similar to the one <a href="https://twitter.com/jdegoes/status/936301872066977792">John A de Goes tweeted some time ago</a>. Functions are:</p>
+<p>The definition for a function (and for functional programming) I use is very similar
+to the one <a href="https://twitter.com/jdegoes/status/936301872066977792">John A de Goes tweeted some time ago</a>. Functions are:</p>
 
 <ol>
   <li>Total - they are defined for every input</li>
@@ -157,13 +166,16 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
   <li>Pure - their only effect is computing their output</li>
 </ol>
 
-<p>If we define functions like the above, then functional programming is programming with functions, without procedures.</p>
+<p>If we define functions like the above, then functional programming is
+programming with functions,without procedures.</p>
 
 <p>Let’s look at these properties and see how they differ from those of what I defined as procedures.</p>
 
 <h2 id="totality">Totality</h2>
 
-<p>For a function to be total, we must make sure that it returns a value for every kind of input that the compiler allows it to take. That means it can’t throw exceptions to the caller, like in the following example:</p>
+<p>For a function to be total, we must make sure that it returns a value
+for every kind of input that the compiler allows it to take.
+That means it can’t throw exceptions to the caller, like in the following example:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">validate</span><span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">trimmed</span> <span class="k">=</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">trim</span>
@@ -172,7 +184,11 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The above code compiles, and <code class="highlighter-rouge">validate("")</code> will compile too (as a method call with a result type of <code class="highlighter-rouge">String</code>), but it’ll crash at runtime, unless the exception is caught. That makes <code class="highlighter-rouge">validate</code> a partial function, because it doesn’t have a defined value of its declared type (<code class="highlighter-rouge">String</code>) for an empty string - in fact, it doesn’t have one for any kind of input consisting exclusively of whitespace.</p>
+<p>The above code compiles, and <code class="highlighter-rouge">validate("")</code> will compile too (as a method call
+with a result type of <code class="highlighter-rouge">String</code>), but it’ll crash at runtime, unless the exception is caught.
+That makes <code class="highlighter-rouge">validate</code> a partial function, because it doesn’t have a
+defined value of its declared type (<code class="highlighter-rouge">String</code>) for an empty string - in fact,
+it doesn’t have one for any kind of input consisting exclusively of whitespace.</p>
 
 <p>One functional alternative to this would be to use <code class="highlighter-rouge">Option</code>:</p>
 
@@ -182,26 +198,30 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Or, if you want more information about the origin of failure, <code class="highlighter-rouge">Either</code> (if you like typed errors, that’d probably involve creating an ADT for possible errors):</p>
+<p>Or, if you want more information about the origin of failure, <code class="highlighter-rouge">Either</code> (if you
+like typed errors, that’d probably involve creating an ADT for possible errors):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">UserError</span> <span class="k">extends</span> <span class="nc">Product</span> <span class="k">with</span> <span class="nc">Serializable</span>
 <span class="k">case</span> <span class="k">object</span> <span class="nc">NameIsEmpty</span> <span class="k">extends</span> <span class="nc">UserError</span>
 
-<span class="k">def</span> <span class="n">validate</span><span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">UserError</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">trim</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="s">""</span> <span class="k">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="nc">NameIsEmpty</span><span class="o">)</span>
-  <span class="k">case</span> <span class="n">trimmed</span> <span class="k">=&gt;</span> <span class="nc">Right</span><span class="o">(</span><span class="n">trimmed</span><span class="o">)</span>
-<span class="o">}</span>
+<span class="k">def</span> <span class="n">validate</span><span class="o">(</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">Either</span><span class="o">[</span><span class="kt">UserError</span>, <span class="kt">String</span><span class="o">]</span> <span class="k">=</span> 
+  <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">trim</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="s">""</span> <span class="k">=&gt;</span> <span class="nc">Left</span><span class="o">(</span><span class="nc">NameIsEmpty</span><span class="o">)</span>
+    <span class="k">case</span> <span class="n">trimmed</span> <span class="k">=&gt;</span> <span class="nc">Right</span><span class="o">(</span><span class="n">trimmed</span><span class="o">)</span>
+  <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Another solution would involve tagless style with <code class="highlighter-rouge">ApplicativeError</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="kt">UserErrors</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">ApplicativeError</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">UserError</span><span class="o">]</span>
 
-<span class="k">def</span> <span class="n">validate</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">UserErrors</span><span class="o">](</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">some</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">nonEmpty</span><span class="o">).</span><span class="n">liftTo</span><span class="o">[</span><span class="kt">F</span><span class="o">](</span><span class="nc">NameIsEmpty</span><span class="k">:</span> <span class="kt">UserError</span><span class="o">)</span>
+<span class="k">def</span> <span class="n">validate</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">UserErrors</span><span class="o">](</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">trim</span>
+    <span class="o">.</span><span class="n">some</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">nonEmpty</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">liftTo</span><span class="o">[</span><span class="kt">F</span><span class="o">](</span><span class="nc">NameIsEmpty</span><span class="k">:</span> <span class="kt">UserError</span><span class="o">)</span>
+<span class="o">}</span>
   
 <span class="k">type</span> <span class="kt">E</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Either</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">A</span><span class="o">]</span>
-
 <span class="n">validate</span><span class="o">[</span><span class="kt">E</span><span class="o">](</span><span class="nc">User</span><span class="o">(</span><span class="s">"foo"</span><span class="o">))</span>
 </code></pre></div></div>
 
@@ -217,16 +237,21 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
 
 <h2 id="determinism">Determinism</h2>
 
-<p>In order for a function to be deterministic, it has to return the same value every time it’s called with the same arguments. Because of that, something like the following is not pure:</p>
+<p>In order for a function to be deterministic, it has to return the same value
+every time it’s called with the same arguments. Because of that, something like the following is not pure:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">foo</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
   <span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">()</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The type of <code class="highlighter-rouge">foo</code> is <code class="highlighter-rouge">() =&gt; Int</code>, or <code class="highlighter-rouge">Unit =&gt; Int</code>, so we can basically say that it has one possible input (the value <code class="highlighter-rouge">()</code> of type <code class="highlighter-rouge">Unit</code>, in this case represented by “no arguments passed”). This would mean that eevery call to this function will return the same value, but it’s quite the opposite - it’ll usually return completely different values.</p>
+<p>The type of <code class="highlighter-rouge">foo</code> is <code class="highlighter-rouge">() =&gt; Int</code>, or <code class="highlighter-rouge">Unit =&gt; Int</code>, so we can basically say that
+it has one possible input (the value <code class="highlighter-rouge">()</code> of type <code class="highlighter-rouge">Unit</code>, in this case represented
+by “no arguments passed”). This would mean that eevery call to this function will
+return the same value, but it’s quite the opposite - it’ll usually return completely different values.</p>
 
-<p>A simple way to ensure determinism of the above would be to allow passing a seed to the randomizer, instead of using a global Random instance:</p>
+<p>A simple way to ensure determinism of the above would be to allow passing
+a seed to the randomizer, instead of using a global Random instance:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">seed</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
   <span class="k">new</span> <span class="nc">Random</span><span class="o">(</span><span class="n">seed</span><span class="o">).</span><span class="n">nextInt</span><span class="o">()</span>
@@ -250,22 +275,38 @@ Everyone knows that naming things is hard. In fact, often it seems to be one of 
 
 <p>The <code class="highlighter-rouge">Await</code> call was added only to make sure that we have a result immediately when the function completes.</p>
 
-<p>If we change the state of the database between a few calls to this function, it’ll yield different results. A functional, yet implausible solution would be to pass the state of the database as input to the function, or use some sort of <code class="highlighter-rouge">State</code> monad. An alternative, arguably better solution would be to suspend the side effect (reading from external mutable state) in an effect, which is what we’ll discuss in the part of this post about <strong>First-class effects</strong>.</p>
+<p>If we change the state of the database between a few calls to this function,
+it’ll yield different results. A functional, yet implausible solution would be to
+pass the state of the database as input to the function, or use some sort of <code class="highlighter-rouge">State</code> monad.
+An alternative, arguably better solution would be to suspend
+the side effect (reading from external mutable state) in an effect,
+which is what we’ll discuss in the part of this post about <strong>First-class effects</strong>.</p>
 
 <h2 id="purity">Purity</h2>
 
-<p>I already said that a function is pure because its only effect is computing its output. Does it mean that by programming with functions we aren’t allowed to write to a database or to standard output?</p>
+<p>I already said that a function is pure because its only effect is computing its output.
+Does it mean that by programming with functions we aren’t allowed to write to a database or to standard output?</p>
 
-<p>Not at all! Writing functions that execute I/O operations, or any other kind of effects, is possible, and it’s way easier than naming things, in fact. However, it doesn’t mean we’re allowed to have functions with side effects.</p>
+<p>Not at all! Writing functions that execute I/O operations, or any other kind of effects,
+is possible, and it’s way easier than naming things, in fact. However, it doesn’t mean
+we’re allowed to have functions with side effects.</p>
 
-<p>What does it mean to have side effects, and how do we get effects (like talking to external systems) without side effects? We need referential transparency. And side effects are its exact opposite.</p>
+<p>What does it mean to have side effects, and how do we get effects (like talking to
+external systems) without side effects? We need referential transparency.
+And side effects are its exact opposite.</p>
 
 <h2 id="referential-transparency">Referential transparency</h2>
 
-<p>A definition of referential transparency found in <a href="https://www.manning.com/books/functional-programming-in-scala">The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)</a> says:</p>
+<p>A definition of referential transparency found in
+<a href="https://www.manning.com/books/functional-programming-in-scala">The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)</a>
+says:</p>
 
 <blockquote>
-  <p>An expression e is referentially transparent if, for all programs p, all occurrences of e in p can be replaced by the result of evaluating e without affecting the meaning of p. A function f is pure if the expression f(x) is referentially transparent for all referentially transparent x</p>
+  <p>An expression e is referentially transparent if, for all programs p,
+all occurrences of e in p can be replaced by the result of evaluating e
+without affecting the meaning of p.
+A function f is pure if the expression f(x) is referentially transparent
+for all referentially transparent x.</p>
 </blockquote>
 
 <p>Let me follow up with an example:</p>
@@ -285,7 +326,8 @@ e = a + 1 = 3 + 1 = 4
 p = e + e = 4 + 4 = 8
 </code></pre></div></div>
 
-<p>If we can apply the replacement of <code class="highlighter-rouge">e</code> in the original program with the result of evaluating <code class="highlighter-rouge">e</code> (<code class="highlighter-rouge">a + 1</code>), then <code class="highlighter-rouge">e</code> is referentially transparent. Let’s do that:</p>
+<p>If we can apply the replacement of <code class="highlighter-rouge">e</code> in the original program with
+the result of evaluating <code class="highlighter-rouge">e</code> (<code class="highlighter-rouge">a + 1</code>), then <code class="highlighter-rouge">e</code> is referentially transparent. Let’s do that:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
@@ -295,9 +337,12 @@ p = e + e = 4 + 4 = 8
 
 <p><code class="highlighter-rouge">p = ((2 + 1) + 1) + (2 + 1) + 1) = (3 + 1) + (3 + 1) = 4 + 4 = 8</code></p>
 
-<p>As you see, the value of <code class="highlighter-rouge">p</code> hasn’t changed. The behavior of the program <code class="highlighter-rouge">p</code> didn’t change either, as its only effect was computing the value (which is <code class="highlighter-rouge">8</code>). That means <code class="highlighter-rouge">e</code> was referentially transparent - we replaced the reference to a value (<code class="highlighter-rouge">e</code>) with the value (<code class="highlighter-rouge">a + 1</code>).</p>
+<p>As you see, the value of <code class="highlighter-rouge">p</code> hasn’t changed. The behavior of
+the program <code class="highlighter-rouge">p</code> didn’t change either, as its only effect was computing the value (which is <code class="highlighter-rouge">8</code>). That means <code class="highlighter-rouge">e</code> was referentially transparent - we replaced the reference to a value (<code class="highlighter-rouge">e</code>) with the value (<code class="highlighter-rouge">a + 1</code>).</p>
 
-<p>This is very much like math from school - you didn’t see anything impure in your textbooks, all your expressions were pure, and you could apply substitution in a similar way:</p>
+<p>This is very much like math from school - you didn’t see
+anything impure in your textbooks, all your expressions were pure,
+and you could apply substitution in a similar way:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f(x) = x + 1
 
@@ -340,11 +385,20 @@ g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
   <li>the line <code class="highlighter-rouge">Foo</code> is printed to console output <strong>twice</strong>.</li>
 </ul>
 
-<p>Unless all the effects of your programs are idempotent (running them multiple times yields the same result as running them once), which I doubt, then this should feel troubling: after all, the only thing we did was inline a read-only variable (<code class="highlighter-rouge">val x</code>). And now the program behaves in a different way.</p>
+<p>Unless all the effects of your programs are idempotent
+(running them multiple times yields the same result as running them once),
+which I doubt, then this should feel troubling: after all,
+the only thing we did was inline a read-only variable (<code class="highlighter-rouge">val x</code>).
+And now the program behaves in a different way.</p>
 
-<p>That’s precisely because the implementation of <code class="highlighter-rouge">x</code> was impure - it had a secondary effect (or a side effect) of console output. This could just as well be a database-mutating call, or a <code class="highlighter-rouge">HTTP POST</code> request being sent to a remote server. In many cases, it would become a bug.</p>
+<p>That’s precisely because the implementation of <code class="highlighter-rouge">x</code> was impure - it had
+a secondary effect (or a side effect) of console output. This could just as well be
+a database-mutating call, or a <code class="highlighter-rouge">HTTP POST</code> request being sent to a remote server.
+In many cases, it would become a bug.</p>
 
-<p>There are other ways to break referential transparency. If the value of <code class="highlighter-rouge">x</code> depended on external conditions (like if it was getting its value from console input), the correctness of the program after inlining could break in many more ways:</p>
+<p>There are other ways to break referential transparency.
+If the value of <code class="highlighter-rouge">x</code> depended on external conditions (like if it was getting its value from console input),
+the correctness of the program after inlining could break in many more ways:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">StdIn</span><span class="o">.</span><span class="n">readLine</span><span class="o">()</span>
 
@@ -354,21 +408,26 @@ g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
 <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="n">prog1</span> <span class="o">==</span> <span class="n">prog2</span>
 </code></pre></div></div>
 
-<p>In the above code, the tuple contained by <code class="highlighter-rouge">prog1</code> will always have the same value in both fields. In fact, if we only ran the code up to the definition of <code class="highlighter-rouge">prog1</code>:</p>
+<p>In the above code, the tuple contained by <code class="highlighter-rouge">prog1</code> will always have
+the same value in both fields. In fact, if we only ran the code up to the definition of <code class="highlighter-rouge">prog1</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">StdIn</span><span class="o">.</span><span class="n">readLine</span><span class="o">()</span>
 
 <span class="k">val</span> <span class="n">prog1</span> <span class="k">=</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>We would be asked to enter console input once, and the value we typed would be stored in <code class="highlighter-rouge">x</code> for as long as <code class="highlighter-rouge">x</code>’s lifetime lasts. Because of that, it’d appear twice in <code class="highlighter-rouge">prog1</code>.</p>
+<p>We would be asked to enter console input once, and the value we typed
+would be stored in <code class="highlighter-rouge">x</code> for as long as <code class="highlighter-rouge">x</code>’s lifetime lasts. Because of that, it’d appear twice in <code class="highlighter-rouge">prog1</code>.</p>
 
 <p>However, if we only ran the line where <code class="highlighter-rouge">prog2</code> is defined:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">prog2</span> <span class="k">=</span> <span class="o">(</span><span class="nc">StdIn</span><span class="o">.</span><span class="n">readLine</span><span class="o">(),</span> <span class="nc">StdIn</span><span class="o">.</span><span class="n">readLine</span><span class="o">())</span>
 </code></pre></div></div>
 
-<p>We would be asked for input <strong>twice</strong>, and assuming there are <code class="highlighter-rouge">n</code> possible strings we could input, the chance that both values in <code class="highlighter-rouge">prog2</code> would be the same would be equal to only <code class="highlighter-rouge">1/n</code> (as opposed to <code class="highlighter-rouge">100%</code> in <code class="highlighter-rouge">prog1</code>). And the only difference between <code class="highlighter-rouge">prog1</code> and <code class="highlighter-rouge">prog2</code> was the inlining of <code class="highlighter-rouge">x = StdIn.readLine()</code>.</p>
+<p>We would be asked for input <strong>twice</strong>, and assuming there are <code class="highlighter-rouge">n</code> possible strings
+we could input, the chance that both values in <code class="highlighter-rouge">prog2</code> would be the same
+would be equal to only <code class="highlighter-rouge">1/n</code> (as opposed to <code class="highlighter-rouge">100%</code> in <code class="highlighter-rouge">prog1</code>). And the only difference
+between <code class="highlighter-rouge">prog1</code> and <code class="highlighter-rouge">prog2</code> was the inlining of <code class="highlighter-rouge">x = StdIn.readLine()</code>.</p>
 
 <p>There are many other ways to break referential transparency in Scala, for example throwing exceptions:</p>
 
@@ -386,19 +445,25 @@ g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
 <span class="k">val</span> <span class="n">prog2</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Future</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">)</span> <span class="o">}</span> <span class="n">zip</span> <span class="nc">Future</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">)</span> <span class="o">})</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Future</code> behaves just like a raw, uncut side effect: its value is cached, so regardless of how many times you use an already created <code class="highlighter-rouge">Future</code>, it’ll only run once and it’ll always contain the same value upon completion or failure. That’s because <code class="highlighter-rouge">Future</code> isn’t a description of an asynchronous computation: it’s already running one.</p>
+<p><code class="highlighter-rouge">Future</code> behaves just like a raw, uncut side effect: its value is cached, so regardless of how many times you use
+an already created <code class="highlighter-rouge">Future</code>, it’ll only run once and it’ll always contain the same value upon completion or failure.
+That’s because <code class="highlighter-rouge">Future</code> isn’t a description of an asynchronous computation: it’s already running one.</p>
 
-<p>If we can’t rely on <code class="highlighter-rouge">Future</code> to give us the safety of refactoring (inlining values or extracting expressions to values), does it mean we’re doomed to have side effects in meaningful Scala programs?</p>
+<p>If we can’t rely on <code class="highlighter-rouge">Future</code> to give us the safety of refactoring (inlining values or extracting expressions to values),
+does it mean we’re doomed to have side effects in meaningful Scala programs?</p>
 
 <p>Thankfully, it doesn’t.</p>
 
 <h2 id="first-class-effects">First-class effects</h2>
 
-<p>A term often used to describe effects without side effects is “first class effects”. They are effects that don’t break referential transparency. A workaround often used to simulate support for first class effects in Scala involves by-name parameters:</p>
+<p>A term often used to describe effects without side effects is “first class effects”. They are effects that don’t break
+referential transparency. A workaround often used to simulate support for first class effects in Scala
+involves by-name parameters:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//artificial type
 </span><span class="k">final</span> <span class="k">class</span> <span class="nc">Effectful</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="nc">private</span><span class="o">(</span><span class="n">run</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">zip</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">b</span><span class="k">:</span> <span class="kt">Effectful</span><span class="o">[</span><span class="kt">U</span><span class="o">])</span><span class="k">:</span> <span class="kt">Effectful</span><span class="o">[(</span><span class="kt">T</span>, <span class="kt">U</span><span class="o">)]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Effectful</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">run</span><span class="o">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">run</span><span class="o">()))</span>
+  <span class="k">def</span> <span class="n">zip</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">b</span><span class="k">:</span> <span class="kt">Effectful</span><span class="o">[</span><span class="kt">U</span><span class="o">])</span><span class="k">:</span> <span class="kt">Effectful</span><span class="o">[(</span><span class="kt">T</span>, <span class="kt">U</span><span class="o">)]</span> <span class="k">=</span>
+    <span class="k">new</span> <span class="nc">Effectful</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">run</span><span class="o">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">run</span><span class="o">()))</span>
 <span class="o">}</span>
 
 <span class="c1">//function with by-name parameter
@@ -411,11 +476,14 @@ g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
 <span class="k">val</span> <span class="n">prog2</span> <span class="k">=</span> <span class="n">effect</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">))</span> <span class="n">zip</span> <span class="n">effect</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">))</span>
 </code></pre></div></div>
 
-<p>In this example, we created a new, “artificial” type <code class="highlighter-rouge">Effectful[T]</code> (it’s probably not a good idea to try and come up with a type like this on your own). It describes a computation that will complete with a value of type <code class="highlighter-rouge">T</code>. We gave it a method <code class="highlighter-rouge">zip</code> that will produce a new <code class="highlighter-rouge">Effectful</code> that will run two <code class="highlighter-rouge">Effectful</code> programs sequentially.</p>
+<p>In this example, we created a new, “artificial” type <code class="highlighter-rouge">Effectful[T]</code> (it’s probably not a good idea to try
+and come up with a type like this on your own). It describes a computation that will complete with a value of type <code class="highlighter-rouge">T</code>.
+We gave it a method <code class="highlighter-rouge">zip</code> that will produce a new <code class="highlighter-rouge">Effectful</code> that will run two <code class="highlighter-rouge">Effectful</code> programs sequentially.</p>
 
 <p>If we were to call <code class="highlighter-rouge">prog1.run()</code> or <code class="highlighter-rouge">prog2.run()</code>, you’d see that they behave identically - they’ll both print <code class="highlighter-rouge">Foo</code> twice.</p>
 
-<p>Thankfully, we don’t need to come up with a type like this (and I don’t recommend that you do - unless you’re absolutely sure the existing ones don’t meet your needs).</p>
+<p>Thankfully, we don’t need to come up with a type like this (and I don’t recommend that you do - unless
+you’re absolutely sure the existing ones don’t meet your needs).</p>
 
 <p>There’s plenty of competing options one can use in a similar way to how we used <code class="highlighter-rouge">Effectful</code> and <code class="highlighter-rouge">def effect</code>. 
 Here are a few that are the most popular in late 2018:</p>
@@ -426,9 +494,18 @@ Here are a few that are the most popular in late 2018:</p>
   <li>Monix <code class="highlighter-rouge">Task[+A]</code>.</li>
 </ul>
 
-<p>From the referential transparency/purity point of view, they behave in the same way - if we “suspend” side-effecting operations using an operator that allows “delaying” a computation (for example, by taking a by-name parameter), they’ll give us the properties we need. One significant difference in the above is in terms of error handling - <code class="highlighter-rouge">zio</code> allows an <code class="highlighter-rouge">IO</code> to fail with an error value of type <code class="highlighter-rouge">E</code> that you can specify on your own, but the other two (cats-effect IO and Monix Task) only allow failure with values that extend <code class="highlighter-rouge">Throwable</code>. Whether one solution has significant advantages over the other is a question for a different post ;)</p>
+<p>From the referential transparency/purity point of view, they behave in the same way - if we “suspend” side-effecting
+operations using an operator that allows “delaying” a computation (for example, by taking a by-name parameter),
+they’ll give us the properties we need. One significant difference in the above is in terms of
+error handling - <code class="highlighter-rouge">zio</code> allows an <code class="highlighter-rouge">IO</code> to fail with an error value of type <code class="highlighter-rouge">E</code> that you can specify on your own,
+but the other two (cats-effect IO and Monix Task) only allow failure with values that extend <code class="highlighter-rouge">Throwable</code>.
+Whether one solution has significant advantages over the other is a question for a different post ;)</p>
 
-<p>All things considered, all of the above types support suspending synchronous effects (like printing to standard output, or executing a JDBC call) and asynchronous, non-blocking effects (like communicating through HTTP or listening for messages from Kafka). The main difference between these types and <code class="highlighter-rouge">Future</code> is that they are able to <em>describe a computation</em> that can be ran at some point after they’re defined, while <code class="highlighter-rouge">Future</code> is a handle to an already running computation.</p>
+<p>All things considered, all of the above types support suspending synchronous effects (like printing to standard output,
+or executing a JDBC call) and asynchronous, non-blocking effects (like communicating through HTTP or
+listening for messages from Kafka). The main difference between these types and <code class="highlighter-rouge">Future</code> is that they are able to
+<em>describe a computation</em> that can be ran at some point after they’re defined, while <code class="highlighter-rouge">Future</code> is
+a handle to an already running computation.</p>
 
 <p>For the next part of the post, I’ll use cats-effect’s <code class="highlighter-rouge">IO</code>.</p>
 
@@ -437,16 +514,20 @@ Here are a few that are the most popular in late 2018:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.syntax.apply._</span>
 <span class="k">import</span> <span class="nn">cats.effect.IO</span>
 
-<span class="c1">//expands to `IO.apply(println(...))`, defined as `def apply[T](f: =&gt; T): IO[T]`
-//`IO.apply` is equivalent to `IO.delay`
-</span><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">IO</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">))</span>
+<span class="cm">/*
+ * expands to `IO.apply(println(...))`,
+ * defined as `def apply[T](f: =&gt; T): IO[T]`
+ * `IO.apply` is equivalent to `IO.delay`
+ */</span>
+<span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="nc">IO</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">))</span>
 
 <span class="k">val</span> <span class="n">prog1</span> <span class="k">=</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">).</span><span class="n">tupled</span>
 
 <span class="k">val</span> <span class="n">prog2</span> <span class="k">=</span> <span class="o">(</span><span class="nc">IO</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">)),</span> <span class="nc">IO</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Foo"</span><span class="o">))).</span><span class="n">tupled</span>
 </code></pre></div></div>
 
-<p>Again, running <code class="highlighter-rouge">prog1</code> and/or <code class="highlighter-rouge">prog2</code> will involve printing twice in each of them. That’s why we say IO is referentially transparent, or pure.</p>
+<p>Again, running <code class="highlighter-rouge">prog1</code> and/or <code class="highlighter-rouge">prog2</code> will involve printing twice in each of them. That’s why
+we say IO is referentially transparent, or pure.</p>
 
 <h2 id="a-word-on-determinism-and-io">A word on determinism and IO</h2>
 
@@ -457,12 +538,16 @@ Here are a few that are the most popular in late 2018:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Some people would argue that it’s not - because it’s not deterministic. They argue that calling <code class="highlighter-rouge">foo</code> multiple times will give you different results. But that’s not true - just calling <code class="highlighter-rouge">foo</code> always gives you the same action - nothing happens until you evaluate the IO. In fact, the whole function could be a constant:</p>
+<p>Some people would argue that it’s not - because it’s not deterministic. They argue that calling <code class="highlighter-rouge">foo</code> multiple times
+will give you different results. But that’s not true - just calling <code class="highlighter-rouge">foo</code> always gives you
+the same action - nothing happens until you evaluate the IO. In fact, the whole function could be a constant:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">foo</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">IO</span> <span class="o">{</span> <span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">()</span> <span class="o">}</span>
 </code></pre></div></div>
 
-<p>And as a constant it must be deterministic. The fact that evaluating it multiple times will give us different results doesn’t matter. One of the points of functions being deterministic is to allow storing them as values, and reusing them. Take a look:</p>
+<p>And as a constant it must be deterministic. The fact that evaluating it multiple times will give us different
+results doesn’t matter. One of the points of functions being deterministic is to allow storing them as values,
+and reusing them. Take a look:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 <span class="k">val</span> <span class="n">program</span> <span class="k">=</span> <span class="n">foo</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span> <span class="o">*&gt;</span> <span class="n">bar</span> <span class="o">&lt;*</span> <span class="n">foo</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
@@ -470,7 +555,8 @@ Here are a few that are the most popular in late 2018:</p>
 <span class="k">val</span> <span class="n">program2</span> <span class="k">=</span> <span class="n">baz</span> <span class="o">&lt;*</span> <span class="n">foo</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>Because all the calls to <code class="highlighter-rouge">foo</code> are the same, we can store the result of such a call and reuse it, while maintaining the original behavior:</p>
+<p>Because all the calls to <code class="highlighter-rouge">foo</code> are the same, we can store the result of such a call and reuse it, while maintaining
+the original behavior:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">foo</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 
@@ -481,7 +567,7 @@ Here are a few that are the most popular in late 2018:</p>
 <span class="k">val</span> <span class="n">program2</span> <span class="k">=</span> <span class="n">baz</span> <span class="o">&lt;*</span> <span class="n">foo5</span>
 </code></pre></div></div>
 
-<p>“How do we evaluate an IO?”, you may ask. I’ll respond, “with IOApp” (for example):</p>
+<p>“How do we evaluate an IO?”, you may ask. I’ll respond, “with <code class="highlighter-rouge">IOApp</code>” (for example):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span>
 <span class="k">import</span> <span class="nn">cats.implicits._</span>
@@ -497,21 +583,34 @@ Here are a few that are the most popular in late 2018:</p>
 
 <h2 id="thanks-for-reading">Thanks for reading</h2>
 
-<p>I hope that you liked this not-so-short explanation of pure functions and that you’ll benefit from it as much as me and other people who believe in functional programming. If you still have any questions, feel free to reach out to me in the comments or through my Twitter/email :)</p>
+<p>I hope that you liked this not-so-short explanation of pure functions and that you’ll benefit from it as much as me
+and other people who believe in functional programming. If you still have any questions,
+feel free to reach out to me in the comments or through my Twitter/email :)</p>
 
-<p>If you think this post helped you, please share it on Twitter/Reddit/whatever you like. And while you’re at it, please leave a comment ;)</p>
+<p>If you think this post helped you, please share it on Twitter/Reddit/whatever you like. And while you’re at it,
+please leave a comment ;)</p>
 
-<p>If you want to keep an eye out for the next thing I write, follow me and I’ll make sure you don’t miss anything readworthy.</p>
+<p>If you want to keep an eye out for the next thing I write, follow me and I’ll make sure
+you don’t miss anything readworthy.</p>
 
 <h2 id="links">Links</h2>
 
-<p>To learn more about referential transparency, first-class effects and IO, check out <a href="https://typelevel.org/cats-effect/datatypes/io.html">the documentation of cats.effect.IO</a>, or <a href="https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b">Fabio Labella’s comments in this Reddit thread</a>. You may also want to see <a href="https://www.youtube.com/watch?v=X-cEGEJMx_4">Luka Jacobowitz’s talk about the other benefits of RT</a>, <a href="https://www.youtube.com/watch?v=po3wmq4S15A">Rob Norris’s introduction to Effects</a> and <a href="https://vimeo.com/294736344">Fabio’s talk about shared mutable state in pure FP</a>.</p>
+<p>To learn more about referential transparency, first-class effects and IO,
+check out <a href="https://typelevel.org/cats-effect/datatypes/io.html">the documentation of cats.effect.IO</a>,
+or <a href="https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b">Fabio Labella’s comments in this Reddit thread</a>.
+You may also want to see <a href="https://www.youtube.com/watch?v=X-cEGEJMx_4">Luka Jacobowitz’s talk about the other benefits of RT</a>,
+<a href="https://www.youtube.com/watch?v=po3wmq4S15A">Rob Norris’s introduction to Effects</a>
+and <a href="https://vimeo.com/294736344">Fabio’s talk about shared mutable state in pure FP</a>.</p>
 
-<p>If you don’t mind seeing a bunch of slides without an audible explanation, you can also check out <a href="https://kubukoz.github.io/talks/incremental-purity/slides">the slides for my latest talk</a>, but sooner or later I’m planning to have it recorded and the video published.</p>
+<p>If you don’t mind seeing a bunch of slides without an audible explanation,
+you can also check out <a href="https://kubukoz.github.io/talks/incremental-purity/slides">the slides for my latest talk</a>,
+but sooner or later I’m planning to have it recorded and the video published.</p>
 
 <p>For examples with ZIO, see <a href="https://scalaz.github.io/scalaz-zio/usage/purity.html">ZIO’s page on purity</a>.</p>
 
-<p>I also recommend following <a href="https://typelevel.org/blog/">the Typelevel blog</a> and chatting to folks who love FP on <a href="https://gitter.im/typelevel/cats">the cats gitter</a> and <a href="https://gitter.im/typelevel/cats-effect">other</a> related <a href="https://gitter.im/typelevel/general">rooms</a>.</p>
+<p>I also recommend following <a href="https://typelevel.org/blog/">the Typelevel blog</a> and
+chatting to folks who love FP on <a href="https://gitter.im/typelevel/cats">the cats gitter</a> and
+<a href="https://gitter.im/typelevel/cats-effect">other</a> related <a href="https://gitter.im/typelevel/general">rooms</a>.</p>
 
 
         </section>
@@ -552,15 +651,34 @@ Here are a few that are the most popular in late 2018:</p>
                             onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="icon-google-plus" href="https://plus.google.com/share?url=what-makes-a-function-pure"
+                        <!--<a class="icon-google-plus" href="https://plus.google.com/share?url=what-makes-a-function-pure"
                            onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
-                        </a>
+                        </a>-->
                     </section>
                 
             
 
             <!-- Add Disqus Comments -->
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'kubukoz'; // required: replace example with your forum shortname
+        var disqus_identifier = '/what-makes-a-function-pure';
+        var disqus_url = '/what-makes-a-function-pure';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
             
 
         </footer>
