@@ -4,17 +4,17 @@
 markdown: kramdown
 highlighter: rouge
 paginate: 5
-language: 'en-uk'
+language: 'en-us'
 
 # Website info
-name: 'Finding The Way Home'
-description: "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+name: 'Jakub Kozłowski'
+description: "A blog about functional programming, and programming in general"
 
-short_url: 'jekyller.github.io/jasper/'
-google_analytics: UA-69281367-1
-disqus: username
+short_url: 'blog.kubukoz.com'
+google_analytics: UA-55943015-8
+disqus: kubukoz
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
-baseurl: /jasper/
+baseurl: /
 
 # Permalinks
 permalink: /:title
@@ -33,7 +33,7 @@ plugins: [jekyll-paginate]
 # ...
 
 
-# Settings for builing master branch with travis-ci
+# Settings for building master branch with travis-ci
 # with jekyll-travis
 
 # Settings for deploy rake task
@@ -45,13 +45,13 @@ plugins: [jekyll-paginate]
 # or "master" otherwise
 safe: false
 lsi: false
-username: jekyller
-repo: jasper
-branch: master
+username: kubukoz
+repo: blog
+branch: gh-pages
 relative_source: ../jasper/
 destination: ../jasper-pages/
-production_url:  https://jekyller.github.io/jasper/
-source_url:  https://github.com/jekyller/jasper/
+production_url:  https://blog.kubukoz.com/
+source_url:  https://github.com/kubukoz/blog/
 
 exclude:
   - README.md
