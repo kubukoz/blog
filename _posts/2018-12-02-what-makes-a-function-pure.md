@@ -14,7 +14,6 @@ author: kubukoz
 disqus: true
 categories: kubukoz
 ---
-<br/>
 Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
 in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
 or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.
@@ -42,7 +41,7 @@ programming with functions,without procedures.
 
 Let's look at these properties and see how they differ from those of what I defined as procedures.
 
-## Totality
+## [Totality](#totality)
 
 For a function to be total, we must make sure that it returns a value
 for every kind of input that the compiler allows it to take.
@@ -108,7 +107,7 @@ By moving from throwing exceptions, we gain in at least a few ways:
 
 and our function becomes total, because invalid inputs will give us a value (e.g. a `Left`)
 
-## Determinism
+## [Determinism](#determinism)
 
 In order for a function to be deterministic, it has to return the same value
 every time it's called with the same arguments. Because of that, something like the following is not pure:
@@ -156,9 +155,9 @@ it'll yield different results. A functional, yet implausible solution would be t
 pass the state of the database as input to the function, or use some sort of `State` monad.
 An alternative, arguably better solution would be to suspend
 the side effect (reading from external mutable state) in an effect,
-which is what we'll discuss in the part of this post about **First-class effects**.
+which is what we'll discuss in [the part of this post about First-class effects](#first-class-effects).
 
-## Purity
+## [Purity](#purity)
 
 I already said that a function is pure because its only effect is computing its output.
 Does it mean that by programming with functions we aren't allowed to write to a database or to standard output?
@@ -171,7 +170,7 @@ What does it mean to have side effects, and how do we get effects (like talking 
 external systems) without side effects? We need referential transparency.
 And side effects are its exact opposite.
 
-## Referential transparency
+## [Referential transparency](#referential-transparency)
 
 A definition of referential transparency found in
 [The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)](https://www.manning.com/books/functional-programming-in-scala)
@@ -335,7 +334,7 @@ does it mean we're doomed to have side effects in meaningful Scala programs?
 
 Thankfully, it doesn't.
 
-## First-class effects
+## [First-class effects](#first-class-effects)
 
 A term often used to describe effects without side effects is "first class effects". They are effects that don't break
 referential transparency. A workaround often used to simulate support for first class effects in Scala
@@ -410,7 +409,7 @@ val prog2 = (IO(println("Foo")), IO(println("Foo"))).tupled
 Again, running `prog1` and/or `prog2` will involve printing twice in each of them. That's why
 we say IO is referentially transparent, or pure.
 
-## A word on determinism and IO
+## [A word on determinism and IO](#a-word-on-determinism-and-io)
 
 Earlier, I claimed that a function needs to return the same output for the same input. Would this be a function, then?
 
@@ -467,7 +466,7 @@ object Main extends IOApp {
 }
 ```
 
-## Thanks for reading
+## [Thanks for reading](#thanks-for-reading)
 
 I hope that you liked this not-so-short explanation of pure functions and that you'll benefit from it as much as me
 and other people who believe in functional programming. If you still have any questions,
@@ -479,7 +478,7 @@ please leave a comment ;)
 If you want to keep an eye out for the next thing I write, follow me and I'll make sure
 you don't miss anything readworthy.
 
-## Links
+## [Links](#links)
 
 To learn more about referential transparency, first-class effects and IO,
 check out [the documentation of cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html){:target="_blank"},
