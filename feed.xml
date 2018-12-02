@@ -4,7 +4,7 @@
     <title>Jakub Kozłowski - Articles</title>
     <description>A blog about functional programming, and programming in general</description>
     <link>
-    </link>
+    https://blog.kubukoz.com</link>
     
       
       <item>
@@ -18,8 +18,8 @@ or worse - a term is explained in a variety of slightly differing definitions. O
         
         <pubDate>Sun, 02 Dec 2018 12:00:00 +0000</pubDate>
         <link>
-        /what-makes-a-function-pure</link>
-        <guid isPermaLink="true">/what-makes-a-function-pure</guid>
+        https://blog.kubukoz.com/what-makes-a-function-pure</link>
+        <guid isPermaLink="true">https://blog.kubukoz.com/what-makes-a-function-pure</guid>
       </item>
       
     
