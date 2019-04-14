@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Data coherence at large</title>
+        
+          <description>&lt;p&gt;A week ago, while coming back from &lt;a href=&quot;http://scalar-conf.com&quot;&gt;Scalar&lt;/a&gt;, I was thinking about coherent data. In particular, I was wondering if it’s possible to perform certain simple validations and encode their results in types. Here’s what i found.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 14 Apr 2019 12:00:00 +0000</pubDate>
+        <link>
+        https://blog.kubukoz.com/data-coherence-at-large</link>
+        <guid isPermaLink="true">https://blog.kubukoz.com/data-coherence-at-large</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>What makes a function pure?</title>
         
           <description>&lt;p&gt;Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
