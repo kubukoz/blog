@@ -3,7 +3,7 @@ layout: post
 cover: 'assets/images/coherence-bg.jpg'
 navigation: True
 title: Data coherence at large
-date: 2019-04-14 12:00
+date: 2019-04-14 20:00
 tags:
   - scala
   - functional programming
@@ -12,19 +12,18 @@ logo: 'assets/images/jk_white.svg'
 author: kubukoz
 disqus: true
 categories: kubukoz
-hidden: true
 ---
 
 A week ago, while coming back from [Scalar](http://scalar-conf.com), I was thinking about coherent data. In particular, I was wondering if it's possible to perform certain simple validations and encode their results in types. Here's what i found.
 
-## What is coherent data
+## [What is coherent data](#what-is-coherent-data)
 
 The concept of coherent data was introduced to me when I watched [Daniel Spiewak's talk about coherence](https://www.youtube.com/watch?v=gVXt1RG_yN0). Data coherence is achieved when we have a single source of truth about our data. Let's look at an example:
 
 ```scala
 val name: Option[String] = Some("Rachel")
 
-val result =
+val result: Option[String] =
   if(name.isEmpty) "default"
   else name.get
 ```
@@ -55,7 +54,7 @@ In Kotlin, another language that works on the JVM (mostly), there is a feature t
 
 Thankfully, there're features in Scala that allow us to reason about our data as coherent: pattern matching and higher-order functions.
 
-## Data coherence with pattern matching
+## [Data coherence with pattern matching](#data-coherence-with-pattern-matching)
 
 Let's rewrite the examples from the previous section using pattern matching:
 
@@ -99,7 +98,7 @@ val result = name.fold(extractError, identity)
 
 However, `fold` doesn't appear to be the right choice if we only care about part of the data (like in the list example, where we only needed the head of the list). In that particular case, a good old `headOption` would work just fine.
 
-## Data coherence at scale
+## [Data coherence at scale](#data-coherence-at-scale)
 
 This is all nice and pretty - the promise of having data that doesn't require us to watch our backs every step we take sounds encouraging. But when the data is part of other data, things start to break very soon.
 
@@ -141,9 +140,18 @@ case class UserWithLast(name: String, lastName: String)
 ...but you can probably already imagine how much boilerplate it'd bring to your codebase if you needed a new class for every combination of optional fields if the `User` type had more than one:
 
 ```scala
-case class User(name: String, lastName: Option[String], email: Option[String])
-case class UserWithLastAndEmail(name: String, lastName: String, email: String)
+case class User(
+  name: String,
+  lastName: Option[String],
+  email: Option[String])
+
+case class UserWithLastAndEmail(
+  name: String,
+  lastName: String,
+  email: String)
+
 case class UserNoEmail(name: String, lastName: String)
+
 case class UserNoLast(name: String, email: String)
 ...
 ```
@@ -195,7 +203,7 @@ What's the problem with the latest solution?
 
 Looks like we aren't quite there yet. What can we do to make our type easier to work with?
 
-## A different kind of coherence
+## [A different kind of coherence](#a-different-kind-of-coherence)
 
 Our original goal in the exercise was to encode validations and invariants of our data in the data's type. Let's get back to our `User` example. This time we'll encode it using higher-kinded types (but with two "variable-effect" fields):
 
@@ -227,7 +235,7 @@ type Id[A] = A
 val jon: User[Id, Option] = User[Id, Option]("Jon", "Snow", None)
 ```
 
-Also cool. We can't assign `None` as the value of `lastName` if `LastName` is `Id`. How would we encode th requirement that there's no email now?
+Also cool. We can't assign `None` as the value of `lastName` if `LastName` is `Id`. How would we encode the requirement that there's no email now?
 
 ```scala
 type Void[A] = Unit
@@ -246,7 +254,9 @@ However, we're making it harder to use a type that doesn't have the `String` in 
 Instead of a custom `Void` type, we could've used `Const`:
 
 ```scala
-val john = User[Id, Const[(), ?]]("John", "de Goes", Const(()))
+import cats.data.Const
+
+val john = User[Id, Const[(), ?]]("John", "De Goes", Const(()))
 john.lastName.getConst // equals ()
 ```
 
@@ -261,7 +271,7 @@ I believe the second problem is not an issue anymore (see above argument about `
 
 `def foo[F[_], G[_]]: User[F, G] => A`. What can we do to make this a little more pleasant, and to avoid spreading every single type parameter to pieces of code that don't care about the contents of our parameterized fields?
 
-## Variance and higher kinded types
+## [Variance and higher kinded types](#variance-and-higher-kinded-types)
 
 Thankfully, Scala has quite powerful support for variance annotations. We can use it to our advantage: to make our type easier to work with.
 
@@ -337,13 +347,13 @@ def withPartialUser(user: User[Id, Any]): (String, String) =
   (user.lastName, "default@evilmail.com")
 ```
 
-## Other possible use cases
+## [Other possible use cases](#other-possible-use-cases)
 
 What other invariants can we encode?
 
 - `Option[A]` can become `A` or `Unit`.
 - `Either[A, B]` can become `B` or `A`.
-- `List[A]` can become `Unit` (empty list) or `(A, List[A])` (`NonEmptyList[A])`.
+- `List[A]` can become `Unit` (empty list) or `(A, List[A])` (`NonEmptyList[A]`).
 
 (note how we're deconstructing the data types, which happen to be ADTs, into coproducts)
 
@@ -351,14 +361,14 @@ If we're really trying to experiment, we can go the extra mile:
 
 - `List[A]` can be checked for length and encoded as `Sized[List[A], 5]`.
 - `User[IO[A]]` can become `IO[User[A]]` (sounds like [`Traverse`](https://typelevel.org/cats/typeclasses/traverse.html), doesn't it?) - we can run the IO outside and keep the result to avoid unnecessary recalculation.
-- `User[Stream[IO, A]]` can become `IO[User[List[A]]]` - we can run the stream and work with it as a list, once it's all consumed.
+- `User[Stream[IO, A]]` can become `IO[User[List[A]]]` - we can run the stream and work with it as a list, once it's all consumed (that is, if it fits into the memory).
 
 There's a lot we can do, really:
 
 - `String` -> `NonEmptyString`, `regex"(a-Z)+"`, `IPv4`, `INetAddress` refined types
-- `Int` -> refined types, smaller primitives (`Byte`, etc.)
+- `Int` -> `PosInt` / `EvenInt` refined types, smaller primitives (`Byte`, etc.)
 
-## Summary
+## [Summary](#summary)
 
 There are a few good reasons for trying to make our data coherent, including but not limited to using the techniques mentioned in this post:
 
@@ -382,8 +392,12 @@ Maybe we could have a `Monad`/`Traverse`/whatever instance for a type like `case
 
 As you can see, more insight into the possibilities is needed to determine if the concept can be used more widely in our code.
 
-## Parting words
+## [Parting words](#parting-words)
+
+Thank you for reading. 
 
 These ideas are very fresh for me, and I haven't spent a lot of time researching them yet. In the future, I hope to spend more time in this area and to develop a more formal or constrained description of the ideas mentioned here.
 
 Most importantly, I hope to find out whether these ideas actually help achieve more type safety without sacrificing maintainability in real world programming.
+
+Let me know what you think about the ideas presented in this post, and whether you enjoyed reading it!
