@@ -3,7 +3,7 @@ layout: post
 cover: 'assets/images/coherence-bg.jpg'
 navigation: True
 title: Data coherence at large
-date: 2019-04-14 20:00
+date: 2019-04-14 16:00
 tags:
   - scala
   - functional programming
