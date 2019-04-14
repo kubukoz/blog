@@ -23,7 +23,7 @@ The concept of coherent data was introduced to me when I watched [Daniel Spiewak
 ```scala
 val name: Option[String] = Some("Rachel")
 
-val result: Option[String] =
+val result: String =
   if(name.isEmpty) "default"
   else name.get
 ```
