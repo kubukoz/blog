@@ -73,8 +73,8 @@ Much better - now we managed to get both the emptiness check and the extraction 
 val names: List[String] = List("Phoebe", "Joey", "Ross")
 
 val firstNameLength: Option[Int] = names match {
-  case Nil       => None
-  else head :: _ => Some(head.length)
+  case Nil            => None
+  case firstName :: _ => Some(firstName.length)
 }
 ```
 
@@ -257,7 +257,7 @@ Instead of a custom `Void` type, we could've used `Const`:
 import cats.data.Const
 
 val john = User[Id, Const[(), ?]]("John", "De Goes", Const(()))
-john.lastName.getConst // equals ()
+john.email.getConst // equals ()
 ```
 
 We had at least two problems with the previous solution:
