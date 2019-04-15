@@ -187,8 +187,8 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">names</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Phoebe"</span><span class="o">,</span> <span class="s">"Joey"</span><span class="o">,</span> <span class="s">"Ross"</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="n">firstNameLength</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">names</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Nil</span>       <span class="k">=&gt;</span> <span class="nc">None</span>
-  <span class="k">else</span> <span class="n">head</span> <span class="o">::</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Some</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="n">length</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Nil</span>            <span class="k">=&gt;</span> <span class="nc">None</span>
+  <span class="k">case</span> <span class="n">firstName</span> <span class="o">::</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Some</span><span class="o">(</span><span class="n">firstName</span><span class="o">.</span><span class="n">length</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -361,7 +361,7 @@
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.data.Const</span>
 
 <span class="k">val</span> <span class="n">john</span> <span class="k">=</span> <span class="nc">User</span><span class="o">[</span><span class="kt">Id</span>, <span class="kt">Const</span><span class="o">[()</span>, <span class="kt">?</span><span class="o">]](</span><span class="s">"John"</span><span class="o">,</span> <span class="s">"De Goes"</span><span class="o">,</span> <span class="nc">Const</span><span class="o">(()))</span>
-<span class="n">john</span><span class="o">.</span><span class="n">lastName</span><span class="o">.</span><span class="n">getConst</span> <span class="c1">// equals ()
+<span class="n">john</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">getConst</span> <span class="c1">// equals ()
 </span></code></pre></div></div>
 
 <p>We had at least two problems with the previous solution:</p>
