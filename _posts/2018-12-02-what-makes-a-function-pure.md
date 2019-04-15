@@ -120,7 +120,7 @@ def foo(): Int = {
 
 The type of `foo` is `() => Int`, or `Unit => Int`, so we can basically say that
 it has one possible input (the value `()` of type `Unit`, in this case represented
-by "no arguments passed"). This would mean that eevery call to this function will
+by "no arguments passed"). This would mean that every call to this function will
 return the same value, but it's quite the opposite - it'll usually return completely different values.
 
 A simple way to ensure determinism of the above would be to allow passing
