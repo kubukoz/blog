@@ -380,7 +380,8 @@ However, there are difficulties associated with all that:
 - type parameters creeping into all your functions (possibly can be avoided by introducing a canonical type and only being specific when it's needed)
 - it's questionable whether parameterizing data with types scales (e.g. if we have `case class Users[Collection[_], LastName[_]](users: Collection[User[LastName]])`, is it going to be easy to change?)
 - the benefit might not be that significant after all
-- possibly more problems that I haven't figured out yet
+- it was mentioned in [the replies](https://twitter.com/fanf42/status/1117684098364055552) that type-parameterizing e.g. JSON models can break tooling like circe, magnolia, etc. - most likely because they don't support [GADTs](https://en.wikibooks.org/wiki/Haskell/GADT)
+- possibly more problems that I haven't figured out yet.
 
 I haven't seen this approach to abstracting on data used anywhere, so I don't know what the best practice is, and whether the idea is feasible for use in real projects, but it certainly seems worth investigating.
 
@@ -401,3 +402,5 @@ These ideas are very fresh for me, and I haven't spent a lot of time researching
 Most importantly, I hope to find out whether these ideas actually help achieve more type safety without sacrificing maintainability in real world programming.
 
 Let me know what you think about the ideas presented in this post, and whether you enjoyed reading it!
+
+Thanks to [Igal Tabachnik (@hmemcpy)](https://twitter.com/hmemcpy) and [Valérian (@etaty)](https://twitter.com/etaty) who found and reported a few bugs in this post. I should get around to using [mdoc](https://github.com/scalameta/mdoc) already...
