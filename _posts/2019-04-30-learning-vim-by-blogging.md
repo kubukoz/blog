@@ -41,3 +41,7 @@ Press `gg` / `G`.
 ## Go to beginning/end of line
 
 Press `^` / `$`.
+
+`g_` moves you to the last non-blank character.
+
+`A` moves you to the end of the line and switches to editing (A as in Append), to do the same at the beginning use `I`.
