@@ -45,6 +45,10 @@
 
 <p>Press <code class="highlighter-rouge">^</code> / <code class="highlighter-rouge">$</code>.</p>
 
+<p><code class="highlighter-rouge">g_</code> moves you to the last non-blank character.</p>
+
+<p><code class="highlighter-rouge">A</code> moves you to the end of the line and switches to editing (A as in Append), to do the same at the beginning use <code class="highlighter-rouge">I</code>.</p>
+
 	  ]]></description>
 	</item>
 
