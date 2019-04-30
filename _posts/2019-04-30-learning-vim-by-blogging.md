@@ -14,7 +14,7 @@ disqus: true
 categories: kubukoz
 ---
 
-I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I'l be sharing my findings about Vim (neovim).
+I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I'll be sharing my findings about Vim (neovim).
 
 This post will be written exclusively in (variants of) Vim.
 
