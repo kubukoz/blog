@@ -3,7 +3,7 @@ layout: post
 cover: 'assets/images/learning-vim-bg.jpg'
 navigation: True
 title: Learning vim by blogging
-date: 2019-04-30 14:00
+date: 2019-04-30 12:00
 tags:
   - vim
   - text-editors
