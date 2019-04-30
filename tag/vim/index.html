@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>Author</title>
+    <title>Jakub Kozłowski</title>
     <meta name="description" content="A blog about functional programming, and programming in general" />
 
     <!-- Mobile Meta -->
@@ -26,21 +26,21 @@
     <style>.hljs { background: none; }</style>
 
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="https://blog.kubukoz.com/author/kubukoz/" />
+        <link rel="canonical" href="https://blog.kubukoz.com/tag/vim/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Jakub Kozłowski" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Author" />
+    <meta property="og:title" content="Jakub Kozłowski" />
     <meta property="og:description" content="A blog about functional programming, and programming in general" />
-    <meta property="og:url" content="https://blog.kubukoz.com/author/kubukoz/" />
+    <meta property="og:url" content="https://blog.kubukoz.com/tag/vim/" />
     <meta property="og:image" content="https://blog.kubukoz.com/assets/images/bgg.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Author" />
+    <meta name="twitter:title" content="Jakub Kozłowski" />
     <meta name="twitter:description" content="A blog about functional programming, and programming in general" />
-    <meta name="twitter:url" content="https://blog.kubukoz.com/author/kubukoz/" />
+    <meta name="twitter:url" content="https://blog.kubukoz.com/tag/vim/" />
     <meta name="twitter:image" content="https://blog.kubukoz.com/assets/images/bgg.jpg" />
 
     <script type="application/ld+json">
@@ -48,8 +48,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Jakub Kozłowski",
-    "name": "Author",
-    "url": "https://blog.kubukoz.com/author/kubukoz/",
+    "name": "Jakub Kozłowski",
+    "url": "https://blog.kubukoz.com/tag/vim/",
     "image": "/assets/images/bgg.jpg",
     "description": "A blog about functional programming, and programming in general"
 }
@@ -60,7 +60,7 @@
 
 
 </head>
-<body class="author-template nav-closed">
+<body class="tag-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -83,51 +83,36 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default}} -->
+        <!-- dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- default -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- The big featured header -->
-
-<!-- Everything inside the #author tags pulls data from the author -->
-<!-- #author  -->
-    <header class="main-header author-head " style="background-image: url(/assets/images/bgg.jpg) ">
-        <nav class="main-nav overlay clearfix">
-            <a class="blog-logo" href="/"><img src="/assets/images/jk_white.svg" alt="Blog Logo" /></a>
-            
-                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
-            
-        </nav>
-    </header>
-
-    <section class="author-profile inner">
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/bgg.jpg) ">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/jk_white.svg" alt="Blog Logo" /></a>
         
-            
-                
-                <figure class="author-image">
-                    <div class="img" style="background-image: url(/assets/images/kubukoz.jpg)"><span class="hidden">Jakub Kozłowski's Picture</span></div>
-                </figure>
-                
-                <h1 class="author-title">Jakub Kozłowski</h1>
-                
-                    <div style="display:inline; text-align: justify; text-justify: inter-word;">
-                        <h2 class="author-bio">A young Scala hAkker who spends his days writing code, running and lifting in the late evenings. In his free time, if he has any, Jakub explores his other interests, which include coffee, playing bass and watching outstanding TV series. He works at Ocado Technology, where he develops the software for the world's most advanced warehouses, powered by functional programming and distributed systems.</h2>
-                    </div>
-                
-                <div class="author-meta">
-                    <span class="author-location icon-location">Wrocław, Poland</span>
-                    <span class="author-link icon-link"><a href="http://blog.kubukoz.com">blog.kubukoz.com</a></span>
-                    <!-- <span class="author-stats"><i class="icon-stats"></i> [[plural ../pagination.total empty='No posts' singular='% post' plural='% posts']]</span> -->
-                    <span class="author-stats"><i class="icon-stats"></i>3 posts</span>
-                </div>
-            
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
-    </section>
-<!-- /author -->
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Vim</h1>
+            <h2 class="page-description">
+            
+			    A 1-post collection
+            
+            </h2>
+        </div>
+    </div>
+</header>
 
 <!-- The main content area on the homepage -->
 <main id="content" class="content" role="main">
 
-    <!-- The tag below includes the post loop - partials/loop.hbs  -->
+    <!-- The tag below includes the post loop - partials/loop.hbs -->
         <!-- Previous/next page links - only displayed on page 2+ -->
     <div class="extra-pagination inner">
         
@@ -173,80 +158,6 @@
                 
             
             <time class="post-date" datetime="2019-04-30">30 Apr 2019</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/data-coherence-at-large">Data coherence at large</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>A week ago, while coming back from Scalar, I was thinking about coherent data. In particular, I was wondering if it’s possible to perform certain simple... <a class="read-more" href="/data-coherence-at-large">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/kubukoz.jpg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/kubukoz'>Jakub Kozłowski</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/scala'>Scala</a>,
-                    
-                
-                    
-                       <a href='/tag/functional programming'>Functional programming</a>
-                    
-                
-            
-            <time class="post-date" datetime="2019-04-14">14 Apr 2019</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/what-makes-a-function-pure">What makes a function pure?</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things in computer science and programming in general.... <a class="read-more" href="/what-makes-a-function-pure">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/kubukoz.jpg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/kubukoz'>Jakub Kozłowski</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/scala'>Scala</a>,
-                    
-                
-                    
-                       <a href='/tag/functional programming'>Functional programming</a>,
-                    
-                
-                    
-                       <a href='/tag/cats'>Cats</a>
-                    
-                
-            
-            <time class="post-date" datetime="2018-12-02">02 Dec 2018</time>
         </footer>
     </article>
     
