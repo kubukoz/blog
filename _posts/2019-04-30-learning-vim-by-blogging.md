@@ -45,3 +45,12 @@ Press `^` / `$`.
 `g_` moves you to the last non-blank character.
 
 `A` moves you to the end of the line and switches to editing (A as in Append), to do the same at the beginning use `I`.
+
+
+---
+
+## Links
+
+[vi / vim: Jump To End Of File Command](https://www.cyberciti.biz/faq/howto-unix-linux-vi-vim-jump-to-end-of-file/)
+
+[vim: select to character, non-inclusive](https://stackoverflow.com/questions/2332513/vim-select-to-character-non-inclusive)]
