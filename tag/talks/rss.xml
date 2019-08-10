@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>blog.kubukoz.com</title>
+   
+   <link>https://blog.kubukoz.com</link>
+   <description>A blog about functional programming, and programming in general</description>
+   <language>en-us</language>
+   <managingEditor> </managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>Talks</title>
+	  <link>//talks</link>
+	  <author></author>
+	  <pubDate>2019-08-10T12:00:00+00:00</pubDate>
+	  <guid>//talks</guid>
+	  <description><![CDATA[
+	     <p>Here’s a list of all the talks I’ve given to date, with slides and videos if available.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Flawless testing for the functional folks</td>
+      <td>2019</td>
+      <td><a href="https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks">slides</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A server is just a function: introduction to http4s</td>
+      <td>2019</td>
+      <td><a href="https://speakerdeck.com/kubukoz/a-server-is-just-a-function-introduction-to-http4s">slides</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Conquering concurrency with functional programming</td>
+      <td>2019</td>
+      <td><a href="https://speakerdeck.com/kubukoz/conquering-concurrency-with-functional-programming">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=6z6C1EmxzaI">recording 1</a></td>
+      <td><a href="https://www.youtube.com/watch?v=fZO2lV2xjEo">recording 2</a></td>
+    </tr>
+    <tr>
+      <td>Lightweight, functional microservices with http4s and doobie</td>
+      <td>2019</td>
+      <td><a href="https://kubukoz.github.io/talks/http4s-doobie-micro/slides/">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=fQfMiUDsLv4">recording</a></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Incremental purity</td>
+      <td>2018</td>
+      <td><a href="https://kubukoz.github.io/talks/incremental-purity/slides/">slides</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Typelevel alchemist</td>
+      <td>2018</td>
+      <td><a href="https://kubukoz.github.io/talks/typelevel-alchemist/slides">slides</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Legacy code from day one</td>
+      <td>2018</td>
+      <td><a href="https://kubukoz.github.io/talks/legacy-code-from-day-1/slides/#/">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=6FYISbNdanE">recording&amp;nbsp</a></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Fantastic monads and where to find them</td>
+      <td>2017/2018</td>
+      <td><a href="https://kubukoz.github.io/talks/fantastic-monads-and-where-to-find-them/slides/#/">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=hOvyL28t0Yc">recording 1</a></td>
+      <td><a href="https://www.youtube.com/watch?v=HMs_F7LXTak">recording 2</a></td>
+    </tr>
+    <tr>
+      <td>7 sins of a Scala beginner</td>
+      <td>2016/2017</td>
+      <td><a href="https://kubukoz.github.io/talks/seven-sins-of-a-scala-developer/slides/#/">slides</a></td>
+      <td><a href="https://youtu.be/8ZAKrcnQ7Ww">recording 1</a></td>
+      <td><a href="https://www.youtube.com/watch?v=Z2YzCzfUNNk">recording 2</a></td>
+    </tr>
+    <tr>
+      <td>Macro sourcery</td>
+      <td>2016</td>
+      <td><a href="https://kubukoz.github.io/talks/macro-sourcery/slides/#/">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=-ayx8NIDv4Q">recording 1</a></td>
+      <td><a href="https://www.youtube.com/watch?v=KvZlYAOtzmU">recording 2</a></td>
+    </tr>
+  </tbody>
+</table>
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

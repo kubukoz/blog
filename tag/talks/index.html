@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Page Meta -->
-    <title>Jakub Kozłowski - a blog</title>
+    <title>Jakub Kozłowski</title>
     <meta name="description" content="A blog about functional programming, and programming in general" />
 
     <!-- Mobile Meta -->
@@ -26,21 +26,21 @@
     <style>.hljs { background: none; }</style>
 
     <!-- Ghost outputs important style and meta data with this tag -->
-        <link rel="canonical" href="https://blog.kubukoz.com/" />
+        <link rel="canonical" href="https://blog.kubukoz.com/tag/talks/" />
     <meta name="referrer" content="origin" />
     <link rel="next" href="/page2/" />
 
     <meta property="og:site_name" content="Jakub Kozłowski" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Jakub Kozłowski - a blog" />
+    <meta property="og:title" content="Jakub Kozłowski" />
     <meta property="og:description" content="A blog about functional programming, and programming in general" />
-    <meta property="og:url" content="https://blog.kubukoz.com/" />
+    <meta property="og:url" content="https://blog.kubukoz.com/tag/talks/" />
     <meta property="og:image" content="https://blog.kubukoz.com/assets/images/bgg.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jakub Kozłowski - a blog" />
+    <meta name="twitter:title" content="Jakub Kozłowski" />
     <meta name="twitter:description" content="A blog about functional programming, and programming in general" />
-    <meta name="twitter:url" content="https://blog.kubukoz.com/" />
+    <meta name="twitter:url" content="https://blog.kubukoz.com/tag/talks/" />
     <meta name="twitter:image" content="https://blog.kubukoz.com/assets/images/bgg.jpg" />
 
     <script type="application/ld+json">
@@ -48,8 +48,8 @@
     "@context": "http://schema.org",
     "@type": "Website",
     "publisher": "Jakub Kozłowski",
-    "name": "Jakub Kozłowski - a blog",
-    "url": "https://blog.kubukoz.com/",
+    "name": "Jakub Kozłowski",
+    "url": "https://blog.kubukoz.com/tag/talks/",
     "image": "/assets/images/bgg.jpg",
     "description": "A blog about functional programming, and programming in general"
 }
@@ -60,7 +60,7 @@
 
 
 </head>
-<body class="home-template nav-closed">
+<body class="tag-template nav-closed">
 
     <!-- The blog navigation links -->
     <div class="nav">
@@ -69,11 +69,11 @@
         <span class="hidden">Close</span>
     </a>
     <ul>
-        <li class="nav-home  nav-current" role="presentation"><a
+        <li class="nav-home " role="presentation"><a
                 href="/">Home</a></li>
         <li class="scala " role="presentation"><a
                 href="/tag/scala">Scala</a></li>
-        <li class="" role="presentation"><a
+        <li class=" nav-current" role="presentation"><a
                 href="/talks">Talks</a></li>
         <!--<li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>-->
         <!--<li class="nav-author " role="presentation"><a href="/author/casper">Casper</a></li>-->
@@ -86,12 +86,14 @@
     <div class="site-wrapper">
 
         <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
-        <!-- < default -->
+        <!-- dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- default -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- The big featured header  -->
-<header class="main-header "
-        style="background-image: url(/assets/images/bgg.jpg) ">
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/bgg.jpg) ">
     <nav class="main-nav overlay clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/jk_white.svg" alt="Blog Logo" /></a>
         
@@ -100,11 +102,14 @@
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">Jakub Kozłowski</h1>
-            <h2 class="page-description">A blog about functional programming, and programming in general</h2>
+            <h1 class="page-title">Talks</h1>
+            <h2 class="page-description">
+            
+			    A 1-post collection
+            
+            </h2>
         </div>
     </div>
-    <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
 </header>
 
 <!-- The main content area on the homepage -->
@@ -126,10 +131,10 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/learning-vim-by-blogging">Learning vim by blogging</a></h2>
+            <h2 class="post-title"><a href="/talks">Talks</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which... <a class="read-more" href="/learning-vim-by-blogging">&raquo;</a></p>
+            <p>Here’s a list of all the talks I’ve given to date, with slides and videos if available. Flawless testing for the functional folks 2019 slides  ... <a class="read-more" href="/talks">&raquo;</a></p>
         </section>
         <footer class="post-meta">
             
@@ -147,89 +152,11 @@
                 on
                 
                     
-                       <a href='/tag/vim'>Vim</a>,
-                    
-                
-                    
-                       <a href='/tag/text-editors'>Text-editors</a>
+                       <a href='/tag/talks'>Talks</a>
                     
                 
             
-            <time class="post-date" datetime="2019-04-30">30 Apr 2019</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/data-coherence-at-large">Data coherence at large</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>A week ago, while coming back from Scalar, I was thinking about coherent data. In particular, I was wondering if it’s possible to perform certain simple... <a class="read-more" href="/data-coherence-at-large">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/kubukoz.jpg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/kubukoz'>Jakub Kozłowski</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/scala'>Scala</a>,
-                    
-                
-                    
-                       <a href='/tag/functional programming'>Functional programming</a>
-                    
-                
-            
-            <time class="post-date" datetime="2019-04-14">14 Apr 2019</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/what-makes-a-function-pure">What makes a function pure?</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things in computer science and programming in general.... <a class="read-more" href="/what-makes-a-function-pure">&raquo;</a></p>
-        </section>
-        <footer class="post-meta">
-            
-                
-
-                <img class="author-thumb" src="/assets/images/kubukoz.jpg" alt="Author image" nopin="nopin" />
-                <!-- author -->
-                <a href='/author/kubukoz'>Jakub Kozłowski</a>
-
-                
-            
-
-            <!-- [[tags prefix=" on "]] -->
-            
-                on
-                
-                    
-                       <a href='/tag/scala'>Scala</a>,
-                    
-                
-                    
-                       <a href='/tag/functional programming'>Functional programming</a>,
-                    
-                
-                    
-                       <a href='/tag/cats'>Cats</a>
-                    
-                
-            
-            <time class="post-date" datetime="2018-12-02">02 Dec 2018</time>
+            <time class="post-date" datetime="2019-08-10">10 Aug 2019</time>
         </footer>
     </article>
     

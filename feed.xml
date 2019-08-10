@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Talks</title>
+        
+          <description>&lt;p&gt;Here’s a list of all the talks I’ve given to date, with slides and videos if available.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 12:00:00 +0000</pubDate>
+        <link>
+        https://blog.kubukoz.com/talks</link>
+        <guid isPermaLink="true">https://blog.kubukoz.com/talks</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Learning vim by blogging</title>
         
           <description>&lt;p&gt;I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I’ll be sharing my findings about Vim (neovim).&lt;/p&gt;
