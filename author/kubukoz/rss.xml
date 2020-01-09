@@ -26,14 +26,14 @@
       <td>Introduction to interruption</td>
       <td>2019</td>
       <td><a href="https://speakerdeck.com/kubukoz/introduction-to-interruption">slides</a></td>
-      <td> </td>
+      <td><a href="https://youtube.com/watch?v=EQWAQF6Yj5Q">recording</a></td>
       <td> </td>
     </tr>
     <tr>
       <td>A sky full of streams</td>
       <td>2019</td>
       <td><a href="https://speakerdeck.com/kubukoz/a-sky-full-of-streams">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=oluPEFlXumw">recording</a></td>
+      <td><a href="https://youtube.com/watch?v=oluPEFlXumw">recording</a></td>
       <td> </td>
     </tr>
     <tr>
@@ -54,14 +54,14 @@
       <td>Conquering concurrency with functional programming</td>
       <td>2019</td>
       <td><a href="https://speakerdeck.com/kubukoz/conquering-concurrency-with-functional-programming">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=6z6C1EmxzaI">recording 1</a></td>
-      <td><a href="https://www.youtube.com/watch?v=fZO2lV2xjEo">recording 2</a></td>
+      <td><a href="https://youtube.com/watch?v=6z6C1EmxzaI">recording 1</a></td>
+      <td><a href="https://youtube.com/watch?v=fZO2lV2xjEo">recording 2</a></td>
     </tr>
     <tr>
       <td>Lightweight, functional microservices with http4s and doobie</td>
       <td>2019</td>
       <td><a href="https://kubukoz.github.io/talks/http4s-doobie-micro/slides/">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=fQfMiUDsLv4">recording</a></td>
+      <td><a href="https://youtube.com/watch?v=fQfMiUDsLv4">recording</a></td>
       <td> </td>
     </tr>
     <tr>
@@ -82,29 +82,29 @@
       <td>Legacy code from day one</td>
       <td>2018</td>
       <td><a href="https://kubukoz.github.io/talks/legacy-code-from-day-1/slides/#/">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=6FYISbNdanE">recording</a></td>
+      <td><a href="https://youtube.com/watch?v=6FYISbNdanE">recording</a></td>
       <td> </td>
     </tr>
     <tr>
       <td>Fantastic monads and where to find them</td>
       <td>2017/2018</td>
       <td><a href="https://kubukoz.github.io/talks/fantastic-monads-and-where-to-find-them/slides/#/">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=hOvyL28t0Yc">recording 1</a></td>
-      <td><a href="https://www.youtube.com/watch?v=HMs_F7LXTak">recording 2</a></td>
+      <td><a href="https://youtube.com/watch?v=hOvyL28t0Yc">recording 1</a></td>
+      <td><a href="https://youtube.com/watch?v=HMs_F7LXTak">recording 2</a></td>
     </tr>
     <tr>
       <td>7 sins of a Scala beginner</td>
       <td>2016/2017</td>
       <td><a href="https://kubukoz.github.io/talks/seven-sins-of-a-scala-developer/slides/#/">slides</a></td>
       <td><a href="https://youtu.be/8ZAKrcnQ7Ww">recording 1</a></td>
-      <td><a href="https://www.youtube.com/watch?v=Z2YzCzfUNNk">recording 2</a></td>
+      <td><a href="https://youtube.com/watch?v=Z2YzCzfUNNk">recording 2</a></td>
     </tr>
     <tr>
       <td>Macro sourcery</td>
       <td>2016</td>
       <td><a href="https://kubukoz.github.io/talks/macro-sourcery/slides/#/">slides</a></td>
-      <td><a href="https://www.youtube.com/watch?v=-ayx8NIDv4Q">recording 1</a></td>
-      <td><a href="https://www.youtube.com/watch?v=KvZlYAOtzmU">recording 2</a></td>
+      <td><a href="https://youtube.com/watch?v=-ayx8NIDv4Q">recording 1</a></td>
+      <td><a href="https://youtube.com/watch?v=KvZlYAOtzmU">recording 2</a></td>
     </tr>
   </tbody>
 </table>
