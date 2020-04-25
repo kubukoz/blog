@@ -23,6 +23,20 @@
 <table>
   <tbody>
     <tr>
+      <td>Irresistible party tricks with cats-tagless</td>
+      <td>2020</td>
+      <td><a href="https://speakerdeck.com/kubukoz/irresistible-party-tricks-with-cats-tagless">slides</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Keep your sanity with compositional tracing</td>
+      <td>2020</td>
+      <td><a href="https://speakerdeck.com/kubukoz/keep-your-sanity-with-compositional-tracing">slides</a></td>
+      <td><a href="https://www.youtube.com/watch?v=CKS8c1di3Z0">recording</a></td>
+      <td> </td>
+    </tr>
+    <tr>
       <td>Introduction to interruption</td>
       <td>2019</td>
       <td><a href="https://speakerdeck.com/kubukoz/introduction-to-interruption">slides</a></td>
@@ -47,8 +61,8 @@
       <td>A server is just a function: introduction to http4s</td>
       <td>2019</td>
       <td><a href="https://speakerdeck.com/kubukoz/a-server-is-just-a-function-introduction-to-http4s">slides</a></td>
-      <td> </td>
-      <td> </td>
+      <td><a href="https://www.youtube.com/watch?v=9YsZ8loRVDA">recording 1</a></td>
+      <td><a href="https://www.youtube.com/watch?v=jwKzluH5jFg">recording 2</a></td>
     </tr>
     <tr>
       <td>Conquering concurrency with functional programming</td>
