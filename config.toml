@@ -1,5 +1,6 @@
 # The URL the site will be built for
 base_url = "https://blog.kubukoz.com"
+title="Jakub Kozłowski"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -14,3 +15,5 @@ highlight_code = true
 
 [extra]
 # Put all your custom variables here
+
+logo = "/assets/images/jk_white.svg"
