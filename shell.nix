@@ -15,5 +15,5 @@ let
   };
 in
 pkgs.mkShell {
-  buildInputs = with pkgs; [ gems ];
+  buildInputs = with pkgs; [ git gems ];
 }
