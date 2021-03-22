@@ -1,14 +1,7 @@
 sudo: false
-language: ruby
-cache: bundler
-rvm:
-- 2.4.2
+language: nix
 
-install:
-  # Install Jekyll and dependencies
-  - bundle install
-
-script: bundle exec rake site:deploy #--quiet #--trace
+script: nix-shell --command "bundle exec rake site:deploy"
 
 only:
   - master
