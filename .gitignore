@@ -27,4 +27,3 @@ test/tmp
 test/version_tmp
 tmp
 vendor
-Gemfile.lock
