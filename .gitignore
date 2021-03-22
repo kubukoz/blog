@@ -29,7 +29,3 @@ test/tmp
 test/version_tmp
 tmp
 vendor
-<<<<<<< HEAD
-=======
-Gemfile.lock
->>>>>>> 0a606d2 (Init zola)
