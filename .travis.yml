@@ -1,5 +1,8 @@
 sudo: false
 language: nix
+cache:
+  directories:
+  - "/nix/store"
 
 script: nix-shell --command "bundle exec rake site:deploy"
 
