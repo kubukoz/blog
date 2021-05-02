@@ -8,7 +8,7 @@ language: 'en-us'
 
 # Website info
 # name: 'Jakub Kozłowski'
-description: "A blog about functional programming, and programming in general"
+# description: "A blog about functional programming, and programming in general"
 
 url: 'https://blog.kubukoz.com'
 short_url: 'blog.kubukoz.com'

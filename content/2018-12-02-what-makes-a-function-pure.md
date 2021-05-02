@@ -1,22 +1,23 @@
----
-layout: post
++++
+title = "What makes a function pure?"
+[taxonomies]
+tags = ["scala","functional programming", "cats"]
++++
+<!-- ---
 cover: 'assets/images/pure-function-bg.jpg'
 navigation: True
-title: What makes a function pure?
 date: 2018-12-02 12:00
-tags:
-  - scala
-  - functional programming
-  - cats
 subclass: 'post tag-test tag-content'
 logo: 'assets/images/jk_white.svg'
 author: kubukoz
 disqus: true
 categories: kubukoz
----
+--- -->
 Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
 in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
 or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.
+
+<!-- more -->
 
 I'm by no means an expert in functional programming, but the definition of a pure function that I consider to be true
 is the same one as plenty of people use.
@@ -33,8 +34,8 @@ The definition for a function (and for functional programming) I use is very sim
 to the one [John A de Goes tweeted some time ago](https://twitter.com/jdegoes/status/936301872066977792){:target="_blank"}. Functions are:
 
 1. Total - they are defined for every input
-1. Deterministic - a function will always return the same value given the same input.
-1. Pure - their only effect is computing their output
+2. Deterministic - a function will always return the same value given the same input.
+3. Pure - their only effect is computing their output
 
 If we define functions like the above, then functional programming is
 programming with functions,without procedures.
@@ -77,7 +78,7 @@ like typed errors, that'd probably involve creating an ADT for possible errors):
 sealed trait UserError extends Product with Serializable
 case object NameIsEmpty extends UserError
 
-def validate(user: User): Either[UserError, String] = 
+def validate(user: User): Either[UserError, String] =
   user.name.trim match {
     case "" => Left(NameIsEmpty)
     case trimmed => Right(trimmed)
@@ -94,7 +95,7 @@ def validate[F[_]: UserErrors](user: User): F[String] = {
     .some.filter(_.nonEmpty)
     .liftTo[F](NameIsEmpty: UserError)
 }
-  
+
 type E[A] = Either[String, A]
 validate[E](User("foo"))
 ```
@@ -142,7 +143,7 @@ def findAllUsers(): List[User] = {
   val f = db.run {
     TableQuery[Users].to[List].result
   }
-  
+
   //please don't do this in real code
   Await.result(f, 5.seconds)
 }
@@ -366,7 +367,7 @@ If we were to call `prog1.run()` or `prog2.run()`, you'd see that they behave id
 Thankfully, we don't need to come up with a type like this (and I don't recommend that you do - unless
 you're absolutely sure the existing ones don't meet your needs).
 
-There's plenty of competing options one can use in a similar way to how we used `Effectful` and `def effect`. 
+There's plenty of competing options one can use in a similar way to how we used `Effectful` and `def effect`.
 Here are a few that are the most popular in late 2018:
 
 - cats-effect `IO[+A]`
@@ -460,7 +461,7 @@ import cats.implicits._
 object Main extends IOApp {
   def run(args: List[String]): IO[ExitCode] = {
     val foo = IO(println("Foo"))
-    
+
     foo *> foo *> foo
   }.as(ExitCode.Success)
 }
