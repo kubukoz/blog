@@ -3,6 +3,12 @@ title = "What makes a function pure?"
 [taxonomies]
 tags = ["scala","functional programming", "cats"]
 +++
+
+Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
+in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
+or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.
+
+<!-- more -->
 <!-- ---
 cover: 'assets/images/pure-function-bg.jpg'
 navigation: True
@@ -13,12 +19,6 @@ author: kubukoz
 disqus: true
 categories: kubukoz
 --- -->
-Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
-in computer science and programming in general. In addition, sometimes a single word has multiple meanings,
-or worse - a term is explained in a variety of slightly differing definitions. One such term is a pure function.
-
-<!-- more -->
-
 I'm by no means an expert in functional programming, but the definition of a pure function that I consider to be true
 is the same one as plenty of people use.
 

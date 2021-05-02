@@ -22,7 +22,7 @@
             <h2 class="post-title"><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>{{ post.summary }} <a class="read-more" href="{{ post.permalink }}#continue-reading">&raquo;</a></p>
+            <p>{{ post.summary | striptags }} <a class="read-more" href="{{ post.permalink }}#continue-reading">&raquo;</a></p>
         </section>
         <footer class="post-meta">
          {#   {% for author in extra.authors %}
