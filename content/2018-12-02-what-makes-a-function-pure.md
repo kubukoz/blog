@@ -2,6 +2,8 @@
 title = "What makes a function pure?"
 [taxonomies]
 tags = ["scala","functional programming", "cats"]
+[extra]
+cover = "assets/images/pure-function-bg.jpg"
 +++
 
 Everyone knows that naming things is hard. In fact, often it seems to be one of the hardest things
@@ -10,7 +12,7 @@ or worse - a term is explained in a variety of slightly differing definitions. O
 
 <!-- more -->
 <!-- ---
-cover: 'assets/images/pure-function-bg.jpg'
+
 navigation: True
 date: 2018-12-02 12:00
 subclass: 'post tag-test tag-content'

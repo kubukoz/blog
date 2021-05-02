@@ -2,6 +2,9 @@
 title = "Data coherence at large"
 [taxonomies]
 tags = ["scala", "functional programming"]
+[extra]
+cover = "assets/images/coherence-bg.jpg"
+
 +++
 
 A week ago, while coming back from [Scalar](http://scalar-conf.com), I was thinking about coherent data. In particular, I was wondering if it's possible to perform certain simple validations and encode their results in types. Here's what i found.
@@ -9,7 +12,6 @@ A week ago, while coming back from [Scalar](http://scalar-conf.com), I was think
 <!-- more -->
 <!-- ---
 layout: post
-cover: 'assets/images/coherence-bg.jpg'
 navigation: True
 date: 2019-04-14 16:00
 subclass: 'post tag-test tag-content'

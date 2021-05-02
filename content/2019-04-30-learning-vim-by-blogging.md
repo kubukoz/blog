@@ -2,6 +2,8 @@
 title = "Learning vim by blogging"
 [taxonomies]
 tags = ["vim", "text-editors"]
+[extra]
+cover = "assets/images/learning-vim-bg.jpg"
 +++
 
 I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I'll be sharing my findings about Vim (neovim).
@@ -11,7 +13,6 @@ This post will be written exclusively in (variants of) Vim.
 <!-- more -->
 
 <!-- ---
-cover: 'assets/images/learning-vim-bg.jpg'
 navigation: True
 date: 2019-04-30 12:00
 subclass: 'post tag-test tag-content'

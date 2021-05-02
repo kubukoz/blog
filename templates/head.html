@@ -1,19 +1,19 @@
-    <link rel="canonical" href="{{ page.permalink | safe }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}" />
+    <link rel="canonical" href="{{ page.permalink }}" />
     <meta name="referrer" content="origin" />
-    <link rel="next" href="{{ config.base_url }}/page2/" />
+    <link rel="next" href="{{ config.base_url }}/next/" />
 
     <meta property="og:site_name" content="{{ site.name }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}" />
     <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}" />
-    <meta property="og:url" content="{{ page.permalink | safe }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}" />
-    <meta property="og:image" content="{{ page.permalink | safe }}{{ config.base_url }}{% if page.cover %}{{ page.cover }}{% else %}assets/images/bgg.jpg{% endif %}" />
+    <meta property="og:url" content="{{ page.permalink }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}" />
+    <meta property="og:image" content="{{ page.permalink }}{{ config.base_url }}{% if page.cover %}{{ page.cover }}{% else %}assets/images/bgg.jpg{% endif %}" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}" />
     <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}" />
-    <meta name="twitter:url" content="{{ page.permalink | safe }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}" />
-    <meta name="twitter:image" content="{{ page.permalink | safe }}{{ config.base_url }}{% if page.cover %}{{ page.cover }}{% else %}assets/images/cover1.jpg{% endif %}" />
+    <meta name="twitter:url" content="{{ page.permalink }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}" />
+    <meta name="twitter:image" content="{{ page.permalink }}{{ config.base_url }}{% if page.cover %}{{ page.cover }}{% else %}assets/images/cover1.jpg{% endif %}" />
 
     <script type="application/ld+json">
 {
@@ -21,7 +21,7 @@
     "@type": "Website",
     "publisher": "{{ site.name }}",
     "name": "{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}",
-    "url": "{{ page.permalink | safe }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}",
+    "url": "{{ page.permalink }}{% if config.base_url != '/' %}{{ config.base_url }}{% endif %}{{ page.url }}",
     "image": "{{ config.base_url }}{% if page.cover %}{{ page.cover }}{% else %}assets/images/cover1.jpg{% endif %}",
     "description": "{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}"
 }

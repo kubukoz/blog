@@ -1,6 +1,6 @@
 +++
 title = "Talks"
-hidden = true
+date = "2021-05-01"
 [taxonomies]
 tags = ["talks"]
 +++
