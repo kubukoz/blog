@@ -24,3 +24,5 @@ highlight_code = true
 
 logo = "/assets/images/jk_white.svg"
 cover = "/assets/images/bgg.jpg"
+
+google_analytics = "UA-55943015-8"

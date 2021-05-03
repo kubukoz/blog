@@ -12,7 +12,6 @@ language: 'en-us'
 
 url: 'https://blog.kubukoz.com'
 short_url: 'blog.kubukoz.com'
-google_analytics: UA-55943015-8
 disqus: kubukoz-blog
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: /
