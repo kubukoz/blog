@@ -1,0 +1,36 @@
+{% extends "default.html" %}
+{% block content %}
+{# {{__tera_context}} #}
+<!--
+---
+cover: 'assets/images/bgg.jpg'
+class: 'tag-template'
+navigation: True
+logo: 'assets/images/jk_white.svg'
+current: tag
+---
+ -->
+<!-- If we have a tag cover, display that - else blog cover - else nothing  - not supported yet -jk 2021 -->
+{# <header class="main-header tag-head {% if page.extra.cover %}" style="background-image: url({{ config.base_url }}{% if new_cover %}{{ new_cover }}{% else %}{{ page.cover }}{% endif%}) {% else %}no-cover{% endif %}">#}
+<header class="main-header tag-head cover" style="background-image: url({{ config.base_url }}{{ config.extra.cover }}">
+    <nav class="main-nav overlay clearfix">
+        {% if config.extra.logo %}<a class="blog-logo" href="{{ config.base_url }}"><img src="{{ config.base_url }}{{ config.extra.logo }}" alt="Blog Logo" /></a>{% endif %}
+        <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">{{ term.name | capitalize }}</h1>
+            <h2 class="page-description">
+            A {{ term.pages | length }}-post collection
+            </h2>
+        </div>
+    </div>
+</header>
+
+<!-- The main content area on the homepage -->
+<main id="content" class="content" role="main">
+    {# This is what's call a pro gamer move #}
+    {% set paginator = term %}
+    {% include "loop.html" %}
+</main>
+{% endblock content %}

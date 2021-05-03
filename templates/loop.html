@@ -1,0 +1,62 @@
+    <!-- Previous/next page links - only displayed on page 2+ -->
+    {#
+    <div class="extra-pagination inner">
+        {% if page.class == 'home-template' %}
+            {% include "post_pagination.html" %}
+        {% elif page.class == 'page-template' %}
+            {% include "post_pagination.html" %}
+        {% elif page.class == 'author-template' %}
+            {% include "author_pagination.html" %}
+        {% elif page.class == 'tag-template' %}
+            {% include "tag_pagination.html" %}
+        {% else %}
+            {% include "post_pagination.html" %}
+        {% endif %}
+    </div>
+#}
+    <!-- This is the post loop - each post will be output using this markup -->
+
+    {% for post in paginator.pages %}
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>{{ post.summary | striptags }} <a class="read-more" href="{{ post.permalink }}#continue-reading">&raquo;</a></p>
+        </section>
+        <footer class="post-meta">
+         {#   {% for author in extra.authors %}
+                {% if author[1].username == post.author %}
+
+                {% if author[1].assets %}<img class="author-thumb" src="{{ config.base_url }}{{ author[1].assets }}" alt="Author image" nopin="nopin" />{% endif %}
+                <!-- author -->
+                <a href='{{ config.base_url }}/author/{{ post.author }}'>{{ author[1].name }}</a>
+
+                {% endif %}
+            {% endfor %}
+#}
+            {% if post.taxonomies.tags | length > 0 %}
+                on
+                {% for tag in post.taxonomies.tags %}
+                <a href='{{ config.base_url }}/tags/{{ tag | slugify }}'>{{ tag | capitalize }}</a>{% if loop.last %}{% else %}, {% endif %}
+                {% endfor %}
+            {% endif %}
+            <time class="post-date" datetime="{{ post.date | date(format='%Y-%m-%d') }}">{{ post.date | date(format="%e %B %Y") }}</time>
+        </footer>
+    </article>
+    {% endfor %}
+
+{#
+    <!-- Previous/next page links - displayed on every page -->
+    {% if page.class == 'home-template' %}
+        {% include "post_pagination.html" %}
+    {% elif page.class == 'page-template' %}
+        {% include "post_pagination.html" %}
+    {% elif page.class == 'author-template' %}
+        {% include "author_pagination.html" %}
+    {% elif page.class == 'tag-template' %}
+        {% include "tag_pagination.html" %}
+    {% else %}
+        {% include "post_pagination.html" %}
+    {% endif %}
+#}

@@ -8,12 +8,7 @@ let
       sha256 = "10cafssjk6wp7lr82pvqh8z7qiqwxpnh8cswnk1fbbw2pacrqxr1";
     };
   pkgs = import nixpkgs {};
-  gems = pkgs.bundlerEnv {
-    name = "blog-gems";
-    inherit (pkgs) ruby;
-    gemdir = ./.;
-  };
 in
 pkgs.mkShell {
-  buildInputs = with pkgs; [ git gems ];
+  buildInputs = [ pkgs.zola ];
 }

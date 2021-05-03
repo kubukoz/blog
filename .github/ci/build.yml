@@ -1,0 +1,12 @@
+name: Build page
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v12
+    - name: Build site
+      run: "nix-shell --command \"zola build\""

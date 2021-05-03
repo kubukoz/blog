@@ -1,0 +1,17 @@
+<div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home {% if current_path == '/' %} nav-current{% endif %}" role="presentation"><a
+                href="{{config.base_url}}">Home</a></li>
+        {# thank god we have good operator precedence here - `and` goes first-->#}
+        <li class="scala {% if current_path == '/tags/scala/' or page and page.taxonomies.tags is containing('scala') %} nav-current {% endif %}" role="presentation"><a
+                href="{{config.base_url}}/tags/scala">Scala</a></li>
+        <li class="{% if current_path == '/talks/' %} nav-current{% endif %}" role="presentation"><a
+                href="{{config.base_url}}/talks">Talks</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="{{config.base_url}}/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
