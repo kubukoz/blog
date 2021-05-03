@@ -6,8 +6,9 @@
     <ul>
         <li class="nav-home {% if current_path == '/' %} nav-current{% endif %}" role="presentation"><a
                 href="{{config.base_url}}">Home</a></li>
-        {#<li class="scala {% if page and page.taxonomies.tags is containing('scala') %} nav-current {% endif %}" role="presentation"><a
-                href="{{config.base_url}}/tag/scala">Scala</a></li>#}
+        {# thank god we have good operator precedence here - `and` goes first-->#}
+        <li class="scala {% if current_path == '/tags/scala/' or page and page.taxonomies.tags is containing('scala') %} nav-current {% endif %}" role="presentation"><a
+                href="{{config.base_url}}/tags/scala">Scala</a></li>
         <li class="{% if current_path == '/talks/' %} nav-current{% endif %}" role="presentation"><a
                 href="{{config.base_url}}/talks">Talks</a></li>
     </ul>
