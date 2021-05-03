@@ -1,27 +1,22 @@
+{% extends "default.html" %}
+{% block content %}
+AAAAAAAA
+{{term.name}}
+{{term.pages | length}}
+
+{{__tera_context }}
+{# {{__tera_context}} #}
+<!--
 ---
-layout: default
 cover: 'assets/images/bgg.jpg'
 class: 'tag-template'
 navigation: True
 logo: 'assets/images/jk_white.svg'
 current: tag
 ---
-
-<!-- dynamically overriding backgrounds for tags as well as descriptions -->
-{% if page.url contains 'fables' %}
-   {% assign tag_description='A series of short stories that make you think.' %}
-{% elif page.url contains 'speeches' %}
-    {% assign new_cover='assets/images/cover7.jpg' %}
-    {% assign tag_description='Some of the greatest words ever spoken.' %}
-{% elif page.url contains 'fiction' %}
-    {% assign new_cover='assets/images/cover1.jpg' %}
-{% endif %}
-
-<!-- default -->
-<!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
-
+ -->
 <!-- If we have a tag cover, display that - else blog cover - else nothing -->
-<header class="main-header tag-head {% if page.cover %}" style="background-image: url({{ config.base_url }}{% if new_cover %}{{ new_cover }}{% else %}{{ page.cover }}{% endif%}) {% else %}no-cover{% endif %}">
+<header class="main-header tag-head {% if page.extra.cover %}" style="background-image: url({{ config.base_url }}{% if new_cover %}{{ new_cover }}{% else %}{{ page.cover }}{% endif%}) {% else %}no-cover{% endif %}">
     <nav class="main-nav overlay clearfix">
         {% if config.extra.logo %}<a class="blog-logo" href="{{ config.base_url }}"><img src="{{ config.base_url }}{{ config.extra.logo }}" alt="Blog Logo" /></a>{% endif %}
         {% if page.navigation %}
@@ -30,7 +25,7 @@ current: tag
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">{{ page.tag | capitalize }}</h1>
+            {#<h1 class="page-title">{{ page.tag | capitalize }}</h1>#}
             <h2 class="page-description">
             {% if tag_description %}
                 {{ tag_description }}
@@ -44,8 +39,8 @@ current: tag
 
 <!-- The main content area on the homepage -->
 <main id="content" class="content" role="main">
-
     <!-- The tag below includes the post loop - partials/loop.hbs -->
-    {% include loop.html %}
+    {#{% include "loop.html" %}#}
 
 </main>
+{% endblock content %}

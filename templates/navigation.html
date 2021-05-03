@@ -6,8 +6,8 @@
     <ul>
         <li class="nav-home {% if current_path == '/' %} nav-current{% endif %}" role="presentation"><a
                 href="{{config.base_url}}">Home</a></li>
-        <li class="scala {% if page and page.taxonomies.tags is containing('scala') %} nav-current {% endif %}" role="presentation"><a
-                href="{{config.base_url}}/tag/scala">Scala</a></li>
+        {#<li class="scala {% if page and page.taxonomies.tags is containing('scala') %} nav-current {% endif %}" role="presentation"><a
+                href="{{config.base_url}}/tag/scala">Scala</a></li>#}
         <li class="{% if current_path == '/talks/' %} nav-current{% endif %}" role="presentation"><a
                 href="{{config.base_url}}/talks">Talks</a></li>
     </ul>

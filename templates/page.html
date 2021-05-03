@@ -1,11 +1,10 @@
 {% extends "default.html" %}
+{% block content %}
 <!-- ---
 layout: default
 class: 'page-template'
 --- -->
 <!-- < default -->
-
-{% block content %}
 
 <header class="main-header post-head {% if page.extra.cover %}" style="background-image: url(/{{ page.extra.cover }}){% else %}no-cover{% endif %}">
     <nav class="main-nav {% if page.cover %}overlay{% endif %} clearfix">

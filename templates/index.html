@@ -1,4 +1,6 @@
 {% extends "default.html" %}
+{% block content %}
+
 <!--
 ---
 layout: default
@@ -10,10 +12,7 @@ current: home
 --- -->
 <!-- The big featured header  -->
 
-{% block content %}
-{% set cover = "/assets/images/bgg.jpg" %}
-<header class="main-header {% if cover %}"
-        style="background-image: url({{ config.base_url }}{{ cover }}) {% else %}no-cover{% endif %}">
+<header class="main-header cover" style="background-image: url({{ config.base_url }}{{ config.extra.cover }})">
     <nav class="main-nav overlay clearfix">
         {% if config.extra.logo %}<a class="blog-logo" href="{{ config.base_url }}"><img src="{{ config.base_url }}{{ config.extra.logo }}" alt="Blog Logo" /></a>{% endif %}
         {% if true %}
