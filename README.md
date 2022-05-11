@@ -1,3 +1,9 @@
+## Developing on M1
+
+`nix build .#devShells.x86_64-darwin.default --dry-run`
+
+`nix-shell <derivation>`
+
 ## Jasper
 
 [![Build Status](https://travis-ci.org/jekyller/jasper.svg?branch=master)](https://travis-ci.org/jekyller/jasper)
@@ -54,8 +60,8 @@ to the original theme. This port is based on the last Casper v1.3.7 (same as v1.
 * Code Syntax Highlight (New 24.11.2015)
 * Code Syntax Highlight with [highlight.js](https://highlightjs.org/) (New 06.04.2016)
 * Rss updated to Jekyll v3 (New 06.04.2016)
-* Updated to Casper v1.3.7 **(New 17.11.2017)**  
-* 'Out of the box' support for Multiple Authors **(New 17.11.2017)**  
+* Updated to Casper v1.3.7 **(New 17.11.2017)**
+* 'Out of the box' support for Multiple Authors **(New 17.11.2017)**
 
 ## How to use it
 
