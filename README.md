@@ -1,9 +1,3 @@
-## Developing on M1
-
-`nix build .#devShells.x86_64-darwin.default --dry-run`
-
-`nix-shell <derivation>`
-
 ## Jasper
 
 [![Build Status](https://travis-ci.org/jekyller/jasper.svg?branch=master)](https://travis-ci.org/jekyller/jasper)
