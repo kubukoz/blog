@@ -1,4 +1,4 @@
----
++++
 layout: page
 cover: 'assets/images/talks-bg.jpg'
 navigation: True
@@ -12,7 +12,7 @@ logo: 'assets/images/jk_white.svg'
 author: kubukoz
 disqus: true
 categories: kubukoz
----
++++
 
 Here's a list of all the talks I've given to date, with slides and videos if available.
 

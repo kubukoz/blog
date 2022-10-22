@@ -1,22 +1,21 @@
----
-layout: post
-cover: 'assets/images/learning-vim-bg.jpg'
-navigation: True
-title: Learning vim by blogging
-date: 2019-04-30 12:00
-tags:
-  - vim
-  - text-editors
-subclass: 'post tag-test tag-content'
-logo: 'assets/images/jk_white.svg'
-author: kubukoz
-disqus: true
-categories: kubukoz
----
++++
+title = "Learning vim by blogging"
+date = "2019-04-30"
+
+[taxonomies]
+tags = ["vim", "text-editors"]
+
+[extra]
+disqus = true
+cover = "/images/learning-vim-bg.jpg"
++++
+
 
 I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I'll be sharing my findings about Vim (neovim).
 
 This post will be written exclusively in (variants of) Vim.
+
+<!-- more -->
 
 ## Go to the next/previous occurrence of a character
 
@@ -54,3 +53,4 @@ Press `^` / `$`.
 [vi / vim: Jump To End Of File Command](https://www.cyberciti.biz/faq/howto-unix-linux-vi-vim-jump-to-end-of-file/)
 
 [vim: select to character, non-inclusive](https://stackoverflow.com/questions/2332513/vim-select-to-character-non-inclusive)
+

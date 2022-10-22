@@ -1,20 +1,18 @@
----
-layout: post
-cover: 'assets/images/coherence-bg.jpg'
-navigation: True
-title: Data coherence at large
-date: 2019-04-14 16:00
-tags:
-  - scala
-  - functional programming
-subclass: 'post tag-test tag-content'
-logo: 'assets/images/jk_white.svg'
-author: kubukoz
-disqus: true
-categories: kubukoz
----
++++
+title = "Data coherence at large"
+date = "2019-04-14"
+
+[taxonomies]
+tags = ["scala", "functional-programming"]
+
+[extra]
+disqus = true
+cover = '/images/coherence-bg.jpg'
++++
 
 A week ago, while coming back from [Scalar](http://scalar-conf.com), I was thinking about coherent data. In particular, I was wondering if it's possible to perform certain simple validations and encode their results in types. Here's what i found.
+
+<!-- more -->
 
 ## [What is coherent data](#what-is-coherent-data)
 
@@ -395,7 +393,7 @@ As you can see, more insight into the possibilities is needed to determine if th
 
 ## [Parting words](#parting-words)
 
-Thank you for reading. 
+Thank you for reading.
 
 These ideas are very fresh for me, and I haven't spent a lot of time researching them yet. In the future, I hope to spend more time in this area and to develop a more formal or constrained description of the ideas mentioned here.
 
