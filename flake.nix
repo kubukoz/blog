@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs .url = "github:nixos/nixpkgs/29b0d4d0b600f8f5dd0b86e3362a33d4181938f9";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   outputs = { nixpkgs, flake-utils, ... }: flake-utils.lib.eachDefaultSystem (system:
     let
@@ -13,7 +13,7 @@
     {
       devShells.default =
         pkgs.mkShell {
-          buildInputs = with pkgs; [ git gems ];
+          buildInputs = with pkgs; [ zola ];
         };
     });
 }
