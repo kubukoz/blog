@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-nix build '.?submodules=1'
+nix build '.?submodules=1' --print-build-logs
