@@ -8,7 +8,7 @@ compile_sass = true
 build_search_index = true
 
 title = "Jakub Kozłowski"
-description = "A blog about functional programming, and programming in general"
+description = "A 1.00000000000001x engineering blog"
 
 theme="anpu"
 
