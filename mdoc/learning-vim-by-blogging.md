@@ -53,4 +53,3 @@ Press `^` / `$`.
 [vi / vim: Jump To End Of File Command](https://www.cyberciti.biz/faq/howto-unix-linux-vi-vim-jump-to-end-of-file/)
 
 [vim: select to character, non-inclusive](https://stackoverflow.com/questions/2332513/vim-select-to-character-non-inclusive)
-
