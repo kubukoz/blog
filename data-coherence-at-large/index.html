@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <title>Data coherence at large</title>
+    <meta name="description" content="A blog about functional programming, and programming in general">
+
+    <link rel="stylesheet" href="https://blog.kubukoz.com/main.css">
+    <link rel="stylesheet" href="https://blog.kubukoz.com/custom.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.svg">
+
+    
+
+    
+    
+</head>
+<body>
+    
+    <div class="cover-image" style="background-image: url(&#x2F;images&#x2F;coherence-bg.jpg)"></div>
+    
+    <a class="skip-main" href="#main">Skip to content</a>
+    <div class="container">
+        <header>
+            <h1 class="site-header">
+                <a href="https:&#x2F;&#x2F;blog.kubukoz.com">Jakub Kozłowski</a> | A blog about functional programming, and programming in general
+            </h1>
+            <nav>
+                
+                
+                
+                <a  href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;talks&#x2F;">Talks</a>
+                
+                
+            </nav>
+        </header>
+        <main id="main" tabindex="-1">
+            
+
+<article class="post">
+    <header>
+        <h1>Data coherence at large</h1>
+    </header>
+    <div class="content">
+        <p>A week ago, while coming back from <a href="http://scalar-conf.com">Scalar</a>, I was thinking about coherent data. In particular, I was wondering if it's possible to perform certain simple validations and encode their results in types. Here's what i found.</p>
+<span id="continue-reading"></span><h2 id="what-is-coherent-data"><a class="zola-anchor" href="#what-is-coherent-data" aria-label="Anchor link for: what-is-coherent-data"><a href="https://blog.kubukoz.com/data-coherence-at-large/#what-is-coherent-data">What is coherent data</a></a></h2>
+<p>The concept of coherent data was introduced to me when I watched <a href="https://www.youtube.com/watch?v=gVXt1RG_yN0">Daniel Spiewak's talk about coherence</a>. Data coherence is achieved when we have a single source of truth about our data. Let's look at an example:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = Some(&quot;</span><span style="color:#a3be8c;">Rachel</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">result</span><span>: </span><span style="color:#ebcb8b;">String </span><span>=
+</span><span>  </span><span style="color:#b48ead;">if</span><span>(name.isEmpty) &quot;</span><span style="color:#a3be8c;">default</span><span>&quot;
+</span><span>  </span><span style="color:#b48ead;">else</span><span> name.get
+</span></code></pre>
+<p>In this code we don't have any sort of coherence in the data. One condition that we check - the emptiness of <code>name</code> - gives us information that is immediately lost in the rest of the code. Even if we've checked for the emptiness and are sure that the Option isn't empty, there's nothing in the type system or any other feature of the language that would tell us whether we can call <code>Option#get</code> on it safely. We only know that because we keep in mind that we've already checked for the emptiness ourselves.</p>
+<p>Another example involves lists:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">names</span><span>: </span><span style="color:#ebcb8b;">List</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = List(&quot;</span><span style="color:#a3be8c;">Phoebe</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Joey</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Ross</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">firstNameLength</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#b48ead;">Int</span><span>] =
+</span><span>  </span><span style="color:#b48ead;">if</span><span>(names.isEmpty) None
+</span><span>  </span><span style="color:#b48ead;">else </span><span>Some(names.head.length)
+</span></code></pre>
+<p>Even though we've checked for the list's emptiness, we still have no guarantee that <code>head</code>, which is in general not a safe method to call on a list, won't throw an exception.</p>
+<p>There's no connection between <code>isEmpty</code> and <code>head</code>/<code>get</code> enforced by the compiler. It's just incapable of helping us avoid mistakes like this:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">if</span><span>(elems.isEmpty) println(elems.head) </span><span style="color:#65737e;">//boom!
+</span></code></pre>
+<p>Is this the way it's meant to be? Is it possible to make the compiler work with us to ensure some guarantees about our data?</p>
+<p>In Kotlin, another language that works on the JVM (mostly), there is a feature that solves this particular problem we had with Option: <a href="https://kotlinlang.org/docs/reference/typecasts.html#smart-casts">smart casts</a>. But the feature is limited to checking types or nullity, while we're looking for something that'll work in the general case.</p>
+<p>Thankfully, there're features in Scala that allow us to reason about our data as coherent: pattern matching and higher-order functions.</p>
+<h2 id="data-coherence-with-pattern-matching"><a class="zola-anchor" href="#data-coherence-with-pattern-matching" aria-label="Anchor link for: data-coherence-with-pattern-matching"><a href="https://blog.kubukoz.com/data-coherence-at-large/#data-coherence-with-pattern-matching">Data coherence with pattern matching</a></a></h2>
+<p>Let's rewrite the examples from the previous section using pattern matching:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = Some(&quot;</span><span style="color:#a3be8c;">Rachel</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">result </span><span>= name </span><span style="color:#b48ead;">match </span><span>{
+</span><span>  </span><span style="color:#b48ead;">case </span><span>None    </span><span style="color:#b48ead;">=&gt; </span><span>&quot;</span><span style="color:#a3be8c;">default</span><span>&quot;
+</span><span>  </span><span style="color:#b48ead;">case </span><span>Some(</span><span style="color:#bf616a;">v</span><span>) </span><span style="color:#b48ead;">=&gt;</span><span> v
+</span><span>}
+</span></code></pre>
+<p>Much better - now we managed to get both the emptiness check and the extraction in one go (in the pattern match). We're not calling any unsafe methods, and we get additional help from the compiler in the form of exhaustivity checking. What about lists?</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">names</span><span>: </span><span style="color:#ebcb8b;">List</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = List(&quot;</span><span style="color:#a3be8c;">Phoebe</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Joey</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Ross</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">firstNameLength</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = names </span><span style="color:#b48ead;">match </span><span>{
+</span><span>  </span><span style="color:#b48ead;">case </span><span>Nil            </span><span style="color:#b48ead;">=&gt; </span><span>None
+</span><span>  </span><span style="color:#b48ead;">case </span><span style="color:#bf616a;">firstName</span><span> :: </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">=&gt; </span><span>Some(firstName.length)
+</span><span>}
+</span></code></pre>
+<p>Again, we're not calling <code>head</code> or any other unsafe method. And the check is again combined with the extraction in a single pattern match.</p>
+<p>I mentioned higher-order functions, so what about them? Turns out that pattern matches (and functions implemented using them) can often be rewritten using a single call to <code>fold</code> for the given data type. It's more obvious in the case of Option:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = Some(&quot;</span><span style="color:#a3be8c;">Rachel</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">result </span><span>= name.fold(&quot;</span><span style="color:#a3be8c;">default</span><span>&quot;)(identity)
+</span></code></pre>
+<p>Or <code>Either</code>:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">Either</span><span>[</span><span style="color:#ebcb8b;">NameNotFound</span><span>, </span><span style="color:#ebcb8b;">String</span><span>] = Right(&quot;</span><span style="color:#a3be8c;">Rachel</span><span>&quot;)
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">result </span><span>= name.fold(extractError, identity)
+</span></code></pre>
+<p>However, <code>fold</code> doesn't appear to be the right choice if we only care about part of the data (like in the list example, where we only needed the head of the list). In that particular case, a good old <code>headOption</code> would work just fine.</p>
+<h2 id="data-coherence-at-scale"><a class="zola-anchor" href="#data-coherence-at-scale" aria-label="Anchor link for: data-coherence-at-scale"><a href="https://blog.kubukoz.com/data-coherence-at-large/#data-coherence-at-scale">Data coherence at scale</a></a></h2>
+<p>This is all nice and pretty - the promise of having data that doesn't require us to watch our backs every step we take sounds encouraging. But when the data is part of other data, things start to break very soon.</p>
+<p>Suppose we're working with a <code>User</code> class:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>(</span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>])
+</span></code></pre>
+<p>Now imagine we want to run a code path only if the user has a <code>lastName</code> set. The caveat: we still want to pass the <code>User</code> instance:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withValidatedUser</span><span>(</span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = ...
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">user </span><span>= User(&quot;</span><span style="color:#a3be8c;">Katie</span><span>&quot;, Some(&quot;</span><span style="color:#a3be8c;">Bouman</span><span>&quot;))
+</span><span>
+</span><span>user.lastName </span><span style="color:#b48ead;">match </span><span>{
+</span><span>  </span><span style="color:#b48ead;">case </span><span>Some(</span><span style="color:#bf616a;">last</span><span>) </span><span style="color:#b48ead;">=&gt;</span><span> withValidatedUser(last, user)
+</span><span>  </span><span style="color:#b48ead;">case </span><span>None       </span><span style="color:#b48ead;">=&gt; </span><span>IO.pure(</span><span style="color:#d08770;">42</span><span>)
+</span><span>}
+</span></code></pre>
+<p>What's the problem? Well, even though we did the validation in a coherent way using a pattern match, we lose the coherence inside <code>withValidatedUser</code>: <code>lastName</code> is now completely separated from the <code>User</code> object it came from. And now we have two <code>lastName</code>s: one optional, one required.</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withValidatedUser</span><span>(</span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = IO {
+</span><span>  println((lastName, user.lastName))
+</span><span>}
+</span></code></pre>
+<p>This is terrible news. It appears like we can't maintain data coherence when the data is part of something else. Or can we?</p>
+<p>Surely there are ways to get what we want - one of them is adding a new variant of the <code>User</code> class, but with a required <code>lastName</code>:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> UserWithLast</span><span>(</span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">String</span><span>)
+</span></code></pre>
+<p>...but you can probably already imagine how much boilerplate it'd bring to your codebase if you needed a new class for every combination of optional fields if the <code>User</code> type had more than one:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>(
+</span><span>  </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>],
+</span><span>  </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>])
+</span><span>
+</span><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> UserWithLastAndEmail</span><span>(
+</span><span>  </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">String</span><span>)
+</span><span>
+</span><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> UserNoEmail</span><span>(</span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">String</span><span>)
+</span><span>
+</span><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> UserNoLast</span><span>(</span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">String</span><span>)
+</span><span>...
+</span></code></pre>
+<p>It doesn't seem like a viable solution to the problem. In fact, it'd create more problems than it solved.</p>
+<p>I entertained the idea that we could parameterize our original <code>User</code> with type parameters a bit:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>[</span><span style="color:#ebcb8b;">LastName</span><span>](</span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">LastName</span><span>)
+</span><span>
+</span><span style="color:#65737e;">//just so that we have some distinction below
+</span><span style="color:#b48ead;">type </span><span>LastName = </span><span style="color:#ebcb8b;">String
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withValidatedUser</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">LastName</span><span>]): </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = ...
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">LastName</span><span>]] = User(&quot;</span><span style="color:#a3be8c;">Katie</span><span>&quot;, Some(&quot;</span><span style="color:#a3be8c;">Bouman</span><span>&quot;))
+</span><span>
+</span><span style="color:#65737e;">// try it at home: this could be a fold!
+</span><span>user.lastName </span><span style="color:#b48ead;">match </span><span>{
+</span><span>  </span><span style="color:#b48ead;">case </span><span>Some(</span><span style="color:#bf616a;">last</span><span>) </span><span style="color:#b48ead;">=&gt;</span><span> withValidatedUser(user.copy(lastName = last))
+</span><span>  </span><span style="color:#b48ead;">case </span><span>None       </span><span style="color:#b48ead;">=&gt; </span><span>IO.pure(</span><span style="color:#d08770;">42</span><span>)
+</span><span>}
+</span></code></pre>
+<p>Now a few things happened:</p>
+<ol>
+<li>We're not passing the <code>lastName</code> value separately now</li>
+<li><code>lastName</code> being required is now a type-level prerequisite in <code>withValidatedUser</code></li>
+<li>We're copying the <code>user</code> value with <code>lastName</code> substituted with the value extracted from <code>Option</code> using a pattern match</li>
+<li>We only have one data type that supports all combinations of emptiness/non-emptiness using type parameters.</li>
+</ol>
+<p>What does this give us?</p>
+<p>We gained type safety in <code>withValidatedUser</code> - the function now can't be called with a <code>User</code> whose <code>lastName</code> hasn't been checked for non-emptiness. It just won't compile if we pass an <code>Option</code> in that field. One less test case to worry about.</p>
+<p>It's also pretty interesting that we can now write functions that require the user to <strong>not</strong> have a second name:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withInvalidUser</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#b48ead;">Unit</span><span>]): </span><span style="color:#ebcb8b;">String </span><span>= user.name
+</span></code></pre>
+<p>For me, the most surprising part here was that I couldn't use <code>Nothing</code> as the type of <code>lastName</code> - which I wanted to do to guarantee that <code>lastName</code> just isn't there. However, we can't create values of type <code>Nothing</code>, and we can't pass them as constructor parameters of a class. I used <code>Unit</code> instead, which is a type with only one value, which is obviously not the user's last name. Creating a user with <code>LastName = Unit</code> is also very easy: <code>User(&quot;Joe&quot;,  ())</code>.</p>
+<p>What's the problem with the latest solution?</p>
+<ol>
+<li>We made it more difficult to work with the User type - now everyone who uses that type needs to be aware that the <code>lastName</code> field is parameterized. And it's viral - pretty soon all the codebase will be littered with type parameters irrelevant in these regions of code.</li>
+<li>We can insert any type we want as <code>LastName</code>. It could even be <code>IO[Unit]</code>. And it's very easy to do so.</li>
+</ol>
+<p>Looks like we aren't quite there yet. What can we do to make our type easier to work with?</p>
+<h2 id="a-different-kind-of-coherence"><a class="zola-anchor" href="#a-different-kind-of-coherence" aria-label="Anchor link for: a-different-kind-of-coherence"><a href="https://blog.kubukoz.com/data-coherence-at-large/#a-different-kind-of-coherence">A different kind of coherence</a></a></h2>
+<p>Our original goal in the exercise was to encode validations and invariants of our data in the data's type. Let's get back to our <code>User</code> example. This time we'll encode it using higher-kinded types (but with two &quot;variable-effect&quot; fields):</p>
+<p>(if you're not familiar with higher-kinded types, I suggest you <a href="https://typelevel.org/blog/2016/08/21/hkts-moving-forward.html">check out some blog posts</a>. For now, it should be enough to know that a higher-kinded type is a type-level function, or a type that needs to be applied with another type to construct a fully concrete type that can be assigned to a value. For example <code>Option</code> needs an <code>A</code> to become <code>Option[A]</code>, a type that has values.</p>
+<p>If we parameterize <code>User</code> with higher-kinded types, we get this:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>[</span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#bf616a;">_</span><span>], </span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#bf616a;">_</span><span>]](
+</span><span>  </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#ebcb8b;">String</span><span>],
+</span><span>  </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#ebcb8b;">String</span><span>]
+</span><span>)
+</span></code></pre>
+<p>Cool. How do we create a <code>User</code> with all fields optional now?</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">jon</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Option</span><span>, </span><span style="color:#ebcb8b;">Option</span><span>] =
+</span><span>  User[</span><span style="color:#ebcb8b;">Option</span><span>, </span><span style="color:#ebcb8b;">Option</span><span>](&quot;</span><span style="color:#a3be8c;">Jon</span><span>&quot;, Some(&quot;</span><span style="color:#a3be8c;">Snow</span><span>&quot;), None)
+</span></code></pre>
+<p>How do we create one with some fields required?</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#65737e;">// old trick from scalaz/cats/shapeless
+</span><span style="color:#b48ead;">type </span><span>Id[</span><span style="color:#ebcb8b;">A</span><span>] = </span><span style="color:#ebcb8b;">A
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">jon</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Option</span><span>] = User[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Option</span><span>](&quot;</span><span style="color:#a3be8c;">Jon</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Snow</span><span>&quot;, None)
+</span></code></pre>
+<p>Also cool. We can't assign <code>None</code> as the value of <code>lastName</code> if <code>LastName</code> is <code>Id</code>. How would we encode the requirement that there's no email now?</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">type </span><span>Void[</span><span style="color:#ebcb8b;">A</span><span>] = </span><span style="color:#b48ead;">Unit
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">donald</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Void</span><span>] = User[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Void</span><span>](&quot;</span><span style="color:#a3be8c;">Donald</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">Duck</span><span>&quot;, </span><span style="color:#d08770;">()</span><span>)
+</span></code></pre>
+<p>As you can see, we cheated a bit - the goal of parameterizing our type with higher-kinded types was to ensure that we always have <code>String</code> (or whatever used to be in an <code>Option</code>) in an effect (like <code>Option</code> or <code>Id</code>), but if the effect is <code>A =&gt; Unit</code>, we have no <code>String</code> in the result whatsoever. Is it bad?</p>
+<p>Maybe, maybe not.</p>
+<p>If we have type parameters for our data, we can't make it obligatory to have <code>String</code> anywhere in the type of <code>Email</code>. (well, maybe we could, using some more type-level machinery and implicits, but I don't want to go that deep into it).</p>
+<p>However, we're making it harder to use a type that doesn't have the <code>String</code> in it (<code>Option</code> is a more obvious choice for a type parameter than, say, <code>λ[A =&gt; Int]</code>, which would mean that <code>lastName</code> is of type <code>Int</code>). And we still get an escape hatch that allows us to omit some fields in a <code>User</code> value (by saying that <code>lastName</code> is of type <code>Unit</code>).</p>
+<p>Instead of a custom <code>Void</code> type, we could've used <code>Const</code>:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">import</span><span> cats.data.Const
+</span><span>
+</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">john </span><span>= User[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Const</span><span>[(), </span><span style="color:#bf616a;">?</span><span>]](&quot;</span><span style="color:#a3be8c;">John</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">De Goes</span><span>&quot;, Const(</span><span style="color:#d08770;">()</span><span>))
+</span><span>john.email.getConst </span><span style="color:#65737e;">// equals ()
+</span></code></pre>
+<p>We had at least two problems with the previous solution:</p>
+<ol>
+<li>the type parameters would spread out to every place in the codebase where <code>User</code> appears.</li>
+<li>we didn't have type-level hints as to what type we should use.</li>
+</ol>
+<p>I believe the second problem is not an issue anymore (see above argument about <code>Unit</code>), but the first one remains: everywhere we had</p>
+<p><code>def foo: User =&gt; A</code>, we'll now have</p>
+<p><code>def foo[F[_], G[_]]: User[F, G] =&gt; A</code>. What can we do to make this a little more pleasant, and to avoid spreading every single type parameter to pieces of code that don't care about the contents of our parameterized fields?</p>
+<h2 id="variance-and-higher-kinded-types"><a class="zola-anchor" href="#variance-and-higher-kinded-types" aria-label="Anchor link for: variance-and-higher-kinded-types"><a href="https://blog.kubukoz.com/data-coherence-at-large/#variance-and-higher-kinded-types">Variance and higher kinded types</a></a></h2>
+<p>Thankfully, Scala has quite powerful support for variance annotations. We can use it to our advantage: to make our type easier to work with.</p>
+<p>Suppose we are writing a function that takes a user but only uses their first name - which isn't type parameterized. Let's recall the definition of <code>User</code>:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>[</span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#bf616a;">_</span><span>], </span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#bf616a;">_</span><span>]](
+</span><span>  </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#ebcb8b;">String</span><span>],
+</span><span>  </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#ebcb8b;">String</span><span>]
+</span><span>)
+</span></code></pre>
+<p>Let's add some variance annotations...</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">case class</span><span style="color:#ebcb8b;"> User</span><span>[+</span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#bf616a;">_</span><span>], +</span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#bf616a;">_</span><span>]](
+</span><span>  </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#ebcb8b;">String</span><span>,
+</span><span>  </span><span style="color:#bf616a;">lastName</span><span>: </span><span style="color:#ebcb8b;">LastName</span><span>[</span><span style="color:#ebcb8b;">String</span><span>],
+</span><span>  </span><span style="color:#bf616a;">email</span><span>: </span><span style="color:#ebcb8b;">Email</span><span>[</span><span style="color:#ebcb8b;">String</span><span>]
+</span><span>)
+</span><span>
+</span><span style="color:#b48ead;">object</span><span style="color:#ebcb8b;"> User </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">  </span><span style="color:#65737e;">// apparently, Any is kind-polymorphic
+</span><span style="color:#eff1f5;">  </span><span style="color:#65737e;">// and counts as a suitable * -&gt; * kinded type!
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">type </span><span style="color:#eff1f5;">Arb </span><span>= </span><span style="color:#ebcb8b;">User</span><span style="color:#eff1f5;">[</span><span style="color:#b48ead;">Any</span><span style="color:#eff1f5;">, </span><span style="color:#b48ead;">Any</span><span style="color:#eff1f5;">]
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<p>Making our type covariant in both type parameters should allow us to pass a <code>User[F, G]</code> for any <code>F</code> and <code>G</code> where a <code>User[Any, Any]</code> (<code>User.Arb</code>) is required. Let's see if it works:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">nameTwice</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>.</span><span style="color:#ebcb8b;">Arb</span><span>): </span><span style="color:#ebcb8b;">String </span><span>= user.name ++ user.name
+</span><span>
+</span><span>&gt; nameTwice(User[</span><span style="color:#ebcb8b;">Option</span><span>, </span><span style="color:#ebcb8b;">Id</span><span>](&quot;</span><span style="color:#a3be8c;">Mike</span><span>&quot;, None, &quot;</span><span style="color:#a3be8c;">mike@evilmail.com</span><span>&quot;))
+</span><span>res0: </span><span style="color:#ebcb8b;">String </span><span>= &quot;</span><span style="color:#a3be8c;">MikeMike</span><span>&quot;
+</span></code></pre>
+<p>Looks like it does. However, maybe hardcoding <code>Any, Any</code> isn't the best solution there - what if at some point we actually want to perform some validation and use the parameterized fields? Maybe a better encoding would be this:</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#65737e;">//class User defined as above
+</span><span>
+</span><span style="color:#b48ead;">object</span><span style="color:#ebcb8b;"> User </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">type </span><span style="color:#eff1f5;">Canonical </span><span>= </span><span style="color:#ebcb8b;">User</span><span style="color:#eff1f5;">[</span><span style="color:#ebcb8b;">Option</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Option</span><span style="color:#eff1f5;">]
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<p>Now we could write functions taking <code>User.Canonical</code> as the base case, and only customize the functions that we want to work with certain types of <code>User</code> specifically.</p>
+<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">worksWithAllUsers</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>.</span><span style="color:#ebcb8b;">Canonical</span><span>): (</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">String</span><span>) =
+</span><span>  (user.lastName, user.email) </span><span style="color:#b48ead;">match </span><span>{
+</span><span>    </span><span style="color:#b48ead;">case </span><span>(Some(</span><span style="color:#bf616a;">lastName</span><span>), Some(</span><span style="color:#bf616a;">email</span><span>)) </span><span style="color:#b48ead;">=&gt;
+</span><span>      withFullUser(
+</span><span>        user.copy[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Id</span><span>](
+</span><span>          lastName = lastName,
+</span><span>          email = email
+</span><span>        )
+</span><span>      )
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">case </span><span>(Some(</span><span style="color:#bf616a;">lastName</span><span>), None) </span><span style="color:#b48ead;">=&gt;
+</span><span>      withPartialUser(user.copy[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Option</span><span>](lastName = lastName))
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">case </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">=&gt;
+</span><span>      (&quot;</span><span style="color:#a3be8c;">Default</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">default@evilmail.com</span><span>&quot;)
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withFullUser</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#ebcb8b;">Id</span><span>]): (</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">String</span><span>) =
+</span><span>  (user.lastName, user.email)
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">withPartialUser</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>[</span><span style="color:#ebcb8b;">Id</span><span>, </span><span style="color:#b48ead;">Any</span><span>]): (</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">String</span><span>) =
+</span><span>  (user.lastName, &quot;</span><span style="color:#a3be8c;">default@evilmail.com</span><span>&quot;)
+</span></code></pre>
+<h2 id="other-possible-use-cases"><a class="zola-anchor" href="#other-possible-use-cases" aria-label="Anchor link for: other-possible-use-cases"><a href="https://blog.kubukoz.com/data-coherence-at-large/#other-possible-use-cases">Other possible use cases</a></a></h2>
+<p>What other invariants can we encode?</p>
+<ul>
+<li><code>Option[A]</code> can become <code>A</code> or <code>Unit</code>.</li>
+<li><code>Either[A, B]</code> can become <code>B</code> or <code>A</code>.</li>
+<li><code>List[A]</code> can become <code>Unit</code> (empty list) or <code>(A, List[A])</code> (<code>NonEmptyList[A]</code>).</li>
+</ul>
+<p>(note how we're deconstructing the data types, which happen to be ADTs, into coproducts)</p>
+<p>If we're really trying to experiment, we can go the extra mile:</p>
+<ul>
+<li><code>List[A]</code> can be checked for length and encoded as <code>Sized[List[A], 5]</code>.</li>
+<li><code>User[IO[A]]</code> can become <code>IO[User[A]]</code> (sounds like <a href="https://typelevel.org/cats/typeclasses/traverse.html"><code>Traverse</code></a>, doesn't it?) - we can run the IO outside and keep the result to avoid unnecessary recalculation.</li>
+<li><code>User[Stream[IO, A]]</code> can become <code>IO[User[List[A]]]</code> - we can run the stream and work with it as a list, once it's all consumed (that is, if it fits into the memory).</li>
+</ul>
+<p>There's a lot we can do, really:</p>
+<ul>
+<li><code>String</code> -&gt; <code>NonEmptyString</code>, <code>regex&quot;(a-Z)+&quot;</code>, <code>IPv4</code>, <code>INetAddress</code> refined types</li>
+<li><code>Int</code> -&gt; <code>PosInt</code> / <code>EvenInt</code> refined types, smaller primitives (<code>Byte</code>, etc.)</li>
+</ul>
+<h2 id="summary"><a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary"><a href="https://blog.kubukoz.com/data-coherence-at-large/#summary">Summary</a></a></h2>
+<p>There are a few good reasons for trying to make our data coherent, including but not limited to using the techniques mentioned in this post:</p>
+<ul>
+<li>additional type safety by enforcing constraints locally on the type level</li>
+<li>increased ease of putting code under test - if your function doesn't depend on <code>lastName</code>, you can pass <code>()</code> in that field safely</li>
+</ul>
+<p>However, there are difficulties associated with all that:</p>
+<ul>
+<li>type parameters creeping into all your functions (possibly can be avoided by introducing a canonical type and only being specific when it's needed)</li>
+<li>it's questionable whether parameterizing data with types scales (e.g. if we have <code>case class Users[Collection[_], LastName[_]](users: Collection[User[LastName]])</code>, is it going to be easy to change?)</li>
+<li>the benefit might not be that significant after all</li>
+<li>it was mentioned in <a href="https://twitter.com/fanf42/status/1117684098364055552">the replies</a> that type-parameterizing e.g. JSON models can break tooling like circe, magnolia, etc. - most likely because they don't support <a href="https://en.wikibooks.org/wiki/Haskell/GADT">GADTs</a></li>
+<li>possibly more problems that I haven't figured out yet.</li>
+</ul>
+<p>I haven't seen this approach to abstracting on data used anywhere, so I don't know what the best practice is, and whether the idea is feasible for use in real projects, but it certainly seems worth investigating.</p>
+<p>Maybe type-parameterized data would work better with lenses (e.g. from <a href="http://julien-truffaut.github.io/Monocle">Monocle</a>) to make the work with copying more pleasant and less boilerplatey?</p>
+<p>As some of our validations involved e.g. breaking up <code>Option</code> into a tagged coproduct of <code>Unit</code> and <code>A</code> (which it is), maybe the techniques mentioned in this post could be used together with optics like Prisms (which are meant for working with coproducts) to form more powerful abstractions?</p>
+<p>Maybe we could have a <code>Monad</code>/<code>Traverse</code>/whatever instance for a type like <code>case class User[LastName[_], Email[_]](...)</code> for each of its fields to get additional functionality for free using the functions defined on the appropriate typeclass?</p>
+<p>As you can see, more insight into the possibilities is needed to determine if the concept can be used more widely in our code.</p>
+<h2 id="parting-words"><a class="zola-anchor" href="#parting-words" aria-label="Anchor link for: parting-words"><a href="https://blog.kubukoz.com/data-coherence-at-large/#parting-words">Parting words</a></a></h2>
+<p>Thank you for reading.</p>
+<p>These ideas are very fresh for me, and I haven't spent a lot of time researching them yet. In the future, I hope to spend more time in this area and to develop a more formal or constrained description of the ideas mentioned here.</p>
+<p>Most importantly, I hope to find out whether these ideas actually help achieve more type safety without sacrificing maintainability in real world programming.</p>
+<p>Let me know what you think about the ideas presented in this post, and whether you enjoyed reading it!</p>
+<p>Thanks to <a href="https://twitter.com/hmemcpy">Igal Tabachnik (@hmemcpy)</a> and <a href="https://twitter.com/etaty">Valérian (@etaty)</a> who found and reported a few bugs in this post. I should get around to using <a href="https://github.com/scalameta/mdoc">mdoc</a> already...</p>
+
+    </div>
+
+    
+    <div class="article-info">
+        
+        <div class="article-date">14 April 2019</div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="https://blog.kubukoz.com/tags/scala/">#scala</a></li>
+                    
+                    <li><a href="https://blog.kubukoz.com/tags/functional-programming/">#functional-programming</a></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+  var disqus_config = function () {
+    this.page.url = "https://blog.kubukoz.com";
+    this.page.identifier = '/data-coherence-at-large';
+  };
+
+  (function () {
+    // DON'T EDIT BELOW THIS LINE
+    var d = document,
+      s = d.createElement("script");
+    s.src = "https://kubukoz-blog.disqus.com/embed.js";
+    s.setAttribute("data-timestamp", +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+ 
+        </main>
+        <footer>
+            <p>
+                © Jakub Kozłowski (<a href="https://twitter.com/kubukoz">@kubukoz</a>) 2022<br>
+                Powered by <a target="_blank" href="https://getzola.org/">Zola</a>, Theme <a target="_blank" href="https://github.com/zbrox/anpu-zola-theme">Anpu</a>.
+            </p>
+            <p>
+                
+                
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
