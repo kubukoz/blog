@@ -1,7 +1,7 @@
 name: "Build"
 on:
   push:
-    branches: ['main']
+    branches: ['zola-2']
 jobs:
   build:
     name: "Deploy"
