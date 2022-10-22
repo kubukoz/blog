@@ -13,7 +13,16 @@
     {
       devShells.default =
         pkgs.mkShell {
-          buildInputs = with pkgs; [ zola ];
+          buildInputs = [ pkgs.zola ];
+        };
+      packages.default = pkgs.stdenv.mkDerivation
+        {
+          pname = "kubukoz-blog";
+          version = "1.0.0";
+          buildInputs = [ pkgs.zola ];
+          src = ./.;
+          buildPhase = "zola build";
+          installPhase = "cp -r public $out";
         };
     });
 }
