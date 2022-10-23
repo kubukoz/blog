@@ -11,7 +11,7 @@ let
 
       COURSIER_CACHE = ".nix/COURSIER_CACHE";
       buildCommand = ''
-        cs fetch ${artifact} > deps
+        cs fetch ${artifact}:${version} > deps
         mkdir -p $out/share/java
         cp $(< deps) $out/share/java/
       '';
