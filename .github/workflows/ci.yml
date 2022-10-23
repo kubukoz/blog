@@ -19,7 +19,7 @@ jobs:
 
   deploy:
     needs: test
-    if: github.branch == "main"
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
