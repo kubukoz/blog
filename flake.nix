@@ -6,18 +6,24 @@
       pkgs = import nixpkgs { inherit system; };
       inherit (pkgs.callPackage ./coursier.nix { }) coursier-tools;
       mdoc = pkgs.callPackage ./mdoc.nix { inherit coursier-tools; };
+      cats = coursier-tools.coursierFetch {
+        pname = "cats";
+        version = "2.8.0";
+        artifact = "org.typelevel:cats-core_2.13:2.8.0";
+        sha256 = "sha256-LEs/kHaTfQwQhs4vqCcW0n+ONJPl636amaXcwwEZgOA=";
+      };
     in
     {
-      devShells.default =
-        pkgs.mkShell {
-          buildInputs = [ pkgs.zola mdoc ];
-        };
       packages.default = pkgs.stdenv.mkDerivation {
         pname = "kubukoz-blog";
         version = "1.0.0";
-        buildInputs = [ pkgs.zola mdoc ];
+        buildInputs = [ pkgs.zola mdoc cats pkgs.jre ];
         src = self;
-        buildPhase = "zola build";
+        COURSIER_CACHE = ".nix/COURSIER_CACHE";
+        buildPhase = ''
+          mdoc --in mdoc --out content --classpath $CLASSPATH
+          zola build
+        '';
         installPhase = "cp -r public $out";
       };
     });

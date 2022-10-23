@@ -1,33 +1,35 @@
 { stdenv, coursier, jre, makeWrapper }:
 
 let
+  coursierFetch = { pname, version, artifact, sha256 }:
+
+    stdenv.mkDerivation {
+      inherit pname version;
+      dontUnpack = true;
+
+      buildInputs = [ coursier jre ];
+
+      COURSIER_CACHE = ".nix/COURSIER_CACHE";
+      buildCommand = ''
+        cs fetch ${artifact} > deps
+        mkdir -p $out/share/java
+        cp $(< deps) $out/share/java/
+      '';
+
+      outputHashMode = "recursive";
+      outputHashAlgo = "sha256";
+      outputHash = sha256;
+    };
+
   coursierBootstrap = { pname, version, artifact, alias ? pname, mainClass, sha256, buildInputs ? [ ], ... }@args':
     let
-      deps = stdenv.mkDerivation
-        {
-          pname = "${pname}-deps";
-          inherit version;
-          dontUnpack = true;
-
-          buildInputs = [ coursier ];
-
-          COURSIER_CACHE = ".nix/COURSIER_CACHE";
-          buildCommand = ''
-            cs fetch ${artifact} > deps
-            mkdir -p $out/share/java
-            cp $(< deps) $out/share/java/
-          '';
-
-          outputHashMode = "recursive";
-          outputHashAlgo = "sha256";
-          outputHash = sha256;
-        };
+      deps = coursierFetch { pname = "${pname}-deps"; inherit version artifact sha256; };
 
       argsBuildInputs = buildInputs;
       extraArgs = builtins.removeAttrs args' [ "pname" "version" "artifact" "alias" "mainClass" "sha256" "buildInputs" ];
       baseArgs = {
         inherit pname version;
-        buildInputs = [ jre deps ] ++ argsBuildInputs;
+        buildInputs = [ deps jre ] ++ argsBuildInputs;
         nativeBuildInputs = [ makeWrapper ];
 
         buildCommand = ''
@@ -43,6 +45,6 @@ in
 
 {
   coursier-tools = {
-    inherit coursierBootstrap;
+    inherit coursierFetch coursierBootstrap;
   };
 }
