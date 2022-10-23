@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-nix develop --command mdoc --in mdoc --out content --classpath "$CLASSPATH" --watch
+
+CMD='mdoc --in mdoc --out content --classpath "$CLASSPATH" --watch'
+nix develop .#mdoc_outputs --command bash -c "$CMD"

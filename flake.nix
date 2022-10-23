@@ -40,6 +40,9 @@
         buildInputs = [ pkgs.zola mdoc ];
       };
 
+      # Intermediate package
+      packages.mdoc_outputs = mdoc_outputs;
+
       packages.default = pkgs.stdenv.mkDerivation {
         name = "kubukoz-blog";
         buildInputs = [ pkgs.zola ];
