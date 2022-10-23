@@ -1,14 +1,33 @@
 name: "Build"
 on:
+  pull_request:
+    branches: ['**']
   push:
-    branches: ['main']
+    branches: ['**']
+    tags: ['**']
 jobs:
-  build:
-    name: "Deploy"
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18
+      - uses: cachix/cachix-action@v11
+        with:
+          name: kubukoz
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - run: ./test.sh
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+      - uses: cachix/cachix-action@v11
+        with:
+          name: kubukoz
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: ./build.sh
       - uses: JamesIves/github-pages-deploy-action@v4
         with:

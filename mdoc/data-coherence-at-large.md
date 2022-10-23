@@ -14,7 +14,7 @@ A week ago, while coming back from [Scalar](http://scalar-conf.com), I was think
 
 <!-- more -->
 
-## [What is coherent data](#what-is-coherent-data)
+## What is coherent data
 
 The concept of coherent data was introduced to me when I watched [Daniel Spiewak's talk about coherence](https://www.youtube.com/watch?v=gVXt1RG_yN0). Data coherence is achieved when we have a single source of truth about our data. Let's look at an example:
 
@@ -48,11 +48,11 @@ if(elems.isEmpty) println(elems.head) //boom!
 
 Is this the way it's meant to be? Is it possible to make the compiler work with us to ensure some guarantees about our data?
 
-In Kotlin, another language that works on the JVM (mostly), there is a feature that solves this particular problem we had with Option: [smart casts](https://kotlinlang.org/docs/reference/typecasts.html#smart-casts). But the feature is limited to checking types or nullity, while we're looking for something that'll work in the general case.
+In Kotlin, another language that works on the JVM (mostly), there is a feature that solves this particular problem we had with Option: [smart casts](https://kotlinlang.org/docs/typecasts.html#smart-casts). But the feature is limited to checking types or nullity, while we're looking for something that'll work in the general case.
 
 Thankfully, there're features in Scala that allow us to reason about our data as coherent: pattern matching and higher-order functions.
 
-## [Data coherence with pattern matching](#data-coherence-with-pattern-matching)
+## Data coherence with pattern matching
 
 Let's rewrite the examples from the previous section using pattern matching:
 
@@ -96,7 +96,7 @@ val result = name.fold(extractError, identity)
 
 However, `fold` doesn't appear to be the right choice if we only care about part of the data (like in the list example, where we only needed the head of the list). In that particular case, a good old `headOption` would work just fine.
 
-## [Data coherence at scale](#data-coherence-at-scale)
+## Data coherence at scale
 
 This is all nice and pretty - the promise of having data that doesn't require us to watch our backs every step we take sounds encouraging. But when the data is part of other data, things start to break very soon.
 
@@ -201,7 +201,7 @@ What's the problem with the latest solution?
 
 Looks like we aren't quite there yet. What can we do to make our type easier to work with?
 
-## [A different kind of coherence](#a-different-kind-of-coherence)
+## A different kind of coherence
 
 Our original goal in the exercise was to encode validations and invariants of our data in the data's type. Let's get back to our `User` example. This time we'll encode it using higher-kinded types (but with two "variable-effect" fields):
 
@@ -269,7 +269,7 @@ I believe the second problem is not an issue anymore (see above argument about `
 
 `def foo[F[_], G[_]]: User[F, G] => A`. What can we do to make this a little more pleasant, and to avoid spreading every single type parameter to pieces of code that don't care about the contents of our parameterized fields?
 
-## [Variance and higher kinded types](#variance-and-higher-kinded-types)
+## Variance and higher kinded types
 
 Thankfully, Scala has quite powerful support for variance annotations. We can use it to our advantage: to make our type easier to work with.
 
@@ -345,7 +345,7 @@ def withPartialUser(user: User[Id, Any]): (String, String) =
   (user.lastName, "default@evilmail.com")
 ```
 
-## [Other possible use cases](#other-possible-use-cases)
+## Other possible use cases
 
 What other invariants can we encode?
 
@@ -366,7 +366,7 @@ There's a lot we can do, really:
 - `String` -> `NonEmptyString`, `regex"(a-Z)+"`, `IPv4`, `INetAddress` refined types
 - `Int` -> `PosInt` / `EvenInt` refined types, smaller primitives (`Byte`, etc.)
 
-## [Summary](#summary)
+## Summary
 
 There are a few good reasons for trying to make our data coherent, including but not limited to using the techniques mentioned in this post:
 
@@ -383,7 +383,7 @@ However, there are difficulties associated with all that:
 
 I haven't seen this approach to abstracting on data used anywhere, so I don't know what the best practice is, and whether the idea is feasible for use in real projects, but it certainly seems worth investigating.
 
-Maybe type-parameterized data would work better with lenses (e.g. from [Monocle](http://julien-truffaut.github.io/Monocle)) to make the work with copying more pleasant and less boilerplatey?
+Maybe type-parameterized data would work better with lenses (e.g. from [Monocle](https://www.optics.dev/Monocle/)) to make the work with copying more pleasant and less boilerplatey?
 
 As some of our validations involved e.g. breaking up `Option` into a tagged coproduct of `Unit` and `A` (which it is), maybe the techniques mentioned in this post could be used together with optics like Prisms (which are meant for working with coproducts) to form more powerful abstractions?
 
@@ -391,7 +391,7 @@ Maybe we could have a `Monad`/`Traverse`/whatever instance for a type like `case
 
 As you can see, more insight into the possibilities is needed to determine if the concept can be used more widely in our code.
 
-## [Parting words](#parting-words)
+## Parting words
 
 Thank you for reading.
 

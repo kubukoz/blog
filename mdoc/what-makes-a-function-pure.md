@@ -105,7 +105,7 @@ By moving from throwing exceptions, we gain in at least a few ways:
 
 and our function becomes total, because invalid inputs will give us a value (e.g. a `Left`)
 
-## [Determinism](#determinism)
+## Determinism
 
 In order for a function to be deterministic, it has to return the same value
 every time it's called with the same arguments. Because of that, something like the following is not pure:
@@ -155,7 +155,7 @@ An alternative, arguably better solution would be to suspend
 the side effect (reading from external mutable state) in an effect,
 which is what we'll discuss in [the part of this post about First-class effects](#first-class-effects).
 
-## [Purity](#purity)
+## Purity
 
 I already said that a function is pure because its only effect is computing its output.
 Does it mean that by programming with functions we aren't allowed to write to a database or to standard output?
@@ -168,7 +168,7 @@ What does it mean to have side effects, and how do we get effects (like talking 
 external systems) without side effects? We need referential transparency.
 And side effects are its exact opposite.
 
-## [Referential transparency](#referential-transparency)
+## Referential transparency
 
 A definition of referential transparency found in
 [The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)](https://www.manning.com/books/functional-programming-in-scala)
@@ -332,7 +332,7 @@ does it mean we're doomed to have side effects in meaningful Scala programs?
 
 Thankfully, it doesn't.
 
-## [First-class effects](#first-class-effects)
+## First-class effects
 
 A term often used to describe effects without side effects is "first class effects". They are effects that don't break
 referential transparency. A workaround often used to simulate support for first class effects in Scala
@@ -407,7 +407,7 @@ val prog2 = (IO(println("Foo")), IO(println("Foo"))).tupled
 Again, running `prog1` and/or `prog2` will involve printing twice in each of them. That's why
 we say IO is referentially transparent, or pure.
 
-## [A word on determinism and IO](#a-word-on-determinism-and-io)
+## A word on determinism and IO
 
 Earlier, I claimed that a function needs to return the same output for the same input. Would this be a function, then?
 
@@ -464,7 +464,7 @@ object Main extends IOApp {
 }
 ```
 
-## [Thanks for reading](#thanks-for-reading)
+## Thanks for reading
 
 I hope that you liked this not-so-short explanation of pure functions and that you'll benefit from it as much as me
 and other people who believe in functional programming. If you still have any questions,
@@ -476,10 +476,10 @@ please leave a comment ;)
 If you want to keep an eye out for the next thing I write, follow me and I'll make sure
 you don't miss anything readworthy.
 
-## [Links](#links)
+## Links
 
 To learn more about referential transparency, first-class effects and IO,
-check out [the documentation of cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html),
+check out [the documentation of cats.effect.IO](https://typelevel.org/cats-effect/docs/getting-started),
 or [Fabio Labella's comments in this Reddit thread](https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b).
 You may also want to see [Luka Jacobowitz's talk about the other benefits of RT](https://www.youtube.com/watch?v=X-cEGEJMx_4),
 [Rob Norris's introduction to Effects](https://www.youtube.com/watch?v=po3wmq4S15A)
