@@ -19,7 +19,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build
-        run: ./build.sh && cp --no-preserve=mode ./result public
+        run: ./build.sh && cp -r --no-preserve=mode ./result public
 
       - uses: JamesIves/github-pages-deploy-action@v4
         name: Deploy
