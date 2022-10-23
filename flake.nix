@@ -1,7 +1,7 @@
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  outputs = { self, nixpkgs, flake-utils, ... }: flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, flake-utils, ... }: flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" ] (system:
     let
       pkgs = import nixpkgs { inherit system; };
       inherit (pkgs.callPackage ./coursier.nix { }) coursier-tools;
@@ -53,5 +53,7 @@
 
         installPhase = "cp -r public $out";
       };
+
+      checks.default = self.packages.${system}.default;
     });
 }
