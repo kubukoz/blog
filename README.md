@@ -14,5 +14,4 @@ In another tab, you can also run this to serve the page:
 
 ## Build
 
-- `./build.sh` builds the page
-- `./test.sh` tests the flake, including the page
+- `./build.sh` builds the page.
