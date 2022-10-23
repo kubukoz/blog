@@ -7,7 +7,7 @@ path = "talks"
 cover = "/images/talks-bg.jpg"
 +++
 
-Here's a list of all the talks I've given to date, with slides and videos if available.
+Here's a list of all thes talks I've given to date, with slides and videos if available.
 
 | Title                                                                            | Year      | Links                                                                                                                    |                                                                 |                                                                 |
 | -------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- | --------------------------------------------------------------- |
