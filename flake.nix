@@ -6,32 +6,48 @@
       pkgs = import nixpkgs { inherit system; };
       inherit (pkgs.callPackage ./coursier.nix { }) coursier-tools;
 
-      mdoc = coursier-tools.coursierBootstrap {
-        pname = "mdoc";
-        version = "2.3.6";
-        artifact = "org.scalameta:mdoc_2.13";
+      mdoc = coursier-tools.make-runnable {
+        launcher = coursier-tools.coursier-fetch {
+          pname = "mdoc";
+          version = "2.3.6";
+          artifact = "org.scalameta:mdoc_2.13";
+          sha256 = "sha256-bEknmJunzR389zACjzeSSKGvl+fwW27lUKvtCGh9Y+A=";
+        };
         mainClass = "mdoc.Main";
-        sha256 = "sha256-bEknmJunzR389zACjzeSSKGvl+fwW27lUKvtCGh9Y+A=";
       };
 
-      cats = coursier-tools.coursierFetch {
+      cats = coursier-tools.coursier-fetch {
         pname = "cats";
         version = "2.8.0";
         artifact = "org.typelevel:cats-core_2.13";
         sha256 = "sha256-LEs/kHaTfQwQhs4vqCcW0n+ONJPl636amaXcwwEZgOA=";
       };
 
-    in
-    {
-      packages.default = pkgs.stdenv.mkDerivation {
-        pname = "kubukoz-blog";
-        version = "1.0.0";
-        buildInputs = [ pkgs.zola mdoc cats pkgs.jre ];
-        src = self;
+      mdoc_outputs = pkgs.stdenv.mkDerivation {
+        name = "blog-mdoc-outputs";
+        buildInputs = [ mdoc cats pkgs.jre ];
+        src = ./mdoc;
         COURSIER_CACHE = ".nix/COURSIER_CACHE";
 
         buildPhase = ''
-          mdoc --in mdoc --out content --classpath $CLASSPATH
+          mdoc --in . --classpath $CLASSPATH
+        '';
+        installPhase = "cp -r out $out";
+      };
+    in
+    {
+      devShells.default = pkgs.mkShell {
+        buildInputs = [ pkgs.zola mdoc ];
+      };
+
+      packages.default = pkgs.stdenv.mkDerivation {
+        name = "kubukoz-blog";
+        buildInputs = [ pkgs.zola ];
+        src = self;
+
+        inherit mdoc_outputs;
+        buildPhase = ''
+          cp $mdoc_outputs/* content
           zola build
         '';
 

@@ -1,7 +1,7 @@
 { stdenv, coursier, jre, makeWrapper }:
 
 let
-  coursierFetch = { pname, version, artifact, sha256 }:
+  coursier-fetch = { pname, version, artifact, sha256 }:
 
     stdenv.mkDerivation {
       inherit pname version;
@@ -21,15 +21,13 @@ let
       outputHash = sha256;
     };
 
-  coursierBootstrap = { pname, version, artifact, alias ? pname, mainClass, sha256, buildInputs ? [ ], ... }@args':
+  make-runnable = { mainClass, launcher, alias ? launcher.pname, buildInputs ? [ ], ... }@args':
     let
-      deps = coursierFetch { pname = "${pname}-deps"; inherit version artifact sha256; };
-
       argsBuildInputs = buildInputs;
-      extraArgs = builtins.removeAttrs args' [ "pname" "version" "artifact" "alias" "mainClass" "sha256" "buildInputs" ];
+      extraArgs = builtins.removeAttrs args' [ "alias" "mainClass" "buildInputs" ];
       baseArgs = {
-        inherit pname version;
-        buildInputs = [ deps jre ] ++ argsBuildInputs;
+        inherit (launcher) pname version;
+        buildInputs = [ launcher jre ] ++ argsBuildInputs;
         nativeBuildInputs = [ makeWrapper ];
 
         buildCommand = ''
@@ -45,6 +43,6 @@ in
 
 {
   coursier-tools = {
-    inherit coursierFetch coursierBootstrap;
+    inherit coursier-fetch make-runnable;
   };
 }
