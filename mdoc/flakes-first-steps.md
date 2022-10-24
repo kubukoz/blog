@@ -294,7 +294,7 @@ Pinning an input means that Nix will figure out the exact revision that it fetch
 
 At the time I'm writing this, pinning `github:nixos/nixpkgs` creates the following `flake.lock` file:
 
-```json, hl_lines=9
+```json
 {
   "nodes": {
     "nixpkgs": {

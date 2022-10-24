@@ -13,3 +13,9 @@ p, li > {
     padding: 0.2em;
   }
 }
+
+@import url("syntax-theme-dark.css") ;
+
+.z-variable, .z-entity.z-name.z-tag {
+  color: #d08770;
+}
