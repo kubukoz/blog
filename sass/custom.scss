@@ -7,3 +7,10 @@
   background-position: center;
 }
 
+p, ul {
+  code {
+    background: hsl(221, 16%, 20%);
+    color: #c0c5ce;
+    padding: 0.2em;
+  }
+}

@@ -8,40 +8,41 @@ tags = ["nix"]
 
 I keep getting questions about how to start with Nix. I believe the way to go in 2022 is to start with Flakes, so in this post I'll describe just that.
 
+If you want to learn Nix from first principles instead, I recommend [Nix Pills][pills] and [nix.dev][nixdev].
+
 <!-- more -->
 
 ## What is Nix?
 
-If you're one of the people trying to learn Nix, you probably don't need much of an introduction to the idea.
-Regardless, I'd like to have a couple sentences about Nix that'll make it more familiar to people who haven't heard about it.
+To get started with Flakes, it'd be nice if we knew what Nix was in the first place.
 
----
-
-[Nix](https://nixos.org/) is a purely functional package manager.
+[Nix][nix] is a purely functional package manager.
 It has a unique combination of features that make it an interesting tool that can be used to solve a variety of problems - one of which is building a website (which is exactly how the page you're reading was produced).
 
 ## What are flakes?
 
-Nix Flakes are a (currently) experimental feature of Nix, and they've been present in the default distributions of Nix since release 2.4.
-The "experimental" part sounds scary, but it's been a rather stable experience for years now, and it's probably a matter of (less rather than more) time until they are considered stable.
+Nix Flakes are a feature meant to enable distribution of Nix packages in a decentralized and reproducible manner. They provide a standardized and consistent approach to dependency tracking, caching and the general user experience.
 
-As an intuition, we can treat a flake as something similar to a Git repository.
-Very often, that happens to be an accurate analogy, because people tend to host their flakes on a service like [GitHub](https://github.com), but that's not a requirement - rather a special case.
+If you're familiar with Git, you can think of a flake as a Git repository.
 
-In fact, Nix supports that special case rather well, because syntax like `github:kubukoz/blog` is a valid representation of a flake input (which happens to link to this blog's repository).
-For the remaining ways to refer to a flake, check out [the documentation](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-inputs).
+Flakes can depend on each other, and those dependencies are pinned in a lockfile named `flake.lock` (currently using a JSON encoding).
 
-Flakes can depend on each other, and any dependencies are pinned in a lockfile named `flake.lock` (currently using a JSON encoding). They can also _output_ certain things, such as package definitions. The inputs (the dependencies) can be used to produce these outputs in a reproducible way.
+The main purpose of a Flake is to _output_ things like package definitions and shells. The _inputs_ (the dependencies) can be used to produce these outputs in a reproducible way.
 
-If you want to learn more, there's [documentation](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html) for the flake CLI, as well as [a wiki entry](https://nixos.wiki/wiki/Flakes) and [other](https://serokell.io/blog/practical-nix-flakes) [blog](https://xeiaso.net/blog/nix-flakes-1-2022-02-21) [posts](https://ghedam.at/a-tour-of-nix-flakes) trying to introduce you to flakes.
+If you want to learn more, there's [documentation][nix-docs] for the flake CLI, as well as [a wiki entry][wiki-flakes] and [other][serokell-flakers] [blog][xe-flakes] [posts][ghedam-flakes] trying to introduce you to flakes.
 
 For now, let's try to use the feature, and hopefully, we'll get a better understanding of it along the way.
 
 ## Enabling flakes
 
-First of all, you need Nix installed. Follow [the official installation guide](https://nixos.org/download.html) for your system.
+> **Note:**
+>
+> Flakes are a (currently) experimental feature of Nix, and they've been present in the default distribution of Nix since release 2.4.
+> The "experimental" part sounds scary, but I've had a good and consistent experience for a year now, and it's probably a matter of (less rather than more) time until they are considered stable.
 
-[The wiki](https://nixos.wiki/wiki/Flakes) lists several ways to enable flakes. I prefer this one:
+First of all, you need Nix installed. Follow [the official installation guide][download-nix] for your system.
+
+[The wiki][wiki-flakes] lists several ways to enable flakes. I prefer this one:
 
 Create the file `~/.config/nix/nix.conf` (if it doesn't exist) and add this line to it:
 
@@ -56,14 +57,22 @@ The beauty of flakes is that you can build an arbitrary flake's output without d
 Now that you have enabled Flakes, you can run this:
 
 ```bash
-nix build nixpkgs#hello
+nix build nixpkgs#cowsay
 
-./result/bin/hello
+./result/bin/cowsay boo
+ _____
+< boo >
+ -----
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
 ```
 
-and the `hello` package from Nixpkgs will be built with Nix (or, more likely, fetched from a [cache](https://cache.nixos.org)).
+and the `cowsay` package from Nixpkgs will be built with Nix (or, more likely, fetched from a [cache][nixos-cache]).
 The action will produce `./result`, a symlink to a read-only directory in the Nix store (`/nix/store`).
-`./result/bin/hello` runs the program.
+`./result/bin/cowsay` runs the program.
 
 It's time to make our own flake.
 
@@ -93,14 +102,16 @@ Let's make our flake a little more complicated.
 
 ```nix
 {
-  outputs = { self, nixpkgs }:
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+
+  outputs = { nixpkgs, ... }:
     let
       system = builtins.currentSystem;
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      devShells.${builtins.currentSystem}.default = pkgs.mkShell {
-        packages = [ pkgs.hello ];
+      devShells.${system}.default = pkgs.mkShell {
+        packages = [ pkgs.cowsay ];
       };
     };
 }
@@ -114,19 +125,18 @@ Save the file and run `nix flake check` again. It might take a little while, but
 - The command fails spectacularly:
 
   ```
-  warning: creating lock file '/Users/kubukoz/projects/flake-demos/flake.lock'
   error: attribute 'currentSystem' missing
 
-        at /nix/store/g2c7l0j12pdb6k9lij1i584khhna49d9-source/flake.nix:8:19:
+        at /nix/store/ll6cvswyh6cm59rj3zzawlm8922fcfl0-source/flake.nix:6:16:
 
-              7|     {
-              8|       devShells.${builtins.currentSystem}.default = pkgs.mkShell {
-              |                   ^
-              9|         packages = [ pkgs.hello ];
+              5|     let
+              6|       system = builtins.currentSystem;
+              |                ^
+              7|       pkgs = import nixpkgs { inherit system; };
   (use '--show-trace' to show detailed location information)
   ```
 
-There's a reason why it failed. You can get it to succeed if you add `--impure`, but as you can guess we'll try to get rid of that soon.
+There's a reason why it failed (don't worry about it yet). You can get it to succeed if you add `--impure` to the command, but as you can guess we'll try to get rid of that soon.
 
 ```bash
 nix flake check --impure
@@ -136,24 +146,25 @@ Let's talk about what we've done so far. Specifically, let's talk about syntax!
 
 ## Nix syntax 101
 
-In general, a Nix file contains a Nix expression. These are quite similar to JSON (see [manual for the Nix syntax](https://nixos.org/manual/nix/stable/language/index.html)).
-Compare the following:
+In general, a Nix file contains a Nix expression. These are quite similar to JSON (see [manual for the Nix syntax][nix-syntax-manual]).
+The following JSON:
 
 ```json
 {
   "name": "Jakub",
-  "age": -1,
+  "power_level": 9001,
   "languages": ["Polish", "English"],
   "uses_nix": true
 }
 ```
 
-This translates to the following Nix:
+translates to the following Nix:
 
 ```nix
+# by the way, this is a line comment.
 {
   name = "Jakub";
-  age = -1;
+  power_level = 9001;
   languages = ["Polish" "English"];
   uses_nix = true;
 }
@@ -161,16 +172,17 @@ This translates to the following Nix:
 
 You should note the following key differences:
 
-- entries in the object (Nix calls these _attribute sets_, or attrsets) are separated with semicolons
-- a semicolon is required after each entry, including the last
-- keys/values are separated with the equals sign
-- keys aren't wrapped in quotes
-- array elements are separated with whitespace.
+- entries in the object (Nix calls these _attribute sets_, or attrsets) are separated with **semicolons**
+- the trailing semicolon is **required**
+- keys/values are separated with the **equals sign**
+- keys aren't wrapped in **quotes**
+- array elements are **separated with whitespace**
+- **comments** are allowed.
 
 ## Nix syntax 102: functions
 
 In addition to features known from formats like JSON, Nix has functions.
-Functions in Nix are anonymous (lambdas), and they always take one argument each (multi-parameter functions are emulated either by means of currying or wrapping a ).
+Functions in Nix are anonymous (lambdas), and they always take one argument each (multi-parameter functions are emulated either by means of currying or passing an attrset).
 
 This is the general syntax for a function literal:
 
@@ -181,39 +193,435 @@ input : body
 Looks familiar? We saw a similar one in the first flake we've made:
 
 ```nix
-{
-  outputs = _ : {};
-}
+_ : {}
 ```
 
 Here, we're seeing a new piece of syntax: the underscore. That just means we ignore the input and don't give it a name.
-Here's our initial flake, annotated:
+
+For completeness, functions are applied to arguments when they're separated by whitespace:
+
+```bash
+# try this in `nix repl`!
+nix-repl> inc = x : x + 1
+
+nix-repl> inc 1
+2
+```
+
+To sum up all of the above, here's our initial flake definition, annotated:
 
 ```nix
-# By the way, this is a line comment.
-/* Nix also has multi-line comments. */
-# This object right here defines a flake. You'll see an object on the top level of every Nix flake in existence.
+# This object right here defines a flake.
+# You'll see an object on the top level of every Nix flake in existence.
 {
-  # `outputs` is a special name in Nix which lets the tools know about all the possible outputs of a flake.
-  # It is a function that returns the outputs, and it receives the flake's inputs as the argument.
+  # `outputs` is a special name in Nix
+  # which lets the tools know about all the possible outputs of a flake.
+  # It is a function that returns the outputs,
+  # and it receives the flake's inputs as the argument.
   outputs =
-    # We don't produce any outputs, so we don't need any inputs. Thus, we ignore the argument.
+    # We don't produce any outputs, so we don't need any inputs.
+    # Thus, we ignore the argument.
     _ :
-    # Returning an empty object.
+    # Returning an empty object - no flake outputs yet.
     {};
 }
 ```
 
 ## A flake as a function
 
-Just to repeat and rephrase: a flake's `outputs` attribute is a function from that flake's inputs to its outputs.
+Just to repeat and rephrase: a flake's `outputs` attribute is a function that takes the flake's inputs as an argument.
 
 In the second flake, we saw this as the definition of `outputs`:
 
 ```nix
 {
-  outputs = { self, nixpkgs } : {/* more stuff below */};
+  outputs = { nixpkgs, ... } : {/* more stuff below */};
 }
 ```
 
-<!-- todo talk about nixpkgs, self... explain second flake -->
+An attrset in the input position of a functions means that we're pattern matching on the input.
+
+What is `nixpkgs`? What are the three dots? Let's start with the dots.
+
+### Triple-dot syntax
+
+Whenever you see something like
+
+```nix
+{ key1, key2, ... } :
+```
+
+it means you're looking at a pattern match (or destructuring) of an attribute set, and attributes `key1` and `key2` are required in the function input. However, any extra attributes will be ignored - normally, if you only list specific attributes like in
+
+```nix
+{ key1, key2 } :
+```
+
+then any extra attributes provided at the call site will cause an error.
+
+### Nixpkgs
+
+[Nixpkgs][nixpkgs] is the main repository containing definitions of packages for Nix. At the time of writing, it's [the largest package repository tracked by Repology][repology-graphs].
+
+The `nixpkgs` parameter is the result of fetching the `nixpkgs` input. Remember, we defined our inputs as:
+
+```nix
+{
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  # ...
+}
+```
+
+It's syntactic sugar for the following:
+
+```nix
+{
+  inputs = {
+    nixpkgs = {
+      url = "github:nixos/nixpkgs";
+    };
+  };
+  # ...
+}
+```
+
+and it's Nix's equivalent of saying:
+
+```bash
+git clone https://github.com/nixos/nixpkgs
+```
+
+The `nixos/nixpkgs` GitHub repository will be tracked by Nix and, within our flake, aliased under the name `nixpkgs` (the name we defined for the input).
+
+The first time the input is used in a flake command, Nix will _pin_ it.
+Pinning an input means that Nix will figure out the exact revision that it fetched, and it will make sure that everybody using this flake gets the exact same one.
+
+At the time I'm writing this, pinning `github:nixos/nixpkgs` creates the following `flake.lock` file:
+
+```json, hl_lines=9
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1666564341,
+        "narHash": "sha256-WXv7Ry6F9B8OtM0K1ye1ncaPaW/4Dwn8nDxFf2UPDWY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "09217f05bf29922c7e108c3143f11e0135ae0ded",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+```
+
+We don't need to talk about all of it, but notice this part:
+
+```json
+"rev": "09217f05bf29922c7e108c3143f11e0135ae0ded",
+```
+
+That's [the commit hash][nixpkgs-reference-today] of Nixpkgs's `master` branch that was found when I referenced the flake.
+
+The lockfile makes sure that the flake's inputs are reproducible. In fact, if you copy-pasted `flake.nix` and `flake.lock` to another machine, Nix would guarantee that the same version of Nixpkgs would be used.
+
+## Flake outputs
+
+Let's look at the output we defined for our flake earlier.
+
+```nix
+# `nixpkgs` is in scope - we're in the body of the `outputs` function.
+let
+  system = builtins.currentSystem;
+  pkgs = import nixpkgs { inherit system; };
+in
+{
+  devShells.${system}.default = pkgs.mkShell {
+    packages = [ pkgs.cowsay ];
+  };
+}
+```
+
+Here, you can see `let` bindings in play: it's another feature of the Nix language.
+A let binding declares a named value that can be used in the statements that follow.
+In the snippet above, we define `system` and `pkgs` in a single binding so they can refer to each other.
+
+Let's assume we're running an ARM-based Mac machine. The `builtins.currentSystem` string would have a value of `"aarch64-darwin"`, and our flake would return a single output: `devShells.aarch64-darwin.default`.
+
+Some other popular system values you might want to use:
+
+- `aarch64-linux`, for ARM-based Linux
+- `x86_64-linux`, for Intel-based Linux
+- `x86_64-darwin`, for ARM-based macOS
+
+We can use that output by entering the development shell it defines:
+
+```bash
+nix develop --impure # we still need this flag
+
+bash-5.1$ cowsay boo
+ _____
+< boo >
+ -----
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+bash-5.1$
+```
+
+We're relying on a couple defaults here, but the `nix develop` command opened a Bash shell with the `cowsay` package already available on our `$PATH`. How did it happen?
+
+First, we're relying on a couple defaults: `nix develop` on its own is equivalent to `nix develop .`, meaning "the default shell for the flake in the working directory".
+
+On top of that, `nix develop .` is syntactic sugar for `nix develop .#default` (the hash separates the flake reference from its outputs), which is further expanded into `nix develop .#devShells.<currentSystem>.default`.
+
+Reading the "current system" is considered an impurity in Nix, and as such it's allowed in the command line, but not in our flake: the expansion of the syntax happens in the CLI (or even its compiler, as it's a native application), the evaluation of a flake happens in the Nix build system.
+
+> An "impurity" here means it's not "purely functional".
+> The purely functional paradigm only allows an expression to depend on the values of other expressions, and something like "the current system", "the current time" or "the current text of the file at path `/xyz`" would require reaching beyond the scope of our code and getting the value from the local system.
+>
+> Nix relies on purity to deliver some of its guarantees, so it encourages pure definitions for the code you write for it.
+
+## Shells and packages
+
+Back to our output - it's defined as the following:
+
+```nix
+pkgs.mkShell {
+  packages = [ pkgs.cowsay ];
+}
+```
+
+`mkShell` is a [function in Nixpkgs][mkShell] that takes an attrset as an argument. One of the attributes in it is `packages`, which can be used to list... packages (I know, right?) that will be available in the shell environment once it's loaded.
+
+`pkgs.cowsay` is a reference to one of the packages in Nixpkgs - you can search for these packages in a variety of ways, one which is [search.nixos.org](https://search.nixos.org/packages).
+
+We could get more packages into our shell by listing them in the attribute:
+
+```nix
+[ pkgs.scala-cli pkgs.openjdk11 ]
+```
+
+> As a matter of fact, these two packages showcase one of Nix's greatest features - isolation.
+> scala-cli has a runtime dependency on a Java runtime, and it requires it to be version 17 or above. "But we're also adding openjdk11, surely that'll conflict, right?"
+> Well, no - scala-cli's dependency is isolated: no other packages will see it.
+
+But wait! We didn't talk about `pkgs`, did we? Also, we still have this impurity of `builtins.currentSystem` that we should deal with, so that we don't need that `--impure` parameter in every call to Nix.
+
+## systems and pkgs
+
+`pkgs` was defined by using the `import` function (a buitlin, part of Nix's standard library):
+
+```nix
+let
+  system = builtins.currentSystem;
+  pkgs = import nixpkgs { inherit system; };
+in {}
+```
+
+A couple things to explain here: `import x` means:
+
+1. read the file at path `x`
+2. parse it as a Nix expression
+3. return that expression
+
+Additionally, we have a function call just after the import: you could've written the same thing as
+
+```nix
+let pkgs = (import nixpkgs) { inherit system; };
+```
+
+finally: `inherit system` is syntactic sugar for `system = system`. We forward the value of `system` currently in scope or, in other words, we make the attrset "inherit" the `system` value from its definition's scope.
+
+Reminder: `nixpkgs` is the input Nix fetched for our flake based on how we defined `nixpkgs` in the `inputs` section on the top-level of the flake.
+
+Flake inputs are fetched to directories on the file system, and the value of the input (the `nixpkgs` value we got as a parameter of `outputs`) is that directory's path. Given what we now know, we can tell that `pkgs` will be the result of calling some function defined in the Nix expression for Nixpkgs.
+
+Here's the thing: packages in Nix can be built differently depending on what system they're being built for. Most packages have dependencies on other, low-level packages (like the C compiler or another build tool), which are inherently platform-specific. This is why you need to specify the system that Nixpkgs should use as a default when giving you packages.
+
+So... we need a `system`. But `builtins.currentSystem` is impure, so how do we deal with that?
+
+Remember: Nix's CLI already does the `currentSystem` check. We only really used it in the flake for convenience.
+
+Assuming you only need your flake to work on one platform, you might've as well hardcoded the system like this:
+
+```nix
+let system = "aarch64-darwin"; # or whatever system you have
+```
+
+and it would've worked! Also, it would have no impurities. The day is saved... but is that it?
+
+## Supporting multiple systems
+
+With the change from above, our flake looks like this:
+
+```nix
+{
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+
+  outputs = { nixpkgs, ... }:
+    let
+      system = "aarch64-darwin";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShells.${system}.default = pkgs.mkShell {
+        packages = [ pkgs.cowsay ];
+      };
+    };
+}
+```
+
+We can list all of its outputs using the `nix flake show` command:
+
+```bash
+nix flake show
+
+path:/Users/kubukoz/projects/flake-demos?lastModified=1666577116&narHash=sha256-uq5VoRshQbQxkE0BL5Mgmb1eNguUIdtGaus1H50Oz6Y=
+└───devShells
+    └───aarch64-darwin
+        └───default: development environment 'nix-shell'
+```
+
+We've eliminated the impurity from our flake, but at the cost of only supporting one system.
+How can we add support for others?
+
+Let's recap a couple facts:
+
+1. Flake outputs are system specific
+2. `builtins.currentSystem` is not allowed in pure evaluation mode (default in Flakes)
+3. The Nix CLI (e.g. `nix develop`) knows what system it's running on
+4. we _need_ a system to make a `pkgs`
+
+In theory, there's nothing stopping us from copy-pasting a bunch of code to support more systems:
+
+```nix
+{
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+
+  outputs = { nixpkgs, ... }: {
+    devShells.aarch64-darwin.default = { /* ... */ };
+    devShells.x86_64-darwin.default = { /* ... */ };
+    devShells.aarch64-linux.default = { /* ... */ };
+    devShells.x86_64-linux.default = { /* ... */ };
+  };
+}
+```
+
+but it gets real boring real quick. It's boilerplate of the kind that we wouldn't like to maintain!
+
+Thankfully, Nix's language and standard library offer ways to generate attrsets given a list of keys.
+I won't get into the gnarly details (this is the kind of thing you learn in [Nix Pills][pills]), but the solution I like most is a higher-order function that'll take the following arguments:
+
+- a list of system names
+- a closure (function) that receives a system name and produces outputs _for that system_.
+
+The usage of that function, let's call it `eachSystem`, would look like this:
+
+```nix
+eachSystem ["aarch64-darwin" "x86_64-darwin" /* etc. */] (system :
+let pkgs = import nixpkgs { inherit system; };
+in
+{
+  devShells.default = pkgs.mkShell { packages = [ pkgs.cowsay ]; };
+})
+```
+
+By pure accident and not a completely deliberate choice of naming/syntax, this already exists!
+It's indeed named `eachSystem` and it's provided by [the `flake-utils` flake](https://github.com/numtide/flake-utils/).
+
+With flake-utils, our final flake could look like this:
+
+```nix
+{
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+
+  outputs = { nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-darwin" ] (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = [ pkgs.cowsay ];
+        };
+      });
+}
+```
+
+flake-utils provides a `lib` output that doesn't require a system - it's only using Nix's standard library to transform the list of systems and the function we pass to it.
+
+The `eachSystem` function will take the list of systems we want to support, and make sure the `default` entry in `devShells` ends up under the key specific to each system:
+
+```bash
+nix flake show
+
+path:/Users/kubukoz/projects/flake-demos?lastModified=1666579399&narHash=sha256-l3Vr9psJPPsbBzZ00XSWhlcZHGonMX3rVxO51G+G1zc=
+└───devShells
+    ├───aarch64-darwin
+    │   └───default: development environment 'nix-shell'
+    └───x86_64-darwin
+        └───default: development environment 'nix-shell'
+```
+
+You might also want to try [`eachDefaultSystem`][each-default-system], which hardcodes the list of systems to the "default" platforms [hardcoded in flake-utils][default-systems]. Also, check out [`simpleFlake`][simple-flake].
+
+## On ease of use
+
+Now, I know all of this is pretty complicated. There's still a high barrier to entry and a steep learning curve to getting started with Nix, even with Flakes being an attempt to simplify the ways of working with it.
+There are [ongoing](https://github.com/NixOS/nix/issues/3843) [discussions](https://github.com/NixOS/nix/issues/3849) around the usability of Nix and of Flakes, and we're likely to see improvements to it in the future, but so far it's as simple as it gets.
+
+While I wish it could be simplified for the beginner user, I understand it's dealing with a lot of essential complexity (since the problem Nix solves is a really complex one). It's not optimizing for the "hello world" experience - it optimizes for the build system experience at scale, when the builds and shells get more convoluted.
+I trust that its developers know how complex the average build can get, given they've been working on it for almost 20 years.
+
+There are other tools built in top of Nix that provide a more newcomer-friendly experience. One of them is [devshell](https://github.com/numtide/devshell) (which I think needs some work on making the documentation more straight-to-the-point as well). If you want to get the Nix shell powers without forcing your entire team to learn the language, that might be something just for you.
+
+## Parting words
+
+To sum up, in this article we covered:
+
+- a brief introduction to Nix and Flakes
+- defining a devShell in a flake
+- some parts of the Nix language's syntax
+- supporting multiple systems
+
+I hope that it gives you a decent enough introduction to Flakes that will allow you to start enjoying the benefits of Nix, as well as encourage you to learn the parts we didn't cover, on your own.
+
+If you have any questions that you feel I should've answered in this post, let me know in the comments below.
+Thanks for reading!
+
+[flake-docs-flake-inputs]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-inputs
+[github]: https://github.com
+[nix]: https://nixos.org/
+[nix-docs]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html
+[wiki-flakes]: https://nixos.wiki/wiki/Flakes
+[serokell-flakers]: https://serokell.io/blog/practical-nix-flakes
+[xe-flakes]: https://xeiaso.net/blog/nix-flakes-1-2022-02-21
+[ghedam-flakes]: https://ghedam.at/a-tour-of-nix-flakes
+[download-nix]: https://nixos.org/download.html
+[nixos-cache]: https://cache.nixos.org
+[nix-syntax-manual]: https://nixos.org/manual/nix/stable/language/index.html
+[nixpkgs]: https://github.com/NixOS/nixpkgs
+[repology-graphs]: https://repology.org/repositories/graphs
+[nixpkgs-reference-today]: https://github.com/NixOS/nixpkgs/tree/09217f05bf29922c7e108c3143f11e0135ae0ded
+[mkShell]: https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell
+[pills]: https://nixos.org/guides/nix-pills/
+[nixdev]: https://nix.dev/
+[default-systems]: https://github.com/numtide/flake-utils/blob/c0e246b9b83f637f4681389ecabcb2681b4f3af0/default.nix#L3-L9
+[simple-flake]: https://github.com/numtide/flake-utils/#simpleflake---attrs---attrs
+[each-default-system]: https://github.com/numtide/flake-utils/#eachdefaultsystem---system---attrs

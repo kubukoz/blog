@@ -18,10 +18,10 @@
         inherit (mdoc) mdoc_outputs;
         buildPhase = ''
           cp $mdoc_outputs/* content
-          zola build
+          zola build --output-dir $out
         '';
 
-        installPhase = "cp -r public $out";
+        dontInstall = true;
       };
 
       checks.default = self.packages.${system}.default;
