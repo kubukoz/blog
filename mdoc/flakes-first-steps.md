@@ -4,6 +4,10 @@ date = "2022-10-22"
 
 [taxonomies]
 tags = ["nix"]
+
+[extra]
+cover = "/images/snowflakes.jpg"
+disqus = true
 +++
 
 I keep getting questions about how to start with Nix. I believe the way to go in 2022 is to start with Flakes, so in this post I'll describe just that.
