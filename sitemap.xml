@@ -11,6 +11,10 @@
         <lastmod>2019-04-14</lastmod>
     </url>
     <url>
+        <loc>https://blog.kubukoz.com/flakes-first-steps/</loc>
+        <lastmod>2022-10-22</lastmod>
+    </url>
+    <url>
         <loc>https://blog.kubukoz.com/learning-vim-by-blogging/</loc>
         <lastmod>2019-04-30</lastmod>
     </url>
@@ -22,6 +26,9 @@
     </url>
     <url>
         <loc>https://blog.kubukoz.com/tags/functional-programming/</loc>
+    </url>
+    <url>
+        <loc>https://blog.kubukoz.com/tags/nix/</loc>
     </url>
     <url>
         <loc>https://blog.kubukoz.com/tags/scala/</loc>

@@ -1,1 +1,1 @@
-.cover-image{display:block;width:100%;height:65vh;background-size:cover;background-repeat:no-repeat;background-position:center}
+@import url("syntax-theme-dark.css");.cover-image{display:block;width:100%;height:65vh;background-size:cover;background-repeat:no-repeat;background-position:center}p code,li>code{background:#e1e4ea;padding:0.2em}.z-variable,.z-entity.z-name.z-tag{color:#d08770}code a{color:#c0c5ce}

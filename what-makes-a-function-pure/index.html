@@ -57,7 +57,7 @@ pure, but the impure things we sometimes call functions, aren't. They are impure
 <p>The point of this post is to answer that question in a way that'll be relatively easy
 to understand for people with basic to intermediate experience with programming and Scala.</p>
 <p>The definition for a function (and for functional programming) I use is very similar
-to the one <a href="https://twitter.com/jdegoes/status/936301872066977792">John A de Goes tweeted some time ago</a>. Functions are:</p>
+to the one <a rel="noopener" target="_blank" href="https://twitter.com/jdegoes/status/936301872066977792">John A de Goes tweeted some time ago</a>. Functions are:</p>
 <ol>
 <li>Total - they are defined for every input</li>
 <li>Deterministic - a function will always return the same value given the same input.</li>
@@ -70,11 +70,11 @@ programming with functions,without procedures.</p>
 <p>For a function to be total, we must make sure that it returns a value
 for every kind of input that the compiler allows it to take.
 That means it can't throw exceptions to the caller, like in the following example:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">validate</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">String </span><span>= {
-</span><span>  </span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">trimmed </span><span>= user.name.trim
-</span><span>  </span><span style="color:#b48ead;">if</span><span>(trimmed.isEmpty) </span><span style="color:#b48ead;">throw new </span><span style="color:#ebcb8b;">Exception</span><span>(&quot;</span><span style="color:#a3be8c;">Name is empty!</span><span>&quot;)
-</span><span>  </span><span style="color:#b48ead;">else</span><span> trimmed
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">validate</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">user</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">User</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">String</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">trimmed</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> user<span class="z-punctuation z-accessor z-scala">.</span>name<span class="z-punctuation z-accessor z-scala">.</span>trim
+  <span class="z-keyword z-control z-flow z-scala">if</span><span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>trimmed<span class="z-punctuation z-accessor z-scala">.</span>isEmpty<span class="z-punctuation z-section z-group z-end z-scala">)</span></span> <span class="z-keyword z-control z-flow z-jump z-scala">throw</span> <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Exception</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Name is empty!<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+  <span class="z-keyword z-control z-flow z-scala">else</span> trimmed
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>The above code compiles, and <code>validate(&quot;&quot;)</code> will compile too (as a method call
 with a result type of <code>String</code>), but it'll crash at runtime, unless the exception is caught.
@@ -82,33 +82,33 @@ That makes <code>validate</code> a partial function, because it doesn't have a
 defined value of its declared type (<code>String</code>) for an empty string - in fact,
 it doesn't have one for any kind of input consisting exclusively of whitespace.</p>
 <p>One functional alternative to this would be to use <code>Option</code>:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">validate</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">Option</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = user.name.trim </span><span style="color:#b48ead;">match </span><span>{
-</span><span>  </span><span style="color:#b48ead;">case </span><span>&quot;&quot; </span><span style="color:#b48ead;">=&gt; </span><span>None
-</span><span>  </span><span style="color:#b48ead;">case </span><span style="color:#bf616a;">trimmed </span><span style="color:#b48ead;">=&gt; </span><span>Some(trimmed)
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">validate</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">user</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">User</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">Option</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">String</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> user<span class="z-punctuation z-accessor z-scala">.</span>name<span class="z-punctuation z-accessor z-scala">.</span>trim <span class="z-keyword z-control z-flow z-scala">match</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-keyword z-other z-declaration z-scala">case</span><span class="z-meta z-pattern z-scala"> <span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span><span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span> </span><span class="z-storage z-type z-function z-arrow z-case z-scala">=&gt;</span><span class="z-meta z-block z-case z-first z-scala"> <span class="z-support z-constant z-scala">None</span>
+  </span><span class="z-keyword z-other z-declaration z-scala">case</span><span class="z-meta z-pattern z-scala"> <span class="z-variable z-parameter z-scala">trimmed</span> </span><span class="z-storage z-type z-function z-arrow z-case z-scala">=&gt;</span><span class="z-meta z-block z-case z-non-first z-scala"> <span class="z-support z-constant z-scala">Some</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>trimmed<span class="z-punctuation z-section z-group z-end z-scala">)</span>
+</span><span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Or, if you want more information about the origin of failure, <code>Either</code> (if you
 like typed errors, that'd probably involve creating an ADT for possible errors):</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">sealed trait</span><span style="color:#ebcb8b;"> UserError </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">Product </span><span style="color:#b48ead;">with </span><span style="color:#a3be8c;">Serializable
-</span><span style="color:#b48ead;">case object</span><span style="color:#ebcb8b;"> NameIsEmpty </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">UserError
-</span><span>
-</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">validate</span><span>(</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">Either</span><span>[</span><span style="color:#ebcb8b;">UserError</span><span>, </span><span style="color:#ebcb8b;">String</span><span>] =
-</span><span>  user.name.trim </span><span style="color:#b48ead;">match </span><span>{
-</span><span>    </span><span style="color:#b48ead;">case </span><span>&quot;&quot; </span><span style="color:#b48ead;">=&gt; </span><span>Left(NameIsEmpty)
-</span><span>    </span><span style="color:#b48ead;">case </span><span style="color:#bf616a;">trimmed </span><span style="color:#b48ead;">=&gt; </span><span>Right(trimmed)
-</span><span>  }
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-modifier z-other z-scala">sealed</span> <span class="z-meta z-class z-identifier z-scala"><span class="z-storage z-type z-class z-scala">trait</span><span class="z-entity z-name z-class z-scala"> UserError</span></span> <span class="z-keyword z-declaration z-scala">extends</span> <span class="z-entity z-other z-inherited-class z-scala">Product</span> <span class="z-keyword z-declaration z-scala">with</span> <span class="z-entity z-other z-inherited-class z-scala">Serializable</span>
+<span class="z-meta z-class z-identifier z-scala"><span class="z-storage z-type z-class z-scala">case </span><span class="z-storage z-type z-class z-scala">object</span><span class="z-entity z-name z-class z-scala"> NameIsEmpty</span></span> <span class="z-keyword z-declaration z-scala">extends</span> <span class="z-entity z-other z-inherited-class z-scala">UserError</span>
+
+<span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">validate</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">user</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">User</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">Either</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">UserError</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-class z-scala">String</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span>
+  user<span class="z-punctuation z-accessor z-scala">.</span>name<span class="z-punctuation z-accessor z-scala">.</span>trim <span class="z-keyword z-control z-flow z-scala">match</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+    <span class="z-keyword z-other z-declaration z-scala">case</span><span class="z-meta z-pattern z-scala"> <span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span><span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span> </span><span class="z-storage z-type z-function z-arrow z-case z-scala">=&gt;</span><span class="z-meta z-block z-case z-first z-scala"> <span class="z-support z-constant z-scala">Left</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">NameIsEmpty</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+    </span><span class="z-keyword z-other z-declaration z-scala">case</span><span class="z-meta z-pattern z-scala"> <span class="z-variable z-parameter z-scala">trimmed</span> </span><span class="z-storage z-type z-function z-arrow z-case z-scala">=&gt;</span><span class="z-meta z-block z-case z-non-first z-scala"> <span class="z-support z-constant z-scala">Right</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>trimmed<span class="z-punctuation z-section z-group z-end z-scala">)</span>
+  </span><span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Another solution would involve tagless style with <code>ApplicativeError</code>:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">type </span><span>UserErrors[</span><span style="color:#ebcb8b;">F</span><span>[</span><span style="color:#bf616a;">_</span><span>]] = </span><span style="color:#ebcb8b;">ApplicativeError</span><span>[</span><span style="color:#ebcb8b;">F</span><span>, </span><span style="color:#ebcb8b;">UserError</span><span>]
-</span><span>
-</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">validate</span><span>[</span><span style="color:#ebcb8b;">F</span><span>[</span><span style="color:#bf616a;">_</span><span>]: </span><span style="color:#ebcb8b;">UserErrors</span><span>](</span><span style="color:#bf616a;">user</span><span>: </span><span style="color:#ebcb8b;">User</span><span>): </span><span style="color:#ebcb8b;">F</span><span>[</span><span style="color:#ebcb8b;">String</span><span>] = {
-</span><span>  user.name.trim
-</span><span>    .some.filter(</span><span style="color:#bf616a;">_</span><span>.nonEmpty)
-</span><span>    .liftTo[</span><span style="color:#ebcb8b;">F</span><span>](NameIsEmpty: </span><span style="color:#ebcb8b;">UserError</span><span>)
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">type </span><span>E[</span><span style="color:#ebcb8b;">A</span><span>] = </span><span style="color:#ebcb8b;">Either</span><span>[</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">A</span><span>]
-</span><span>validate[</span><span style="color:#ebcb8b;">E</span><span>](User(&quot;</span><span style="color:#a3be8c;">foo</span><span>&quot;))
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-scala">type</span> <span class="z-entity z-name z-type z-scala">UserErrors</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">F</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-variable z-language z-underscore z-scala">_</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span> <span class="z-keyword z-operator z-assignment z-scala">= </span><span class="z-support z-class z-scala">ApplicativeError</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">F</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-class z-scala">UserError</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span>
+
+<span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">validate</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">F</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-variable z-language z-underscore z-scala">_</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-keyword z-operator z-bound z-scala">:</span> <span class="z-support z-class z-scala">UserErrors</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">user</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">User</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">F</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">String</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  user<span class="z-punctuation z-accessor z-scala">.</span>name<span class="z-punctuation z-accessor z-scala">.</span>trim
+    <span class="z-punctuation z-accessor z-scala">.</span>some<span class="z-punctuation z-accessor z-scala">.</span>filter<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-language z-underscore z-scala">_</span><span class="z-punctuation z-accessor z-scala">.</span>nonEmpty<span class="z-punctuation z-section z-group z-end z-scala">)</span>
+    <span class="z-punctuation z-accessor z-scala">.</span>liftTo<span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">F</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">NameIsEmpty</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">UserError</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
+
+<span class="z-storage z-type z-scala">type</span> <span class="z-entity z-name z-type z-scala">E</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">A</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span> <span class="z-keyword z-operator z-assignment z-scala">= </span><span class="z-support z-class z-scala">Either</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">String</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-class z-scala">A</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span>
+validate<span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">E</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">User</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
 </span></code></pre>
 <p>By moving from throwing exceptions, we gain in at least a few ways:</p>
 <ul>
@@ -120,9 +120,9 @@ like typed errors, that'd probably involve creating an ADT for possible errors):
 <h2 id="determinism"><a class="zola-anchor" href="#determinism" aria-label="Anchor link for: determinism">Determinism</a></h2>
 <p>In order for a function to be deterministic, it has to return the same value
 every time it's called with the same arguments. Because of that, something like the following is not pure:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">foo</span><span>(): </span><span style="color:#b48ead;">Int </span><span>= {
-</span><span>  Random.nextInt()
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-storage z-type z-primitive z-scala">Int</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-support z-constant z-scala">Random</span><span class="z-punctuation z-accessor z-scala">.</span>nextInt<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>The type of <code>foo</code> is <code>() =&gt; Int</code>, or <code>Unit =&gt; Int</code>, so we can basically say that
 it has one possible input (the value <code>()</code> of type <code>Unit</code>, in this case represented
@@ -130,21 +130,21 @@ by &quot;no arguments passed&quot;). This would mean that every call to this fun
 return the same value, but it's quite the opposite - it'll usually return completely different values.</p>
 <p>A simple way to ensure determinism of the above would be to allow passing
 a seed to the randomizer, instead of using a global Random instance:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">foo</span><span>(</span><span style="color:#bf616a;">seed</span><span>: </span><span style="color:#b48ead;">Int</span><span>): </span><span style="color:#b48ead;">Int </span><span>= {
-</span><span>  </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">Random</span><span>(seed).nextInt()
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">seed</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-storage z-type z-primitive z-scala">Int</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-storage z-type z-primitive z-scala">Int</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Random</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>seed<span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-accessor z-scala">.</span>nextInt<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Now, calling <code>foo</code> with the same input will yield the same outputs.</p>
 <p>Another example of a nondeterministic function can be a simple call to a database:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#65737e;">//let&#39;s pretend I&#39;m using Slick
-</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">findAllUsers</span><span>(): </span><span style="color:#ebcb8b;">List</span><span>[</span><span style="color:#ebcb8b;">User</span><span>] = {
-</span><span>  </span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">f </span><span>= db.run {
-</span><span>    TableQuery[</span><span style="color:#ebcb8b;">Users</span><span>].to[</span><span style="color:#ebcb8b;">List</span><span>].result
-</span><span>  }
-</span><span>
-</span><span>  </span><span style="color:#65737e;">//please don&#39;t do this in real code
-</span><span>  Await.result(f, </span><span style="color:#d08770;">5</span><span>.seconds)
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-comment z-line z-double-slash z-scala"><span class="z-punctuation z-definition z-comment z-scala">//</span>let&#39;s pretend I&#39;m using Slick</span>
+<span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">findAllUsers</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">List</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">User</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">f</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> db<span class="z-punctuation z-accessor z-scala">.</span>run <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+    <span class="z-support z-constant z-scala">TableQuery</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">Users</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-accessor z-scala">.</span>to<span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">List</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-accessor z-scala">.</span>result
+  <span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
+
+  <span class="z-comment z-line z-double-slash z-scala"><span class="z-punctuation z-definition z-comment z-scala">//</span>please don&#39;t do this in real code</span>
+  <span class="z-support z-constant z-scala">Await</span><span class="z-punctuation z-accessor z-scala">.</span>result<span class="z-punctuation z-section z-group z-begin z-scala">(</span>f<span class="z-punctuation z-separator z-scala">,</span> <span class="z-constant z-numeric z-integer z-decimal z-scala">5</span><span class="z-punctuation z-accessor z-scala">.</span>seconds<span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>The <code>Await</code> call was added only to make sure that we have a result immediately when the function completes.</p>
 <p>If we change the state of the database between a few calls to this function,
@@ -164,7 +164,7 @@ external systems) without side effects? We need referential transparency.
 And side effects are its exact opposite.</p>
 <h2 id="referential-transparency"><a class="zola-anchor" href="#referential-transparency" aria-label="Anchor link for: referential-transparency">Referential transparency</a></h2>
 <p>A definition of referential transparency found in
-<a href="https://www.manning.com/books/functional-programming-in-scala">The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)</a>
+<a rel="noopener" target="_blank" href="https://www.manning.com/books/functional-programming-in-scala">The red book (Functional Programming in Scala by Runar Bjarnason and Paul Chiusano)</a>
 says:</p>
 <blockquote>
 <p>An expression e is referentially transparent if, for all programs p,
@@ -174,21 +174,21 @@ A function f is pure if the expression f(x) is referentially transparent
 for all referentially transparent x.</p>
 </blockquote>
 <p>Let me follow up with an example:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">a </span><span>= </span><span style="color:#d08770;">2</span><span> + </span><span style="color:#d08770;">1
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">e </span><span>= a + </span><span style="color:#d08770;">1
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">p </span><span>= e + e
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">a</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-constant z-numeric z-integer z-decimal z-scala">2</span> + <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">e</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> a + <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">p</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> e + e
 </span></code></pre>
 <p>Our <code>e</code> is <code>a + 1</code>. Our program <code>p</code> has two appearances of <code>e</code>.</p>
 <p>In its current shape, the value of <code>p</code> can be computed by calculating <code>a</code>, <code>e</code> and <code>p</code> in that order:</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>a = 2 + 1 = 3
-</span><span>e = a + 1 = 3 + 1 = 4
-</span><span>
-</span><span>p = e + e = 4 + 4 = 8
+<pre class="z-code"><code><span class="z-text z-plain">a = 2 + 1 = 3
+e = a + 1 = 3 + 1 = 4
+
+p = e + e = 4 + 4 = 8
 </span></code></pre>
 <p>If we can apply the replacement of <code>e</code> in the original program with
 the result of evaluating <code>e</code> (<code>a + 1</code>), then <code>e</code> is referentially transparent. Let's do that:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">a </span><span>= </span><span style="color:#d08770;">2</span><span> + </span><span style="color:#d08770;">1
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">p </span><span>= (a + </span><span style="color:#d08770;">1</span><span>) + (a + </span><span style="color:#d08770;">1</span><span>)
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">a</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-constant z-numeric z-integer z-decimal z-scala">2</span> + <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">p</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>a + <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span> + <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>a + <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
 </span></code></pre>
 <p>What's the value of <code>p</code> now?</p>
 <p><code>p = ((2 + 1) + 1) + (2 + 1) + 1) = (3 + 1) + (3 + 1) = 4 + 4 = 8</code></p>
@@ -197,18 +197,18 @@ the program <code>p</code> didn't change either, as its only effect was computin
 <p>This is very much like math from school - you didn't see
 anything impure in your textbooks, all your expressions were pure,
 and you could apply substitution in a similar way:</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>f(x) = x + 1
-</span><span>
-</span><span>g(x) = f(x + 1) + f(x)
-</span><span>g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
+<pre class="z-code"><code><span class="z-text z-plain">f(x) = x + 1
+
+g(x) = f(x + 1) + f(x)
+g(x) = ((x + 1) + 1) + (x + 1) = 2x + 3
 </span></code></pre>
 <p>So far, no side effects. Let's introduce some:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= {
-</span><span>  println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;)
-</span><span>  </span><span style="color:#d08770;">1
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">p </span><span>= x + x
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+  <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">p</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> x + x
 </span></code></pre>
 <p>If we ran the above lines in a REPL session, or as part of a larger program, the effects would be:</p>
 <ul>
@@ -216,13 +216,13 @@ and you could apply substitution in a similar way:</p>
 <li>the line <code>Foo</code> is printed to console output once.</li>
 </ul>
 <p>What would happen if we inlined <code>x</code> into the places where it's used?</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">p </span><span>= {
-</span><span>  println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;)
-</span><span>  </span><span style="color:#d08770;">1
-</span><span>} + {
-</span><span>  println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;)
-</span><span>  </span><span style="color:#d08770;">1
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">p</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+  <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span> + <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+  <span class="z-constant z-numeric z-integer z-decimal z-scala">1</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Now, if we ran the above lines, the result would be vastly different from the previous one, perhaps unsurprisingly:</p>
 <ul>
@@ -241,39 +241,39 @@ In many cases, it would become a bug.</p>
 <p>There are other ways to break referential transparency.
 If the value of <code>x</code> depended on external conditions (like if it was getting its value from console input),
 the correctness of the program after inlining could break in many more ways:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= StdIn.readLine()
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= (x, x)
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= (StdIn.readLine(), StdIn.readLine())
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">b </span><span>= prog1 == prog2
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>x<span class="z-punctuation z-separator z-scala">,</span> x<span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">b</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> prog1 <span class="z-keyword z-operator z-comparison z-scala">==</span> prog2
 </span></code></pre>
 <p>In the above code, the tuple contained by <code>prog1</code> will always have
 the same value in both fields. In fact, if we only ran the code up to the definition of <code>prog1</code>:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= StdIn.readLine()
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= (x, x)
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>x<span class="z-punctuation z-separator z-scala">,</span> x<span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
 </span></code></pre>
 <p>We would be asked to enter console input once, and the value we typed
 would be stored in <code>x</code> for as long as <code>x</code>'s lifetime lasts. Because of that, it'd appear twice in <code>prog1</code>.</p>
 <p>However, if we only ran the line where <code>prog2</code> is defined:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= (StdIn.readLine(), StdIn.readLine())
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-constant z-scala">StdIn</span><span class="z-punctuation z-accessor z-scala">.</span>readLine<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
 </span></code></pre>
 <p>We would be asked for input <strong>twice</strong>, and assuming there are <code>n</code> possible strings
 we could input, the chance that both values in <code>prog2</code> would be the same
 would be equal to only <code>1/n</code> (as opposed to <code>100%</code> in <code>prog1</code>). And the only difference
 between <code>prog1</code> and <code>prog2</code> was the inlining of <code>x = StdIn.readLine()</code>.</p>
 <p>There are many other ways to break referential transparency in Scala, for example throwing exceptions:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= Try(</span><span style="color:#b48ead;">throw new </span><span style="color:#ebcb8b;">Exception</span><span>)
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= </span><span style="color:#b48ead;">throw new </span><span style="color:#ebcb8b;">Exception
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= Try(x)
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">Try</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-keyword z-control z-flow z-jump z-scala">throw</span> <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Exception</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-keyword z-control z-flow z-jump z-scala">throw</span> <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Exception</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">Try</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>x<span class="z-punctuation z-section z-group z-end z-scala">)</span>
 </span></code></pre>
 <p>or executing any kind of impure logic inside <code>scala.concurrent.Future</code>:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= Future { println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;) }
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= (x zip x)
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= (Future { println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;) } zip Future { println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;) })
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">Future</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span> println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>x zip x<span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">Future</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span> println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-punctuation z-section z-block z-end z-scala">}</span></span> zip <span class="z-support z-constant z-scala">Future</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span> println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-punctuation z-section z-block z-end z-scala">}</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span>
 </span></code></pre>
 <p><code>Future</code> behaves just like a raw, uncut side effect: its value is cached, so regardless of how many times you use
 an already created <code>Future</code>, it'll only run once and it'll always contain the same value upon completion or failure.
@@ -285,20 +285,20 @@ does it mean we're doomed to have side effects in meaningful Scala programs?</p>
 <p>A term often used to describe effects without side effects is &quot;first class effects&quot;. They are effects that don't break
 referential transparency. A workaround often used to simulate support for first class effects in Scala
 involves by-name parameters:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#65737e;">//artificial type
-</span><span style="color:#b48ead;">final class</span><span style="color:#ebcb8b;"> Effectful</span><span>[</span><span style="color:#ebcb8b;">T</span><span>] </span><span style="color:#b48ead;">private</span><span>(</span><span style="color:#bf616a;">run</span><span>: () =&gt; </span><span style="color:#ebcb8b;">T</span><span>) </span><span style="color:#eff1f5;">{
-</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">zip</span><span style="color:#eff1f5;">[</span><span style="color:#ebcb8b;">U</span><span style="color:#eff1f5;">](</span><span style="color:#bf616a;">b</span><span style="color:#eff1f5;">: </span><span style="color:#ebcb8b;">Effectful</span><span style="color:#eff1f5;">[</span><span style="color:#ebcb8b;">U</span><span style="color:#eff1f5;">]): </span><span style="color:#ebcb8b;">Effectful</span><span style="color:#eff1f5;">[(</span><span style="color:#ebcb8b;">T</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">U</span><span style="color:#eff1f5;">)] </span><span>=
-</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">Effectful</span><span style="color:#eff1f5;">(() </span><span style="color:#b48ead;">=&gt; </span><span style="color:#eff1f5;">(run(), b.run()))
-</span><span style="color:#eff1f5;">}
-</span><span>
-</span><span style="color:#65737e;">//function with by-name parameter
-</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">effect</span><span>[</span><span style="color:#ebcb8b;">T</span><span>](</span><span style="color:#bf616a;">f</span><span>: =&gt; </span><span style="color:#ebcb8b;">T</span><span>): </span><span style="color:#ebcb8b;">Effectful</span><span>[</span><span style="color:#ebcb8b;">T</span><span>] = </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">Effectful</span><span>(() </span><span style="color:#b48ead;">=&gt;</span><span> f)
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= effect(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;))
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= x zip x
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= effect(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;)) zip effect(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;))
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-comment z-line z-double-slash z-scala"><span class="z-punctuation z-definition z-comment z-scala">//</span>artificial type</span>
+<span class="z-storage z-modifier z-other z-scala">final</span> <span class="z-meta z-class z-identifier z-scala"><span class="z-storage z-type z-class z-scala">class</span><span class="z-entity z-name z-class z-scala"> Effectful</span></span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">T</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span> <span class="z-storage z-modifier z-access z-scala">private</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">run</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-punctuation z-definition z-group z-begin z-scala">(</span><span class="z-punctuation z-definition z-group z-end z-scala">)</span> <span class="z-keyword z-operator z-arrow z-scala">=&gt;</span> <span class="z-support z-class z-scala">T</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-meta z-class z-body z-scala"><span class="z-punctuation z-section z-braces z-begin z-scala">{</span>
+  <span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">zip</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">U</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">b</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">Effectful</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">U</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">Effectful</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-punctuation z-definition z-group z-begin z-scala">(</span><span class="z-support z-class z-scala">T</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-class z-scala">U</span><span class="z-punctuation z-definition z-group z-end z-scala">)</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span>
+    <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Effectful</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-storage z-type z-function z-arrow z-lambda z-scala">=&gt;</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>run<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-separator z-scala">,</span> b<span class="z-punctuation z-accessor z-scala">.</span>run<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-braces z-end z-scala">}</span></span>
+
+<span class="z-comment z-line z-double-slash z-scala"><span class="z-punctuation z-definition z-comment z-scala">//</span>function with by-name parameter</span>
+<span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">effect</span><span class="z-meta z-generic z-scala"><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">T</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span></span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">f</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-keyword z-operator z-arrow z-scala">=&gt;</span> <span class="z-support z-class z-scala">T</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">Effectful</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">T</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-keyword z-other z-scala">new</span> <span class="z-support z-class z-scala">Effectful</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-storage z-type z-function z-arrow z-lambda z-scala">=&gt;</span> f<span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> effect<span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> x zip x
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> effect<span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> zip effect<span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
 </span></code></pre>
 <p>In this example, we created a new, &quot;artificial&quot; type <code>Effectful[T]</code> (it's probably not a good idea to try
 and come up with a type like this on your own). It describes a computation that will complete with a value of type <code>T</code>.
@@ -326,62 +326,62 @@ listening for messages from Kafka). The main difference between these types and 
 a handle to an already running computation.</p>
 <p>For the next part of the post, I'll use cats-effect's <code>IO</code>.</p>
 <p>Let's recreate the printing example that we were able to make referentially transparent with <code>Effectful</code>:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">import</span><span> cats.syntax.apply.</span><span style="color:#bf616a;">_
-</span><span style="color:#b48ead;">import</span><span> cats.effect.IO
-</span><span>
-</span><span style="color:#65737e;">/*
-</span><span style="color:#65737e;"> * expands to `IO.apply(println(...))`,
-</span><span style="color:#65737e;"> * defined as `def apply[T](f: =&gt; T): IO[T]`
-</span><span style="color:#65737e;"> * `IO.apply` is equivalent to `IO.delay`
-</span><span style="color:#65737e;"> */
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">x </span><span>= IO(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;))
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog1 </span><span>= (x, x).tupled
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">prog2 </span><span>= (IO(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;)), IO(println(&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;))).tupled
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-meta z-import z-scala"><span class="z-keyword z-other z-import z-scala">import</span> cats<span class="z-punctuation z-accessor z-dot z-scala">.</span>syntax<span class="z-punctuation z-accessor z-dot z-scala">.</span>apply<span class="z-punctuation z-accessor z-dot z-scala">.</span><span class="z-variable z-language z-underscore z-scala">_</span></span>
+<span class="z-meta z-import z-scala"><span class="z-keyword z-other z-import z-scala">import</span> cats<span class="z-punctuation z-accessor z-dot z-scala">.</span>effect<span class="z-punctuation z-accessor z-dot z-scala">.</span>IO</span>
+
+<span class="z-comment z-block z-scala">/*
+ * expands to `IO.apply(println(...))`,
+ * defined as `def apply[T](f: =&gt; T): IO[T]`
+ * `IO.apply` is equivalent to `IO.delay`
+ */</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">x</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">IO</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog1</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span>x<span class="z-punctuation z-separator z-scala">,</span> x<span class="z-punctuation z-section z-group z-end z-scala">)</span></span><span class="z-punctuation z-accessor z-scala">.</span>tupled
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">prog2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-group z-scala"><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">IO</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-separator z-scala">,</span> <span class="z-support z-constant z-scala">IO</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span></span><span class="z-punctuation z-accessor z-scala">.</span>tupled
 </span></code></pre>
 <p>Again, running <code>prog1</code> and/or <code>prog2</code> will involve printing twice in each of them. That's why
 we say IO is referentially transparent, or pure.</p>
 <h2 id="a-word-on-determinism-and-io"><a class="zola-anchor" href="#a-word-on-determinism-and-io" aria-label="Anchor link for: a-word-on-determinism-and-io">A word on determinism and IO</a></h2>
 <p>Earlier, I claimed that a function needs to return the same output for the same input. Would this be a function, then?</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">foo</span><span>: </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = IO {
-</span><span>  Random.nextInt()
-</span><span>}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-storage z-type z-primitive z-scala">Int</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">IO</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+  <span class="z-support z-constant z-scala">Random</span><span class="z-punctuation z-accessor z-scala">.</span>nextInt<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Some people would argue that it's not - because it's not deterministic. They argue that calling <code>foo</code> multiple times
 will give you different results. But that's not true - just calling <code>foo</code> always gives you
 the same action - nothing happens until you evaluate the IO. In fact, the whole function could be a constant:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">val </span><span style="color:#bf616a;">foo</span><span>: </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Int</span><span>] = IO { Random.nextInt() }
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">foo</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-storage z-type z-primitive z-scala">Int</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">IO</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span> <span class="z-support z-constant z-scala">Random</span><span class="z-punctuation z-accessor z-scala">.</span>nextInt<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> <span class="z-punctuation z-section z-block z-end z-scala">}</span></span>
 </span></code></pre>
 <p>And as a constant it must be deterministic. The fact that evaluating it multiple times will give us different
 results doesn't matter. One of the points of functions being deterministic is to allow storing them as values,
 and reusing them. Take a look:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">foo</span><span>(</span><span style="color:#bf616a;">i</span><span>: </span><span style="color:#b48ead;">Int</span><span>): </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Unit</span><span>]
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">program </span><span>= foo(</span><span style="color:#d08770;">5</span><span>) *&gt; bar &lt;* foo(</span><span style="color:#d08770;">5</span><span>)
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">program2 </span><span>= baz &lt;* foo(</span><span style="color:#d08770;">5</span><span>)
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">i</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-storage z-type z-primitive z-scala">Int</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-storage z-type z-primitive z-scala">Unit</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span>
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">program</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> foo<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-constant z-numeric z-integer z-decimal z-scala">5</span><span class="z-punctuation z-section z-group z-end z-scala">)</span> *&gt; bar &lt;* foo<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-constant z-numeric z-integer z-decimal z-scala">5</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">program2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> baz &lt;* foo<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-constant z-numeric z-integer z-decimal z-scala">5</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
 </span></code></pre>
 <p>Because all the calls to <code>foo</code> are the same, we can store the result of such a call and reuse it, while maintaining
 the original behavior:</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">foo</span><span>(</span><span style="color:#bf616a;">i</span><span>: </span><span style="color:#b48ead;">Int</span><span>): </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Unit</span><span>]
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">foo5</span><span>: </span><span style="color:#ebcb8b;">IO</span><span>[</span><span style="color:#b48ead;">Unit</span><span>] = foo(</span><span style="color:#d08770;">5</span><span>)
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">program </span><span>= foo5 *&gt; bar &lt;* foo5
-</span><span>
-</span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">program2 </span><span>= baz &lt;* foo5
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">i</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-storage z-type z-primitive z-scala">Int</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-storage z-type z-primitive z-scala">Unit</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">foo5</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-storage z-type z-primitive z-scala">Unit</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> foo<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-constant z-numeric z-integer z-decimal z-scala">5</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">program</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> foo5 *&gt; bar &lt;* foo5
+
+<span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">program2</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> baz &lt;* foo5
 </span></code></pre>
 <p>&quot;How do we evaluate an IO?&quot;, you may ask. I'll respond, &quot;with <code>IOApp</code>&quot; (for example):</p>
-<pre data-lang="scala" style="background-color:#2b303b;color:#c0c5ce;" class="language-scala "><code class="language-scala" data-lang="scala"><span style="color:#b48ead;">import</span><span> cats.effect.</span><span style="color:#bf616a;">_
-</span><span style="color:#b48ead;">import</span><span> cats.implicits.</span><span style="color:#bf616a;">_
-</span><span>
-</span><span style="color:#b48ead;">object</span><span style="color:#ebcb8b;"> Main </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">IOApp </span><span style="color:#eff1f5;">{
-</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">run</span><span style="color:#eff1f5;">(</span><span style="color:#bf616a;">args</span><span style="color:#eff1f5;">: </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">[</span><span style="color:#ebcb8b;">String</span><span style="color:#eff1f5;">]): </span><span style="color:#ebcb8b;">IO</span><span style="color:#eff1f5;">[</span><span style="color:#ebcb8b;">ExitCode</span><span style="color:#eff1f5;">] </span><span>= </span><span style="color:#eff1f5;">{
-</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">val </span><span style="color:#bf616a;">foo </span><span>= </span><span style="color:#eff1f5;">IO(println(</span><span>&quot;</span><span style="color:#a3be8c;">Foo</span><span>&quot;</span><span style="color:#eff1f5;">))
-</span><span style="color:#eff1f5;">
-</span><span style="color:#eff1f5;">    foo *&gt; foo *&gt; foo
-</span><span style="color:#eff1f5;">  }.as(ExitCode.Success)
-</span><span style="color:#eff1f5;">}
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-meta z-import z-scala"><span class="z-keyword z-other z-import z-scala">import</span> cats<span class="z-punctuation z-accessor z-dot z-scala">.</span>effect<span class="z-punctuation z-accessor z-dot z-scala">.</span><span class="z-variable z-language z-underscore z-scala">_</span></span>
+<span class="z-meta z-import z-scala"><span class="z-keyword z-other z-import z-scala">import</span> cats<span class="z-punctuation z-accessor z-dot z-scala">.</span>implicits<span class="z-punctuation z-accessor z-dot z-scala">.</span><span class="z-variable z-language z-underscore z-scala">_</span></span>
+
+<span class="z-meta z-class z-identifier z-scala"><span class="z-storage z-type z-class z-scala">object</span><span class="z-entity z-name z-class z-scala"> Main</span></span> <span class="z-keyword z-declaration z-scala">extends</span> <span class="z-entity z-other z-inherited-class z-scala">IOApp</span> <span class="z-meta z-class z-body z-scala"><span class="z-punctuation z-section z-braces z-begin z-scala">{</span>
+  <span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">run</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-variable z-parameter z-scala">args</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">List</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">String</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-ascription z-scala">:</span> <span class="z-support z-class z-scala">IO</span><span class="z-punctuation z-definition z-generic z-begin z-scala">[</span><span class="z-support z-class z-scala">ExitCode</span><span class="z-punctuation z-definition z-generic z-end z-scala">]</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-meta z-block z-scala"><span class="z-punctuation z-section z-block z-begin z-scala">{</span>
+    <span class="z-storage z-type z-stable z-scala">val</span> <span class="z-variable z-other z-constant z-scala">foo</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> <span class="z-support z-constant z-scala">IO</span><span class="z-punctuation z-section z-group z-begin z-scala">(</span>println<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-string z-quoted z-double z-scala"><span class="z-punctuation z-definition z-string z-begin z-scala">&quot;</span>Foo<span class="z-punctuation z-definition z-string z-end z-scala">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-scala">)</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+
+    foo *&gt; foo *&gt; foo
+  <span class="z-punctuation z-section z-block z-end z-scala">}</span></span><span class="z-punctuation z-accessor z-scala">.</span>as<span class="z-punctuation z-section z-group z-begin z-scala">(</span><span class="z-support z-constant z-scala">ExitCode</span><span class="z-punctuation z-accessor z-scala">.</span><span class="z-support z-constant z-scala">Success</span><span class="z-punctuation z-section z-group z-end z-scala">)</span>
+<span class="z-punctuation z-section z-braces z-end z-scala">}</span></span>
 </span></code></pre>
 <h2 id="thanks-for-reading"><a class="zola-anchor" href="#thanks-for-reading" aria-label="Anchor link for: thanks-for-reading">Thanks for reading</a></h2>
 <p>I hope that you liked this not-so-short explanation of pure functions and that you'll benefit from it as much as me
@@ -393,18 +393,18 @@ please leave a comment ;)</p>
 you don't miss anything readworthy.</p>
 <h2 id="links"><a class="zola-anchor" href="#links" aria-label="Anchor link for: links">Links</a></h2>
 <p>To learn more about referential transparency, first-class effects and IO,
-check out <a href="https://typelevel.org/cats-effect/docs/getting-started">the documentation of cats.effect.IO</a>,
-or <a href="https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b">Fabio Labella's comments in this Reddit thread</a>.
-You may also want to see <a href="https://www.youtube.com/watch?v=X-cEGEJMx_4">Luka Jacobowitz's talk about the other benefits of RT</a>,
-<a href="https://www.youtube.com/watch?v=po3wmq4S15A">Rob Norris's introduction to Effects</a>
-and <a href="https://vimeo.com/294736344">Fabio's talk about shared mutable state in pure FP</a>.</p>
+check out <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/getting-started">the documentation of cats.effect.IO</a>,
+or <a rel="noopener" target="_blank" href="https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/e2jfp9b">Fabio Labella's comments in this Reddit thread</a>.
+You may also want to see <a rel="noopener" target="_blank" href="https://www.youtube.com/watch?v=X-cEGEJMx_4">Luka Jacobowitz's talk about the other benefits of RT</a>,
+<a rel="noopener" target="_blank" href="https://www.youtube.com/watch?v=po3wmq4S15A">Rob Norris's introduction to Effects</a>
+and <a rel="noopener" target="_blank" href="https://vimeo.com/294736344">Fabio's talk about shared mutable state in pure FP</a>.</p>
 <p>If you don't mind seeing a bunch of slides without an audible explanation,
-you can also check out <a href="https://kubukoz.github.io/talks/incremental-purity/slides">the slides for my latest talk</a>,
+you can also check out <a rel="noopener" target="_blank" href="https://kubukoz.github.io/talks/incremental-purity/slides">the slides for my latest talk</a>,
 but sooner or later I'm planning to have it recorded and the video published.</p>
-<p>For examples with ZIO, see <a href="https://scalaz.github.io/scalaz-zio/usage/purity.html">ZIO's page on purity</a>.</p>
-<p>I also recommend following <a href="https://typelevel.org/blog/">the Typelevel blog</a> and
-chatting to folks who love FP on <a href="https://gitter.im/typelevel/cats">the cats gitter</a> and
-<a href="https://gitter.im/typelevel/cats-effect">other</a> related <a href="https://gitter.im/typelevel/general">rooms</a>.</p>
+<p>For examples with ZIO, see <a rel="noopener" target="_blank" href="https://scalaz.github.io/scalaz-zio/usage/purity.html">ZIO's page on purity</a>.</p>
+<p>I also recommend following <a rel="noopener" target="_blank" href="https://typelevel.org/blog/">the Typelevel blog</a> and
+chatting to folks who love FP on <a rel="noopener" target="_blank" href="https://gitter.im/typelevel/cats">the cats gitter</a> and
+<a rel="noopener" target="_blank" href="https://gitter.im/typelevel/cats-effect">other</a> related <a rel="noopener" target="_blank" href="https://gitter.im/typelevel/general">rooms</a>.</p>
 
     </div>
 
