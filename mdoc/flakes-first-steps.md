@@ -16,26 +16,73 @@ If you want to learn Nix from first principles instead, I recommend [Nix Pills][
 
 <!-- more -->
 
+## Teaser: what's in it for me?
+
+Imagine you wanted to try out a program someone recommended to you, but you didn't want to install it before getting an impression.
+Or maybe you want to ensure your team's project is always built with the same version of your build tools, regardless of what versions your team members might have installed on their machines.
+Maybe you already _have_ a version of Node that's too new for a project, and you'd like to downgrade in the scope of that project (while keeping the latest version installed).
+
+Nix's shells allow you to do all of these. A shell creates a temporary environment in which the selected programs are available.
+
+For example, without writing any Nix files I can open a shell with the `scala-cli` package:
+
+```bash
+$ nix shell nixpkgs#scala-cli
+
+$ scala-cli version
+Scala CLI version: 0.1.16
+Scala version (default): 3.2.0
+```
+
+Now get this: that command didn't actually _install_ anything. When I leave the shell (with `exit` or `ctrl+d`), `scala-cli` is no longer usable, and it doesn't pollute my user environment.
+
+To avoid repetition, share our shells with the team, and make them reproducible, we can define them in files. In that case, we would call `nix develop` inside the project's directory to open the shell it provides:
+
+```bash
+$ ls # making sure we're in a directory containing a flake
+flake.lock      flake.nix
+
+$ nix develop # loads the environment
+
+$ node --version
+v16.17.1
+
+$ exit # restores the parent process's environment
+
+$ node --version # doesn't work anymore
+zsh: command not found: node
+```
+
+Shells are just one usecase of Nix, but I find that they're the one that brings the most value with minimal learning effort.
+Read on, and you will learn:
+
+- how to make isolated, reproducible and shareable shells with Nix Flakes
+- where to find packages for those shells
+- some bits of Nix syntax and semantics
+
+and more. Let's get to it!
+
 ## What is Nix?
 
 To get started with Flakes, it'd be nice if we knew what Nix was in the first place.
 
 [Nix][nix] is a purely functional package manager.
-It has a unique combination of features that make it an interesting tool that can be used to solve a variety of problems - one of which is building a website (which is exactly how the page you're reading was produced).
+It has a unique combination of features that make it an interesting tool that can be used to solve a variety of problems - one of which is packaging a website (which is exactly how the page you're reading was generated and packaged).
 
 ## What are flakes?
 
-Nix Flakes are a feature meant to enable distribution of Nix packages in a decentralized and reproducible manner. They provide a standardized and consistent approach to dependency tracking, caching and the general user experience.
+Flakes are a feature of Nix meant to enable distribution of Nix packages in a decentralized and reproducible manner.
+They provide a standardized and consistent approach to dependency management, caching and the general user experience.
 
-If you're familiar with Git, you can think of a flake as a Git repository.
+The **main purpose** of a Flake is to provide _outputs_: things like package definitions and shells.
 
-Flakes can depend on each other, and those dependencies are pinned in a lockfile named `flake.lock` (currently using JSON syntax).
+Flakes can also depend on each other to produce these outputs. Flake dependencies are generally called _inputs_.
 
-The main purpose of a Flake is to provide _outputs_: things like package definitions and shells. The _inputs_ (dependencies) can be used to produce these outputs in a reproducible way.
-
-If you want to learn more about Flakes, there's [documentation][nix-docs] for the flake CLI, as well as [a wiki entry][wiki-flakes] and [other][xe-flakes] blog [posts][ghedam-flakes] trying to [introduce][serokell-flakes] you to flakes.
+If you want to get a more in-depth understanding of Flakes, there's [documentation for the flake CLI][nix-docs], as well as [a wiki entry][wiki-flakes] and [other][xe-flakes] blog [posts][ghedam-flakes] trying to [introduce][serokell-flakes] you to flakes.
 
 For now, let's try to use the feature, and hopefully, we'll get a better understanding of it along the way.
+
+<!-- todo: what's a shell? add a "why" and a demo -->
 
 ## Enabling flakes
 
@@ -61,9 +108,9 @@ The beauty of flakes is that you can build an arbitrary flake's output without d
 Now that you have enabled Flakes, you can run this:
 
 ```bash
-nix build nixpkgs#cowsay
+$ nix shell nixpkgs#cowsay
 
-./result/bin/cowsay boo
+$ cowsay boo
  _____
 < boo >
  -----
@@ -74,11 +121,7 @@ nix build nixpkgs#cowsay
                 ||     ||
 ```
 
-and the `cowsay` package from Nixpkgs will be built with Nix (or, more likely, fetched from a [cache][nixos-cache]).
-The action will produce `./result`, a symlink to a read-only directory in the Nix store (`/nix/store`).
-`./result/bin/cowsay` runs the program.
-
-It's time to make our own flake.
+If that works, you've enabled flakes correctly. It's time to make our own flake.
 
 ## Your first flake
 
@@ -95,7 +138,7 @@ We'll talk about the syntax later.
 Save this as `flake.nix` in a new directory and you'll be able to run:
 
 ```bash
-nix flake check
+$ nix flake check
 ```
 
 The command should succeed with no output. Now let's make our flake a little more complicated...
@@ -141,7 +184,7 @@ Save the file and run `nix flake check` again. It might take a little while, but
 There's a reason why it failed (don't worry about it yet). You can get it to succeed if you add `--impure` to the command, but it's a workaround - as you can guess, we'll try to get rid of that soon.
 
 ```bash
-nix flake check --impure
+$ nix flake check --impure
 ```
 
 Let's talk about what we've done so far. Specifically, let's talk about syntax!
@@ -251,7 +294,7 @@ Whenever you see something like
 { key1, key2, ... } :
 ```
 
-it means you're looking at a pattern match (or destructuring) of an attribute set, and attributes `key1` and `key2` are required in the function input. However, any extra attributes will be ignored - normally, if you only list specific attributes like in
+it means you're looking at a pattern match (or destructuring) of an attribute set, and attributes `key1` and `key2` are required in the function input. However, because of the three dots, any extra attributes will be ignored - normally, if you only list specific attributes like in
 
 ```nix
 { key1, key2 } :
@@ -288,7 +331,7 @@ which is syntactic sugar for the following:
 and it's Nix's equivalent of saying:
 
 ```bash
-git clone https://github.com/nixos/nixpkgs
+$ git clone https://github.com/nixos/nixpkgs
 ```
 
 The `nixos/nixpkgs` GitHub repository will be tracked by Nix and within our flake aliased under the name `nixpkgs` (the name we defined for the input). By convention you'll usually see these names match the repository that the flake is coming from.
@@ -335,9 +378,9 @@ We don't need to talk about all of it (the file's main purpose is to be machine-
 
 That's [the commit hash][nixpkgs-reference-today] of Nixpkgs's `master` branch that was found when I referenced the flake.
 
-The lockfile makes sure that the flake's inputs are reproducible. In fact, if you copy-pasted `flake.nix` and `flake.lock` to another machine, Nix would guarantee that the same version of Nixpkgs would be used.
+The lockfile makes sure that the flake's inputs are reproducible. In fact, if you copy-pasted `flake.nix` and `flake.lock` to another machine, Nix would guarantee that the same version of Nixpkgs would be used - kind of like saying "after you clone this Git repository, always check out this revision".
 
-Until you explicitly ask Nix to update that input (with something like `nix flake update`), it will remain unchanged. When you change it, the lockfile will be updated as well.
+Until you explicitly ask Nix to update an input (with something like `nix flake update`), it will remain unchanged. When you change it, the lockfile will be updated as well.
 
 ## Flake outputs
 
@@ -371,7 +414,7 @@ Some other popular system values you might want to use:
 We can use that output by entering the development shell it defines:
 
 ```bash
-nix develop --impure # we still need this flag
+$ nix develop --impure # we still need this flag
 
 bash-5.1$ cowsay boo
  _____
@@ -396,12 +439,13 @@ On top of that, `nix develop .` means Nix will try to use the first output it fi
 
 For this article, we don't care about the latter.
 
-Reading the "current system" is considered an impurity in Nix, and as such it's allowed in the command line, but not in pure evaluation mode (the default for Flakes): the expansion of the syntax happens in the CLI (or even its compiler, as it's a native application), the evaluation of a flake happens in the Nix build system.
+Reading the "current system" is considered an impurity in Nix, and as such it's allowed in the command line, but not in pure evaluation mode (the default for Flakes): the expansion of the command happens in the CLI, whereas the evaluation of a flake happens in the Nix build system.
 
 > An "impurity" here means it's not "purely functional".
 > The purely functional paradigm only allows an expression to depend on the values of other expressions, and something like "the current system", "the current time" or "the current text of the file at path `/xyz`" would require reaching beyond the scope of our code and getting the value from the local system.
 >
 > Nix relies on purity to deliver some of its guarantees, so it encourages pure definitions for the code you write for it.
+> In Flakes, `--impure` is an escape hatch that allows breaking some of these rules of purity.
 
 ## Shells and packages
 
@@ -413,7 +457,7 @@ pkgs.mkShell {
 }
 ```
 
-`mkShell` is a [function in Nixpkgs][mkShell] that takes an attrset as an argument. One of the attributes in it is `packages`, which can be used to list... packages (I know, right?) that will be available in the shell environment once it's loaded.
+`mkShell` is a [function in Nixpkgs][mkShell] that takes an attrset as an argument. One of the attributes in it is `packages`, which can be used to list... packages (who knew, right?) that will be available in the shell environment once it's loaded.
 
 `pkgs.cowsay` is a reference to one of the packages in Nixpkgs - you can search for these packages in a variety of ways, one which is [search.nixos.org][nixos-search].
 
@@ -431,7 +475,7 @@ But wait! We didn't talk about `pkgs`, did we? Also, we still have this impurity
 
 ## systems and pkgs
 
-`pkgs` was defined by using the `import` function (a buitlin, part of Nix's standard library):
+`pkgs` was defined by using the `import` function (part of Nix's standard library):
 
 ```nix
 let
@@ -466,13 +510,13 @@ So... we need a `system`. But `builtins.currentSystem` is impure, so how do we d
 
 Remember: Nix's CLI already does the `currentSystem` check. We only really used it in the flake for convenience.
 
-Assuming you only need your flake to work on one platform, you might've as well hardcoded the system like this:
+Assuming you only need your flake to work on one platform, you might as well hardcode the system like this:
 
 ```nix
 let system = "aarch64-darwin"; # or whatever system you have
 ```
 
-and it would've worked! Also, it would have no impurities. The day is saved... but is that it?
+and it would work! Also, it would have no impurities. The day is saved... but is that it?
 
 ## Supporting multiple systems
 
@@ -498,7 +542,7 @@ With the change from above, our flake looks like this:
 We can list all of its outputs using the `nix flake show` command:
 
 ```bash
-nix flake show
+$ nix flake show
 
 path:/Users/kubukoz/projects/flake-demos?lastModified=1666577116&narHash=sha256-uq5VoRshQbQxkE0BL5Mgmb1eNguUIdtGaus1H50Oz6Y=
 └───devShells
@@ -543,11 +587,11 @@ The usage of that function, let's call it `eachSystem`, would look like this:
 
 ```nix
 eachSystem ["aarch64-darwin" "x86_64-darwin" /* etc. */] (system :
-let pkgs = import nixpkgs { inherit system; };
-in
-{
-  devShells.default = pkgs.mkShell { packages = [ pkgs.cowsay ]; };
-})
+  let pkgs = import nixpkgs { inherit system; };
+  in
+  {
+    devShells.default = pkgs.mkShell { packages = [ pkgs.cowsay ]; };
+  })
 ```
 
 By pure accident and not a completely deliberate choice of naming/syntax, this already exists!
@@ -573,12 +617,12 @@ With flake-utils, our final flake could look like this:
 }
 ```
 
-flake-utils provides a `lib` output that doesn't require a system - it's only using Nix's standard library to transform the list of systems and the function we pass to it.
+flake-utils provides a `lib` output that doesn't require a system - it only uses Nix's standard library to transform the list of systems and the function we pass to it.
 
 The `eachSystem` function will take the list of systems we want to support, and make sure the `default` entry in `devShells` ends up under the key specific to each system:
 
 ```bash
-nix flake show
+$ nix flake show
 
 path:/Users/kubukoz/projects/flake-demos?lastModified=1666579399&narHash=sha256-l3Vr9psJPPsbBzZ00XSWhlcZHGonMX3rVxO51G+G1zc=
 └───devShells
@@ -595,17 +639,17 @@ You might also want to try [`eachDefaultSystem`][each-default-system], which har
 Now, I know all of this is pretty complicated. There's still a high barrier to entry and a steep learning curve to getting started with Nix, even with Flakes being an attempt to simplify the ways of working with it.
 There are [ongoing][nix-issue-3843] discussions around the [usability][nix-issue-3849] of Nix and of Flakes, and we're likely to see improvements to it in the future, but so far it's as simple as it gets.
 
-While I wish it could be simplified for the beginner user, I understand that Nix dealing with a lot of essential complexity (inherent to the problem it attempts to solve). It's not optimizing for the "hello world" experience - it optimizes for the build system working at scale, when the builds and shells get more convoluted.
+While I wish it could be simplified for the beginner user, I understand that Nix deals with a lot of essential complexity (inherent to the problem it attempts to solve). It's not optimizing for the "hello world" experience - it optimizes for the build system working at scale, when the builds and shells get more convoluted.
 I trust that its creators know how complex the average build can get, given they've been working with this ecosystem for almost 20 years.
 
-There are other tools built in top of Nix that provide a more newcomer-friendly experience. One of them is [devshell][devshell] (which I think needs some work on making the documentation more straight-to-the-point as well). If you want to get the Nix shell powers without forcing your entire team to learn the language, that might work for you.
+There are other tools built on top of Nix that provide a more newcomer-friendly experience. One of them is [devshell][devshell] (which I think could use some simplification in the documentation). If you want to get the Nix shell powers without forcing your entire team to learn the language, that might work for you.
 
 ## Parting words
 
 To sum up, in this article we covered:
 
 - a brief introduction to Nix and Flakes
-- defining a devShell in a flake
+- defining a Nix shell in a flake
 - some parts of the Nix language's syntax
 - supporting multiple systems
 
