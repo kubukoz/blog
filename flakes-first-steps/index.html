@@ -339,7 +339,7 @@ In the snippet above, we define <code>system</code> and <code>pkgs</code> in a s
 <ul>
 <li><code>aarch64-linux</code>, for ARM-based Linux</li>
 <li><code>x86_64-linux</code>, for Intel-based Linux</li>
-<li><code>x86_64-darwin</code>, for ARM-based macOS</li>
+<li><code>x86_64-darwin</code>, for Intel-based macOS</li>
 </ul>
 <p>We can use that output by entering the development shell it defines:</p>
 <pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> nix develop<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>impure <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> we still need this flag</span><span class="z-comment z-line z-number-sign z-shell">
