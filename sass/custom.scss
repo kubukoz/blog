@@ -7,3 +7,19 @@
   background-position: center;
 }
 
+p, li > {
+  code {
+    background: hsl(221, 16%, 90%);
+    padding: 0.2em;
+  }
+}
+
+@import url("syntax-theme-dark.css") ;
+
+.z-variable, .z-entity.z-name.z-tag {
+  color: #d08770;
+}
+
+code a {
+  color: #c0c5ce;
+}
