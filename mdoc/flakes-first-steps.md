@@ -421,7 +421,7 @@ Some other popular system values you might want to use:
 
 - `aarch64-linux`, for ARM-based Linux
 - `x86_64-linux`, for Intel-based Linux
-- `x86_64-darwin`, for ARM-based macOS
+- `x86_64-darwin`, for Intel-based macOS
 
 We can use that output by entering the development shell it defines:
 
