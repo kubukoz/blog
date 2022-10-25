@@ -288,19 +288,31 @@ What is `nixpkgs`? What are the three dots? Let's start with the dots.
 
 ### Triple-dot syntax
 
-Whenever you see something like
+In the above snippet, we have a function literal that looks like this:
 
 ```nix
-{ key1, key2, ... } :
+{ nixpkgs, ... } : { /*...*/ }
 ```
 
-it means you're looking at a pattern match (or destructuring) of an attribute set, and attributes `key1` and `key2` are required in the function input. However, because of the three dots, any extra attributes will be ignored - normally, if you only list specific attributes like in
+When you see an attrset in the input position of a function, it means you're looking at a pattern match (or destructuring). `nixpkgs` will be considered a required attribute, but because of the three dots any extra arguments will be ignored - normally, if you only list specific attributes like in
 
 ```nix
-{ key1, key2 } :
+{ nixpkgs, another-flake } :
 ```
 
-then any extra attributes provided at the call site will cause an error.
+then calling the function with any extra attributes provided at the call site will cause an error:
+
+```bash
+nix-repl> f = { nixpkgs, other-flake } : {}
+
+nix-repl> f { nixpkgs = 0; other-flake = 1; another-param = "oops"; }
+error: anonymous function at (string):1:2 called with unexpected argument 'another-param'
+
+       at «string»:1:1:
+
+            1| f { nixpkgs = 0; other-flake = 1; another-param = "oops"; }
+             | ^
+```
 
 ### Nixpkgs
 
