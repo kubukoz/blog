@@ -672,6 +672,10 @@ I hope that it gives you a decent enough introduction to Flakes that will help y
 If you have any questions that you feel this post should've answered but didn't, let me know in the comments below.
 Thanks for reading!
 
+## Acknowledgements
+
+Many thanks to [Olivier Mélois](https://github.com/Baccata/) for an initial read of this post.
+
 [flake-docs-flake-inputs]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-inputs
 [github]: https://github.com
 [nix]: https://nixos.org/
