@@ -1,0 +1,12 @@
+{
+  "colorize-0.1": {
+    "version": "0.1.0",
+    "artifact": "org.polyvariant:colorize_2.13",
+    "sha256": "sha256-83Dy2yZQYkydCX6z6U+NkRh4Vv4Q1zYo9R99YOSVLKs="
+  },
+  "colorize-0.3": {
+    "version": "0.3.2",
+    "artifact": "org.polyvariant:colorize_2.13",
+    "sha256": "sha256-US/y5JyD8mUSpqxPL/JvdMTA922ZtBJoDozg5bAdnzg="
+  }
+}
