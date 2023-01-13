@@ -47,7 +47,8 @@ let
             assert filetype == "regular";
             {
               name = filename;
-              path = f ("${baseDirectory}/${filename}");
+              # Concatenating paths this way is a must in order to avoid rebuilding all posts when either of them change.
+              path = f (baseDirectory + "/${filename}");
             }
           )
           (builtins.readDir baseDirectory);
