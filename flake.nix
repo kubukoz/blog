@@ -17,7 +17,8 @@
 
         inherit (mdoc) mdoc_outputs;
         buildPhase = ''
-          cp $mdoc_outputs/* content
+          cp -rL $mdoc_outputs/* content
+          ls -alG $mdoc_outputs
           zola build --output-dir $out
         '';
 
