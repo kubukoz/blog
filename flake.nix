@@ -25,6 +25,8 @@
         dontInstall = true;
       };
 
+      devShells.generate_shas = pkgs.mkShell { packages = with pkgs; [ scala-cli coursier nix ]; };
+
       checks.default = self.packages.${system}.default;
     });
 }

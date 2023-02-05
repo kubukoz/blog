@@ -1,5 +1,4 @@
 #!/bin/bash
 
-# who needs to pin dependencies anyway?
-nix shell nixpkgs#nodejs nixpkgs#coursier nixpkgs#nix --command \
-  node ./sha256.js ./mdoc-lib-index.json
+nix develop .#generate_shas --command \
+  scala-cli --server=false ./sha256.sc -- ./mdoc-lib-index.json
