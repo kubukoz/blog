@@ -37,6 +37,7 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
   - [Be kind](#be-kind)
   - [Be clear](#be-clear)
   - [Don't waste time](#dont-waste-time)
+- [Summary](#summary)
 
 
 # What's a question?
@@ -175,7 +176,7 @@ Last but not least, we need to make sure someone actually reads our question and
 ## Be kind
 
 This goes without saying: in a public forum, you're just a stranger on the Internet asking people to spend their time (a scarce resource) on _your needs_.
-It doesn't mean you shouldn't ask your question, of course - **that's what these places are for**! Just be mindful of your tone and phrasing to make sure it doesn't come off as demanding.
+It doesn't mean you shouldn't ask your question, of course - **that's what these places are for**! Just be mindful of your tone and phrasing to make sure it doesn't come off as demanding or entitled.
 
 Respect the time and effort of people who offer to help you: even if it's part of their job, you owe it to them not to abuse their good intentions.
 
@@ -196,6 +197,15 @@ Minimize the amount of roundtrips by making your question complete (see the part
 The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it](https://www.nohello.com) - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
 
 Another example: "Does anybody here know X?" - that's not the question you _really_ want to ask, is it? Add the actual question in a thread or start with it in the first place.
+
+# Summary
+
+I hope these suggestions give you a baseline for the questions you'll ask in your career.
+There's obviously more to it, and I'm not the first person to write about this problem either - you'll find a lot of overlap with documents like ["How To Ask Questions The Smart Way"](http://www.catb.org/esr/faqs/smart-questions.html) - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.
+
+Feel free to share this post with your peers if you wish they gave you better questions, just... [DBAA](https://youtu.be/0wsKxLyYU7E?t=145) 🙂
+
+Thanks for reading, and let me know what you think about the post!
 
 ---
 
