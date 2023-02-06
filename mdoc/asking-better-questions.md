@@ -18,22 +18,25 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
 
 <!-- more -->
 
+<!-- todo: quick examples: instead of saying X say Y -->
+
+<!-- may have to be removed later -->
 - [What's a question?](#whats-a-question)
 - [Due dilligence](#due-dilligence)
-  - [Use a search engine](#use-a-search-engine)
-  - [Search your knowledge base](#search-your-knowledge-base)
-  - [Update your software](#update-your-software)
-  - [Read the manual](#read-the-manual)
   - [Is this an XY problem?](#is-this-an-xy-problem)
+  - [Search](#search)
+    - [Search engines](#search-engines)
+    - [Knowledge bases](#knowledge-bases)
+    - [Documentation](#documentation)
+  - [Update your software](#update-your-software)
   - [Maybe it's you](#maybe-its-you)
 - [Context](#context)
-  - [todo](#todo)
   - [Use your judgement](#use-your-judgement)
 - [Reproduction](#reproduction)
 - [Communication style](#communication-style)
   - [Be kind](#be-kind)
   - [Be clear](#be-clear)
-  - [Respect their time](#respect-their-time)
+  - [Don't waste time](#dont-waste-time)
 
 
 # What's a question?
@@ -56,35 +59,9 @@ Ensure you've done **as much as you reasonably could** by yourself. Reasonably -
 
 Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple things to try:
 
-## Use a search engine
-
-It can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.
-
-## Search your knowledge base
-
-For [OSS](https://en.wikipedia.org/wiki/Open-source_software) projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
-Maybe the bug you encountered has already been reported and then closed as "not a bug".
-Who knows, maybe it's been fixed and will be available in the next release!
-
-At work, you can often find useful nuggets of information on Slack or your team's Wiki.
-
-## Update your software
-
-Ensure that the problem is visible on **the latest available version** of the software you're having problems with.
-
-Sometimes we use older versions of software without being aware of a more recent release,
-or there's been a change in the project that **hasn't yet been released** - we can only try it out after switching to a snapshot/nightly distribution channel.
-This isn't strictly necessary, but it may obviate the need for posting an issue.
-
-Even if you're stuck on an older version, it's good to know whether the problem has been seen before.
-
-## Read the manual
-
-If you can find it, reach for the documentation. If you can't - you can start by asking about that.
-
-Documentation could also be code or a product brief. You may be able to gather some information about why what you're trying to do doesn't work, and maybe even figure out **a way to fix it** - always useful information to bring in a bug report.
-
 ## Is this an XY problem?
+
+The first thing I want to mention is the possibility of asking a completely misguided question.
 
 It's a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get hung up on that solution.
 
@@ -105,6 +82,40 @@ Once I learned about this, I started seeing myself and my peers fall into this t
 Being aware of this pitfall is incredibly useful: we can fight against it.
 
 Consider if you're **asking the right question**. Give your audience a sneak peek of "the bigger picture" of what you're trying to get done.
+This will allow them to suggest a better way to do that, if there is one.
+
+## Search
+
+In general, exploration in search of a solution can be very productive, and serve as a great learning experience.
+There are many places to look in, though, so here are a couple ideas to get you started.
+
+### Search engines
+
+Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.
+
+### Knowledge bases
+
+For [OSS](https://en.wikipedia.org/wiki/Open-source_software) projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
+Maybe the bug you encountered has already been reported and then closed as "not a bug".
+Who knows, maybe it's been fixed and will be available in the next release!
+
+At work, you can often find useful nuggets of information on Slack or your team's Wiki.
+
+### Documentation
+
+If you can find it, reach for the documentation. If you can't - you can start by asking about that.
+
+Documentation could also be code or a product brief. You may be able to gather some information about why what you're trying to do doesn't work, and maybe even figure out **a way to fix it** - always useful information to bring in a bug report.
+
+## Update your software
+
+Ensure that the problem is visible on **the latest available version** of the software you're having problems with.
+
+Sometimes we use older versions of software without being aware of a more recent release,
+or there's been a change in the project that **hasn't yet been released** - we can only try it out after switching to a snapshot/nightly distribution channel.
+This isn't strictly necessary, but it may obviate the need for posting an issue.
+
+Even if you're stuck on an older version, it's good to know whether the problem has been seen before.
 
 ## Maybe it's you
 
@@ -116,8 +127,21 @@ If you're not sure about something, just mention that in the question - you don'
 
 # Context
 
+<!-- todo -->
 
-## todo
+- how much context should you give?
+  - for issues, usually as little as possible
+  - for very strange problems, as much as possible, but keep it structured
+  - follow your gut, just be aware that more may help + avoid TMI if it's redundant
+- main things (essential parts of a problem description):
+  - what problem are you trying to solve / what are you trying to do? (bonus: why are you doing this? see xy problem)
+  - how did you run into this problem?
+  - what do you want to happen?
+  - what actually happens?
+- what have you tried so far?
+- why do you think that doesn't work?
+  - is the problematic behavior deterministic? can you point out anything that seems to affect it?
+- does this block you? how important is it?
 
 ## Use your judgement
 
@@ -128,11 +152,21 @@ If you're not sure about something, just mention that in the question - you don'
 Remember, these are just hints and ideas - you don't always have to follow all of them. In certain environments, you'll find it best not to overwhelm people with information about your issue (e.g. if you're asking for general advice on a Slack channel),
 and sometimes you have to be more vague because of e.g. [NDA](https://en.wikipedia.org/wiki/Non-disclosure_agreement)s.
 
+In synchronous, private conversations with a coworker you know well, you probably don't need to structure your messages as much as on a GitHub issue. You can also **assume more** about their knowledge of your problem and spare them the overview.
+
 Keep these tips in mind, but ultimately you'll have to follow your gut.
 
 # Reproduction
 
-todo
+<!-- todo -->
+
+- how to reproduce it
+  - make it minimal
+  - make it reproducible
+  - make it complete (self-contained, standalone): libraries (concrete versions), imports
+  - example of how to do this: `nix run` call (as reproducible as it gets) or `scala-cli` script
+  - very important: ACTUALLY RUN THE EXAMPLE YOU'RE SENDING
+    - i've seen people do this and I've done it too: the example I sent didn't actually reproduce the issue
 
 # Communication style
 
@@ -154,50 +188,16 @@ See if you can remove unnecessary, ~~redundant~~ words, break up longer sentence
 
 However, **don't sweat it** - "perfect" is the enemy of "done", and the fact that you're trying is already going to get appreciated!
 
-## Respect their time
+## Don't waste time
 
+Regardless of whether it's a public forum or a work Slack, it's best to avoid wasting time. On that front, one of the worst offenders are [**roundtrips**](https://en.wikipedia.org/wiki/Round-trip_delay).
+Minimize the amount of roundtrips by making your question complete (see the parts about [Due dilligence](#due-dilligence), [Context](#context)) - this will avoid unnecessary follow-up questions, and save time for both sides of the exchange.
+
+The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it](https://www.nohello.com) - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
+
+Another example: "Does anybody here know X?" - that's not the question you _really_ want to ask, is it? Add the actual question in a thread or start with it in the first place.
 
 ---
-
-- communication style
-  - be kind
-    - especially to strangers who volunteer their work in a public forum
-    - at work people are paid to help you, but also that's not their main task (usually) so be mindful
-  - async-friendly
-    - avoid "does anybody here know X?": that's not the question you were going to ask
-    - avoid roundtrips
-  - nohello.com
-  - DUE DILLIGENCE
-    - did you search engine?
-    - did you search for existing issues?
-    - are you on the latest version or have a really good reason not to be?
-      - bonus points: try a snapshot
-    - be humble
-      - maybe you just fucked up?
-- context
-  - the XY problem: why it's important to give context on why you're trying to do this
-  - how much context should you give?
-    - for issues, usually as little as possible
-    - for very strange problems, as much as possible, but keep it structured
-    - follow your gut, just be aware that more may help + avoid TMI if it's redundant
-  - main things (essential parts of a problem description):
-    - what problem are you trying to solve / what are you trying to do? (bonus: why are you doing this? see xy problem)
-    - how did you run into this problem?
-    - what do you want to happen?
-    - what actually happens?
-  - what have you tried so far?
-  - why do you think that doesn't work?
-    - is the problematic behavior deterministic? can you point out anything that seems to affect it?
-  - does this block you? how important is it?
-- how to reproduce it
-  - make it minimal
-  - make it reproducible
-  - make it complete (self-contained, standalone): libraries (concrete versions), imports
-  - example of how to do this: `nix run` call (as reproducible as it gets) or `scala-cli` script
-  - very important: ACTUALLY RUN THE EXAMPLE YOU'RE SENDING
-    - i've seen people do this and I've done it too: the example I sent didn't actually reproduce the issue
-
-Example
 
 <!-- https://jonskeet.uk/csharp/complete.html -->
 
