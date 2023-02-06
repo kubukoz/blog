@@ -24,9 +24,9 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
   - [Search your knowledge base](#search-your-knowledge-base)
   - [Update your software](#update-your-software)
   - [Read the manual](#read-the-manual)
+  - [Is this an XY problem?](#is-this-an-xy-problem)
   - [Maybe it's you](#maybe-its-you)
 - [Context](#context)
-  - [Is this an XY problem?](#is-this-an-xy-problem)
   - [todo](#todo)
   - [Use your judgement](#use-your-judgement)
 - [Reproduction](#reproduction)
@@ -74,6 +74,7 @@ Ensure that the problem is visible on **the latest available version** of the so
 
 Sometimes we use older versions of software without being aware of a more recent release,
 or there's been a change in the project that **hasn't yet been released** - we can only try it out after switching to a snapshot/nightly distribution channel.
+This isn't strictly necessary, but it may obviate the need for posting an issue.
 
 Even if you're stuck on an older version, it's good to know whether the problem has been seen before.
 
@@ -82,16 +83,6 @@ Even if you're stuck on an older version, it's good to know whether the problem 
 If you can find it, reach for the documentation. If you can't - you can start by asking about that.
 
 Documentation could also be code or a product brief. You may be able to gather some information about why what you're trying to do doesn't work, and maybe even figure out **a way to fix it** - always useful information to bring in a bug report.
-
-## Maybe it's you
-
-Sometimes we just let our pride win and assume everyone is wrong - but not us, of course. **Stay humble**, remember that you're not a machine, and consider the possibility that it was, in fact, you.
-Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.
-
-Nevertheless, **don't get blocked** - if you honestly see no way forward, asking for help is the right call.
-If you're not sure about something, just mention that in the question - you don't have to know everything. You can even start by asking an easier, more general question, just to validate your understanding.
-
-# Context
 
 ## Is this an XY problem?
 
@@ -111,7 +102,20 @@ After [xyproblem.info](https://xyproblem.info):
 > This leads to enormous amounts of **wasted time and energy**, both on the part of people asking for help, and on the part of those providing help.
 
 Once I learned about this, I started seeing myself and my peers fall into this trap [unreasonably often](https://en.wikipedia.org/wiki/Frequency_illusion), and I agree with the statement above - it can be a massive waste of time.
-Being aware of this pitfall is incredibly useful: we can fight against it. The best way is to start with context.
+Being aware of this pitfall is incredibly useful: we can fight against it.
+
+Consider if you're **asking the right question**. Give your audience a sneak peek of "the bigger picture" of what you're trying to get done.
+
+## Maybe it's you
+
+Sometimes we just let our pride win and assume everyone is wrong - but not us, of course. **Stay humble**, remember that you're not a machine, and consider the possibility that it was, in fact, you.
+Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.
+
+Nevertheless, **don't get blocked** - if you honestly see no way forward, asking for help is the right call.
+If you're not sure about something, just mention that in the question - you don't have to know everything. You can even start by asking an easier, more general question, just to validate your understanding.
+
+# Context
+
 
 ## todo
 
