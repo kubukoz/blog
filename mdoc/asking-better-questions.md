@@ -31,12 +31,12 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
   - [Update your software](#update-your-software)
   - [Maybe it's you](#maybe-its-you)
 - [Context](#context)
-  - [Use your judgement](#use-your-judgement)
 - [Reproduction](#reproduction)
 - [Communication style](#communication-style)
   - [Be kind](#be-kind)
   - [Be clear](#be-clear)
   - [Don't waste time](#dont-waste-time)
+- [Use your judgement](#use-your-judgement)
 - [Summary](#summary)
 
 
@@ -144,19 +144,6 @@ If you're not sure about something, just mention that in the question - you don'
   - is the problematic behavior deterministic? can you point out anything that seems to affect it?
 - does this block you? how important is it?
 
-## Use your judgement
-
-> Learn the rules like a pro, so you can break them like an artist.
->
-> -Pablo Picasso
-
-Remember, these are just hints and ideas - you don't always have to follow all of them. In certain environments, you'll find it best not to overwhelm people with information about your issue (e.g. if you're asking for general advice on a Slack channel),
-and sometimes you have to be more vague because of e.g. [NDA](https://en.wikipedia.org/wiki/Non-disclosure_agreement)s.
-
-In synchronous, private conversations with a coworker you know well, you probably don't need to structure your messages as much as on a GitHub issue. You can also **assume more** about their knowledge of your problem and spare them the overview.
-
-Keep these tips in mind, but ultimately you'll have to follow your gut.
-
 # Reproduction
 
 <!-- todo -->
@@ -197,6 +184,20 @@ Minimize the amount of roundtrips by making your question complete (see the part
 The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it](https://www.nohello.com) - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
 
 Another example: "Does anybody here know X?" - that's not the question you _really_ want to ask, is it? Add the actual question in a thread or start with it in the first place.
+
+# Use your judgement
+
+> Learn the rules like a pro, so you can break them like an artist.
+>
+> -Pablo Picasso
+
+Remember, these are just hints and ideas - you don't always have to follow all of them. In certain environments, you'll find it best not to overwhelm people with information about your issue (e.g. if you're asking for general advice on a Slack channel),
+and sometimes you have to be more vague because of e.g. [NDA](https://en.wikipedia.org/wiki/Non-disclosure_agreement)s.
+
+In synchronous, private conversations with a coworker you know well, you probably don't need to structure your messages as much as on a GitHub issue, and you can use less formal language as well.
+You can also **assume more** about their knowledge of your problem and spare them the overview.
+
+Keep these tips in mind, but ultimately you'll have to follow your gut.
 
 # Summary
 
