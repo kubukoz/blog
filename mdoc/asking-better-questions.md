@@ -21,30 +21,6 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
 <!-- todo: quick examples: instead of saying X say Y -->
 <!-- todo: cheatsheet at the end? -->
 
-<!-- may have to be removed later -->
-- [What's a question?](#whats-a-question)
-- [Due dilligence](#due-dilligence)
-  - [Is this an XY problem?](#is-this-an-xy-problem)
-  - [Search](#search)
-    - [Search engines](#search-engines)
-    - [Knowledge bases](#knowledge-bases)
-    - [Documentation](#documentation)
-  - [Update your software](#update-your-software)
-  - [Maybe it's you](#maybe-its-you)
-- [Context](#context)
-- [Reproduction](#reproduction)
-  - [Complete](#complete)
-  - [Minimal](#minimal)
-  - [Reproducible](#reproducible)
-  - [Actually run the reproduction](#actually-run-the-reproduction)
-- [Communication style](#communication-style)
-  - [Be kind](#be-kind)
-  - [Be clear](#be-clear)
-  - [Don't waste time](#dont-waste-time)
-- [Use your judgement](#use-your-judgement)
-- [Summary](#summary)
-
-
 # What's a question?
 
 Before we get to the tips, I want to highlight what kind of questions this could be useful for.
@@ -90,7 +66,7 @@ Being aware of this pitfall is incredibly useful: we can fight against it.
 Consider if you're **asking the right question**. Give your audience a sneak peek of "the bigger picture" of what you're trying to get done.
 This will allow them to suggest a better way to do that, if there is one.
 
-## Search
+## Search around
 
 In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
 There are many places to look in, though, so here are a couple ideas to get you started.
@@ -154,58 +130,53 @@ How much should you say, though? Some questions certainly require more insight i
   - is the problematic behavior deterministic? can you point out anything that seems to affect it?
 - does this block you? how important is it?
 
-# Reproduction
+# Example
 
-An important part of every code-related question is a reproduction. If you're asking a question in the style of "this doesn't work" or "I want to do X", there's really no better way to describe your problem than with an example.
+An important part of every code-related question is an example. If you're asking a question in the style of "this doesn't work" or "I want to do X", **a good example is worth a thousand words**.
 
-Not just _any_ example, though - it should have the following traits:
+Not just _any_ example, though - it should be:
 
 - complete (also called self-contained or standalone).
 - minimal
 - reproducible
 
-Let's look at these in more detail.
+Let's look at these traits in more detail.
 
 ## Complete
 
-Specify everything that's necessary to replicate the issue on another person's computer. This includes things like: version numbers of relevant components, imports, compiler flags... and the steps to run.
+A good example specifies everything that's necessary to replicate the issue on another person's computer. This includes version numbers of relevant components, imports, compiler flags, your OS type... and the exact steps to follow.
 
-Ideally, to reproduce the issue, the person reading the report should be able to run a single command and see the same failure as you did. For example:
+Ideally, your example will be self-contained enough that to reproduce the issue, the person reading the report should be able to **run a single command** and see the same result as you did. For example, a `nix run` call with a pinned [Nix Flake reference](https://blog.kubukoz.com/flakes-first-steps) is as complete as it gets. In the Scala ecosystem, recently it's been best practice to post [a scala-cli-compatible Gist](https://scala-cli.virtuslab.org/docs/cookbooks/gists/).
 
-`nix run
+In case of open source projects, it can be very useful to write your reproduction in the style of a test case. For example:
+
+> When I do X, I see Y, but expect to see Z
+
+Even better - you can actually submit a draft Pull Request with a failing test that does that.
 
 ## Minimal
 
-Remove all unnecessary clutter from any examples you post. This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.
+Remove all unnecessary clutter from any examples you post.
 
-Of course, if any of these is essential to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime.
+This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.
+
+Of course, if any of these is essential to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime. Anything else becomes a hindrance, so **stick to the essentials**.
 
 ## Reproducible
 
-todo
+This may already be covered by the "complete" part, but consider whether your example will behave the same way tomorrow, in a leap year, on a Windows machine, or on Mars.
+
+Okay, fine - it doesn't _actually_ have to run on Windows 💀. But it's imperative that the problem doesn't only happen "sometimes", or that you **make it blatantly obvious** that it does.
 
 Last but not least, don't miss this crucial step:
 
-## Actually run the reproduction
+### Actually run the reproduction
 
-While you're minimizing an issue, it's quite easy to accidentally remove a vital piece of the setup that actually plays a role in the issue - making it work as designed, instead of showcasing a problem.
+While you're minimizing an issue, it's quite easy to accidentally remove a **seemingly innocent, yet vital piece** of the setup that actually plays a role in the issue - making the code work as designed, instead of showcasing a problem.
 
-I'm sometimes guilty of skipping this step myself, but I've also seen a number of people make the same mistake. There's just one solution:
+I'm sometimes guilty of skipping this step myself (embarrassingly often, really), but I've also seen a number of people make the same mistake - after all, these examples are so small, so simple... how can they be wrong?
 
-When posting a reproduction, make sure you actually run it before you submit it. If you're changing it after submission, run it again. Make sure the output matches what you reported.
-
-<!-- for issues: special case. If your issue is a bug or missing feature, write it as something that can be turned into a test: how to do it, what happens, what you expect to happen. Metals does this nicely. -->
-
-
-<!-- todo -->
-
-- how to reproduce it
-  - make it minimal
-  - make it reproducible
-  - make it complete (self-contained, standalone): libraries (concrete versions), imports
-  - example of how to do this: `nix run` call (as reproducible as it gets) or `scala-cli` script
-  - very important: ACTUALLY RUN THE EXAMPLE YOU'RE SENDING
-    - i've seen people do this and I've done it too: the example I sent didn't actually reproduce the issue
+Do yourself a favor, add this step to your checklist: when posting a reproduction, make sure you actually run it **before you submit it**. If you're changing it after submission, **run it again**. Make sure the output matches what you reported.
 
 # Communication style
 
