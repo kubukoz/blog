@@ -19,6 +19,7 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
 <!-- more -->
 
 <!-- todo: quick examples: instead of saying X say Y -->
+<!-- todo: cheatsheet at the end? -->
 
 <!-- may have to be removed later -->
 - [What's a question?](#whats-a-question)
@@ -32,6 +33,10 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
   - [Maybe it's you](#maybe-its-you)
 - [Context](#context)
 - [Reproduction](#reproduction)
+  - [Complete](#complete)
+  - [Minimal](#minimal)
+  - [Reproducible](#reproducible)
+  - [Actually run the reproduction](#actually-run-the-reproduction)
 - [Communication style](#communication-style)
   - [Be kind](#be-kind)
   - [Be clear](#be-clear)
@@ -56,21 +61,21 @@ To sum up, the practices described here can be used in a variety of contexts.
 
 # Due dilligence
 
-Ensure you've done **as much as you reasonably could** by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.
+Before submitting the question or issue, ensure you've done **as much as you reasonably could** by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.
 
 Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple things to try:
 
 ## Is this an XY problem?
 
-The first thing I want to mention is the possibility of asking a completely misguided question.
+The first thing you should check for is the possibility of asking a completely misguided question.
 
-It's a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get hung up on that solution.
+It's a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get **hung up on that solution**.
 
 Whereas it may be a genuinely legitimate way to get to your goal, it's a good idea to take a step back and ponder:
 
 > Is this really the right way to approach this?
 
-You may find that you're jumping through hoops to make that solution work for this problem, or trying to fit this problem into that solution.
+You may find **that it's not** - that you're jumping through hoops to make that solution match the problem, or trying to fit this problem into that solution.
 
 If you're lucky, someone aware of this phenomenon will ask you: **Is this an XY problem?**
 
@@ -87,7 +92,7 @@ This will allow them to suggest a better way to do that, if there is one.
 
 ## Search
 
-In general, exploration in search of a solution can be very productive, and serve as a great learning experience.
+In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
 There are many places to look in, though, so here are a couple ideas to get you started.
 
 ### Search engines
@@ -100,11 +105,11 @@ For [OSS](https://en.wikipedia.org/wiki/Open-source_software) projects, this cou
 Maybe the bug you encountered has already been reported and then closed as "not a bug".
 Who knows, maybe it's been fixed and will be available in the next release!
 
-At work, you can often find useful nuggets of information on Slack or your team's Wiki.
+At work, you can often find useful nuggets of information on Slack and your team's Wiki.
 
 ### Documentation
 
-If you can find it, reach for the documentation. If you can't - you can start by asking about that.
+If you can find it, reach for the documentation. If you can't - you can start by asking for instructions on where to get it.
 
 Documentation could also be code or a product brief. You may be able to gather some information about why what you're trying to do doesn't work, and maybe even figure out **a way to fix it** - always useful information to bring in a bug report.
 
@@ -114,7 +119,7 @@ Ensure that the problem is visible on **the latest available version** of the so
 
 Sometimes we use older versions of software without being aware of a more recent release,
 or there's been a change in the project that **hasn't yet been released** - we can only try it out after switching to a snapshot/nightly distribution channel.
-This isn't strictly necessary, but it may obviate the need for posting an issue.
+Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to try that for you.
 
 Even if you're stuck on an older version, it's good to know whether the problem has been seen before.
 
@@ -124,9 +129,14 @@ Sometimes we just let our pride win and assume everyone is wrong - but not us, o
 Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.
 
 Nevertheless, **don't get blocked** - if you honestly see no way forward, asking for help is the right call.
-If you're not sure about something, just mention that in the question - you don't have to know everything. You can even start by asking an easier, more general question, just to validate your understanding.
+If you're not sure about something, just mention that in the question - you don't have to know everything.
+You can even start by asking an easier, more general question, just to validate your understanding - these questions tend to get answered quicker.
 
 # Context
+
+If you've done your research and still feel like you need help, now's the time to start writing: gather all the useful information about your problem, and try to materialize that in your question.
+
+How much should you say, though? Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally follow the following approach:
 
 <!-- todo -->
 
@@ -145,6 +155,47 @@ If you're not sure about something, just mention that in the question - you don'
 - does this block you? how important is it?
 
 # Reproduction
+
+An important part of every code-related question is a reproduction. If you're asking a question in the style of "this doesn't work" or "I want to do X", there's really no better way to describe your problem than with an example.
+
+Not just _any_ example, though - it should have the following traits:
+
+- complete (also called self-contained or standalone).
+- minimal
+- reproducible
+
+Let's look at these in more detail.
+
+## Complete
+
+Specify everything that's necessary to replicate the issue on another person's computer. This includes things like: version numbers of relevant components, imports, compiler flags... and the steps to run.
+
+Ideally, to reproduce the issue, the person reading the report should be able to run a single command and see the same failure as you did. For example:
+
+`nix run
+
+## Minimal
+
+Remove all unnecessary clutter from any examples you post. This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.
+
+Of course, if any of these is essential to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime.
+
+## Reproducible
+
+todo
+
+Last but not least, don't miss this crucial step:
+
+## Actually run the reproduction
+
+While you're minimizing an issue, it's quite easy to accidentally remove a vital piece of the setup that actually plays a role in the issue - making it work as designed, instead of showcasing a problem.
+
+I'm sometimes guilty of skipping this step myself, but I've also seen a number of people make the same mistake. There's just one solution:
+
+When posting a reproduction, make sure you actually run it before you submit it. If you're changing it after submission, run it again. Make sure the output matches what you reported.
+
+<!-- for issues: special case. If your issue is a bug or missing feature, write it as something that can be turned into a test: how to do it, what happens, what you expect to happen. Metals does this nicely. -->
+
 
 <!-- todo -->
 
@@ -211,7 +262,5 @@ Thanks for reading, and let me know what you think about the post!
 ---
 
 <!-- https://jonskeet.uk/csharp/complete.html -->
-
-<!-- for issues: special case. If your issue is a bug or missing feature, write it as something that can be turned into a test: how to do it, what happens, what you expect to happen. Metals does this nicely. -->
 
 https://www.chris-kipp.io/slides/open-source
