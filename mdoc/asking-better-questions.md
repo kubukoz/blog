@@ -11,7 +11,7 @@ disqus = true
 
 From the very first day I started learning how to program, I had questions. **So many questions!**
 
-Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions a lot of the time. That never changed - in fact, I'm used to people asking for help on a daily basis, if not more often.
+Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I'm used to people asking for help many times a day.
 
 All of this is to say, I've asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple tips on how to ask better questions.
 These tips will not only help you **reach a solution sooner**, but possibly a **better solution altogether**.
@@ -71,11 +71,11 @@ This will allow them to suggest a better way to do that, if there is one.
 In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
 There are many places to look in, though, so here are a couple ideas to get you started.
 
-### Search engines
+**Search engines**
 
 Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.
 
-### Knowledge bases
+**Knowledge bases**
 
 For [OSS](https://en.wikipedia.org/wiki/Open-source_software) projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
 Maybe the bug you encountered has already been reported and then closed as "not a bug".
@@ -83,7 +83,7 @@ Who knows, maybe it's been fixed and will be available in the next release!
 
 At work, you can often find useful nuggets of information on Slack and your team's Wiki.
 
-### Documentation
+**Documentation**
 
 If you can find it, reach for the documentation. If you can't - you can start by asking for instructions on where to get it.
 
@@ -112,7 +112,7 @@ You can even start by asking an easier, more general question, just to validate 
 
 If you've done your research and still feel like you need help, now's the time to start writing: gather all the useful information about your problem, and try to materialize that in your question.
 
-How much should you say, though? Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally follow the following approach:
+How much should you say, though? Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally practice the following approach:
 
 <!-- todo -->
 
