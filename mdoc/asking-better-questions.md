@@ -55,7 +55,7 @@ You may find **that it's not** - that you're jumping through hoops to make that 
 
 If you're lucky, someone aware of this phenomenon will ask you: **Is this an XY problem?**
 
-After [xyproblem.info](https://xyproblem.info):
+From [xyproblem.info][xyproblem]:
 
 > The XY problem is asking about your attempted solution rather than your actual problem.
 > This leads to enormous amounts of **wasted time and energy**, both on the part of people asking for help, and on the part of those providing help.
@@ -112,23 +112,55 @@ You can even start by asking an easier, more general question, just to validate 
 
 If you've done your research and still feel like you need help, now's the time to start writing: gather all the useful information about your problem, and try to materialize that in your question.
 
-How much should you say, though? Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally practice the following approach:
+## How much is too much?
 
-<!-- todo -->
+Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally practice the following approach:
 
-- how much context should you give?
-  - for issues, usually as little as possible
-  - for very strange problems, as much as possible, but keep it structured
-  - follow your gut, just be aware that more may help + avoid TMI if it's redundant
-- main things (essential parts of a problem description):
-  - what problem are you trying to solve / what are you trying to do? (bonus: why are you doing this? see xy problem)
-  - how did you run into this problem?
-  - what do you want to happen?
-  - what actually happens?
-- what have you tried so far?
-- why do you think that doesn't work?
-  - is the problematic behavior deterministic? can you point out anything that seems to affect it?
-- does this block you? how important is it?
+**Minimal, yet sufficient.**
+
+That's deliberately vague - I'm afraid you'll have to figure out how much detail to provide on a case-by-case basis, but usually you'll need to post **more information for more complex issues**.
+
+What I _can_ give you, though, is a blueprint.
+
+## Storyline
+
+Your question should tell a story. You're the main character, and the issue you're facing is the villain.
+
+Focusing on your story's most important plot points will make it easier to follow, and help make sure you don't miss any crucial details.
+
+### Prologue
+
+Provide some background to explain where the main character is coming from, and what their motivation is.
+State the problem you're trying to solve, what you're trying to achieve - **focus on the end goal**, not the implementation details (also see [the XY problem](#is-this-an-xy-problem)).
+
+### Setup
+
+Then, there's the setup of the story: **how did you run into this problem?**
+
+Focus on the steps that took you there, without judgement: just state the facts of what you did that triggered the issue. How does the hero bump into the bad guy?
+
+### Plot twist
+
+You were expecting everything would go according to the plan, but **something else happened**. What does your ideal scenario look like, and what's the reality?
+
+### The investigation
+
+You've already tried to overcome the problem - share what attempts you've made, and explain **why you think they weren't successful**. It can be helpful to rule out distractions and dead ends.
+
+Is there a pattern in what the issue looks like? Does it happen every time you retrace your steps, or was there something peculiar about that one attempt? (see also: [reproducible example](#reproducible))
+
+Do you have any other information that could be relevant?
+
+### The cliffhanger
+
+After all, we're hoping to get a sequel - a response that explains it all, and a culmination of our characters' arcs.
+Before you submit your story for print, you can tease the reader a bit, by telling them what will happen if the villain isn't stopped:
+
+Is this issue critical for you? Does it block you? Do you have a workaround that you can apply in the meantime?
+
+Any alternatives that you can use - while the issue is being figured out - will be helpful to others who find themselves in an identical situation.
+
+Keep in mind, though - if you're going to mention that the issue is critical to you and your team, that doesn't give you any more right to a reply than anyone else. [Don't act entitled](#be-kind)!
 
 # Example
 
@@ -152,7 +184,7 @@ In case of open source projects, it can be very useful to write your reproductio
 
 > When I do X, I see Y, but expect to see Z
 
-Even better - you can actually submit a draft Pull Request with a failing test that does that.
+Even better - you can actually submit a draft Pull Request with **a failing test** that does that.
 
 ## Minimal
 
@@ -166,7 +198,7 @@ Of course, if any of these is essential to reproducing the issue, you can leave 
 
 This may already be covered by the "complete" part, but consider whether your example will behave the same way tomorrow, in a leap year, on a Windows machine, or on Mars.
 
-Okay, fine - it doesn't _actually_ have to run on Windows 💀. But it's imperative that the problem doesn't only happen "sometimes", or that you **make it blatantly obvious** that it does.
+Okay, fine - it doesn't _actually_ have to run on Windows 💀 but it's imperative that the problem doesn't only happen "sometimes", or that you **make it blatantly obvious** that it does.
 
 Last but not least, don't miss this crucial step:
 
@@ -203,7 +235,7 @@ However, **don't sweat it** - "perfect" is the enemy of "done", and the fact tha
 Regardless of whether it's a public forum or a work Slack, it's best to avoid wasting time. On that front, one of the worst offenders are [**roundtrips**](https://en.wikipedia.org/wiki/Round-trip_delay).
 Minimize the amount of roundtrips by making your question complete (see the parts about [Due dilligence](#due-dilligence), [Context](#context)) - this will avoid unnecessary follow-up questions, and save time for both sides of the exchange.
 
-The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it](https://www.nohello.com) - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
+The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it][nohello] - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
 
 Another example: "Does anybody here know X?" - that's not the question you _really_ want to ask, is it? Add the actual question in a thread or start with it in the first place.
 
@@ -224,14 +256,23 @@ Keep these tips in mind, but ultimately you'll have to follow your gut.
 # Summary
 
 I hope these suggestions give you a baseline for the questions you'll ask in your career.
-There's obviously more to it, and I'm not the first person to write about this problem either - you'll find a lot of overlap with documents like ["How To Ask Questions The Smart Way"](http://www.catb.org/esr/faqs/smart-questions.html) - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.
+There's obviously more to it, and I'm not the first person to write about this problem either - you'll find a lot of overlap with documents like ["How To Ask Questions The Smart Way"][smart-questions] - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.
 
 Feel free to share this post with your peers if you wish they gave you better questions, just... [DBAA](https://youtu.be/0wsKxLyYU7E?t=145) 🙂
 
+I also recommend checking out the other sources listed below.
+
 Thanks for reading, and let me know what you think about the post!
 
----
+# Sources
 
-<!-- https://jonskeet.uk/csharp/complete.html -->
+- [What I’ve learned in open source, and why I think you should contribute.](https://www.chris-kipp.io/slides/open-source)
+- [How to Ask Questions The Smart Way][smart-questions]
+- [Short, Self Contained, Correct (Compilable), Example](http://sscce.org/)
+- [Short but complete programs](https://jonskeet.uk/csharp/complete.html)
+- [Don't Just Say "Hello" In Chat][nohello]
+- [The XY Problem][xyproblem]
 
-https://www.chris-kipp.io/slides/open-source
+[smart-questions]: http://www.catb.org/esr/faqs/smart-questions.html
+[nohello]: https://www.nohello.com
+[xyproblem]: https://xyproblem.info/
