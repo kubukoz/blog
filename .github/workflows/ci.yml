@@ -27,3 +27,14 @@ jobs:
         with:
           branch: gh-pages
           folder: ./public
+
+      - name: Build (preview)
+        run: ./build.sh '.?submodules=1#preview' && cp -Lr ./result public-preview
+
+      - uses: JamesIves/github-pages-deploy-action@v4
+        name: Deploy (preview)
+        if: github.ref != 'refs/heads/main'
+        with:
+          branch: gh-pages
+          target-folder: ./preview/
+          folder: ./public-preview

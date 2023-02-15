@@ -6,3 +6,6 @@ result
 content/*.md
 
 static/syntax-theme-dark.css
+
+# Local Netlify folder
+.netlify
