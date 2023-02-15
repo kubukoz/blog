@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <title>Asking better questions</title>
+    <meta name="description" content="From the very first day I started learning how to program, I had questions. So many questions!
+Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I&#x27;m used to people asking for help many times a day.
+All of this is to say, I&#x27;ve asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple tips on how to ask better questions.
+These tips will not only help you reach a solution sooner, but possibly a better solution altogether.">
+
+    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/main.css">
+    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/custom.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.kubukoz.com/preview/atom.xml">
+    
+
+    
+    
+</head>
+<body>
+    
+    <a class="skip-main" href="#main">Skip to content</a>
+    <div class="container">
+        <header>
+            <h1 class="site-header">
+                <a href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview">Jakub Kozłowski</a> | A 1.00000000000001x engineering blog
+            </h1>
+            <nav>
+                
+                
+                
+                <a  href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview&#x2F;talks&#x2F;">Talks</a>
+                
+                
+            </nav>
+        </header>
+        <div class="search-container">
+            <input id="searchbox" type="search" placeholder="Search">
+            <div class="search-results">
+                <div class="search-results__items">
+                </div>
+            </div>
+        </div>
+        <main id="main" tabindex="-1">
+            
+
+<article class="post">
+    <header>
+        <h1>Asking better questions</h1>
+    </header>
+    <div class="content">
+        <p>From the very first day I started learning how to program, I had questions. <strong>So many questions!</strong></p>
+<p>Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I'm used to people asking for help many times a day.</p>
+<p>All of this is to say, I've asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple tips on how to ask better questions.
+These tips will not only help you <strong>reach a solution sooner</strong>, but possibly a <strong>better solution altogether</strong>.</p>
+<span id="continue-reading"></span><!-- todo: quick examples: instead of saying X say Y -->
+<!-- todo: cheatsheet at the end? -->
+<h1 id="what-s-a-question"><a class="zola-anchor" href="#what-s-a-question" aria-label="Anchor link for: what-s-a-question">What's a question?</a></h1>
+<p>Before we get to the tips, I want to highlight what kind of questions this could be useful for.</p>
+<p>In the context of this post, &quot;asking a question&quot; means any action that you perform to get help <strong>from other people</strong> in solving a problem.</p>
+<p>This includes, but is not limited to:</p>
+<ul>
+<li>reporting an issue in a project (&quot;the command X doesn't work&quot;, &quot;can you add a Y function?&quot;)</li>
+<li>requesting assistance in your work (&quot;my code crashes&quot;, &quot;I can't publish to Maven Central&quot;)</li>
+<li>learning (&quot;what does this function do?&quot;, &quot;what's the best way to publish a Scala library?&quot;)</li>
+</ul>
+<p>To sum up, the practices described here can be used in a variety of contexts.</p>
+<h1 id="due-dilligence"><a class="zola-anchor" href="#due-dilligence" aria-label="Anchor link for: due-dilligence">Due dilligence</a></h1>
+<p>Before submitting the question or issue, ensure you've done <strong>as much as you reasonably could</strong> by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.</p>
+<p>Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple things to try:</p>
+<h2 id="is-this-an-xy-problem"><a class="zola-anchor" href="#is-this-an-xy-problem" aria-label="Anchor link for: is-this-an-xy-problem">Is this an XY problem?</a></h2>
+<p>The first thing you should check for is the possibility of asking a completely misguided question.</p>
+<p>It's a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get <strong>hung up on that solution</strong>.</p>
+<p>Whereas it may be a genuinely legitimate way to get to your goal, it's a good idea to take a step back and ponder:</p>
+<blockquote>
+<p>Is this really the right way to approach this?</p>
+</blockquote>
+<p>You may find <strong>that it's not</strong> - that you're jumping through hoops to make that solution match the problem, or trying to fit this problem into that solution.</p>
+<p>If you're lucky, someone aware of this phenomenon will ask you: <strong>Is this an XY problem?</strong></p>
+<p>From <a rel="noopener" target="_blank" href="https://xyproblem.info/">xyproblem.info</a>:</p>
+<blockquote>
+<p>The XY problem is asking about your attempted solution rather than your actual problem.
+This leads to enormous amounts of <strong>wasted time and energy</strong>, both on the part of people asking for help, and on the part of those providing help.</p>
+</blockquote>
+<p>Once I learned about this, I started seeing myself and my peers fall into this trap <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Frequency_illusion">unreasonably often</a>, and I agree with the statement above - it can be a massive waste of time.
+Being aware of this pitfall is incredibly useful: we can fight against it.</p>
+<p>Consider if you're <strong>asking the right question</strong>. Give your audience a sneak peek of &quot;the bigger picture&quot; of what you're trying to get done.
+This will allow them to suggest a better way to do that, if there is one.</p>
+<h2 id="search-around"><a class="zola-anchor" href="#search-around" aria-label="Anchor link for: search-around">Search around</a></h2>
+<p>In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
+There are many places to look in, though, so here are a couple ideas to get you started.</p>
+<p><strong>Search engines</strong></p>
+<p>Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.</p>
+<p><strong>Knowledge bases</strong></p>
+<p>For <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Open-source_software">OSS</a> projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
+Maybe the bug you encountered has already been reported and then closed as &quot;not a bug&quot;.
+Who knows, maybe it's been fixed and will be available in the next release!</p>
+<p>At work, you can often find useful nuggets of information on Slack and your team's Wiki.</p>
+<p><strong>Documentation</strong></p>
+<p>If you can find it, reach for the documentation. If you can't - you can start by asking for instructions on where to get it.</p>
+<p>Documentation could also be code or a product brief. You may be able to gather some information about why what you're trying to do doesn't work, and maybe even figure out <strong>a way to fix it</strong> - always useful information to bring in a bug report.</p>
+<h2 id="update-your-software"><a class="zola-anchor" href="#update-your-software" aria-label="Anchor link for: update-your-software">Update your software</a></h2>
+<p>Ensure that the problem is visible on <strong>the latest available version</strong> of the software you're having problems with.</p>
+<p>Sometimes we use older versions of software without being aware of a more recent release,
+or there's been a change in the project that <strong>hasn't yet been released</strong> - we can only try it out after switching to a snapshot/nightly distribution channel.
+Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to run that step for you.</p>
+<p>Even if you're stuck on an older version, it's good to know whether the problem has already been solved.</p>
+<h2 id="maybe-it-s-you"><a class="zola-anchor" href="#maybe-it-s-you" aria-label="Anchor link for: maybe-it-s-you">Maybe it's you</a></h2>
+<p>Sometimes we just let our pride win and assume everyone is wrong - but not us, of course. <strong>Stay humble</strong>, remember that you're not a machine, and consider the possibility that it was, in fact, you.
+Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.</p>
+<p>Nevertheless, <strong>don't get blocked</strong> - if you honestly see no way forward, asking for help is the right call.
+If you're not sure about something, just mention that in the question - you don't have to know everything.
+You can even start by asking an easier, more general question, just to validate your understanding - these questions tend to get answered quicker.</p>
+<h1 id="context"><a class="zola-anchor" href="#context" aria-label="Anchor link for: context">Context</a></h1>
+<p>If you've done your research and still feel like you need help, now's the time to start writing: gather all the useful information about your problem, and try to materialize that in your question.</p>
+<h2 id="how-much-is-too-much"><a class="zola-anchor" href="#how-much-is-too-much" aria-label="Anchor link for: how-much-is-too-much">How much is too much?</a></h2>
+<p>Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally practice the following approach:</p>
+<p><strong>Minimal, yet sufficient.</strong></p>
+<p>That's deliberately vague - I'm afraid you'll have to figure out how much detail to provide on a case-by-case basis, but usually you'll need to post <strong>more information for more complex issues</strong>.</p>
+<p>What I <em>can</em> give you, though, is a blueprint.</p>
+<h2 id="storyline"><a class="zola-anchor" href="#storyline" aria-label="Anchor link for: storyline">Storyline</a></h2>
+<p>Your question should tell a story. You're the main character, and the issue you're facing is the villain.</p>
+<p>Focusing on your story's most important plot points will make it <strong>easier to follow</strong>, and help make sure you don't miss any crucial details.</p>
+<h3 id="prologue"><a class="zola-anchor" href="#prologue" aria-label="Anchor link for: prologue">Prologue</a></h3>
+<p>Provide some background to explain where the main character is coming from, and what their motivation is.
+State the problem you're trying to solve, what you're trying to achieve - <strong>focus on the end goal</strong>, not the implementation details (also see <a href="https://blog.kubukoz.com/preview/asking-better-questions/#is-this-an-xy-problem">the XY problem</a>).</p>
+<h3 id="setup"><a class="zola-anchor" href="#setup" aria-label="Anchor link for: setup">Setup</a></h3>
+<p>Then, there's the setup of the story: <strong>how did you run into this problem?</strong></p>
+<p>Focus on the steps that took you there, without judgement: just state the facts of what you did that triggered the issue. How does the hero bump into the bad guy?</p>
+<h3 id="plot-twist"><a class="zola-anchor" href="#plot-twist" aria-label="Anchor link for: plot-twist">Plot twist</a></h3>
+<p>You were expecting everything would go according to the plan, but <strong>something else happened</strong>. What does your ideal scenario look like, and what's the reality?</p>
+<h3 id="the-investigation"><a class="zola-anchor" href="#the-investigation" aria-label="Anchor link for: the-investigation">The investigation</a></h3>
+<p>You've already tried to overcome the problem - share your past attempts, and explain <strong>why you think they weren't successful</strong>. It can be helpful to rule out distractions and dead ends.</p>
+<p>Is there a pattern in what the issue looks like? Does it happen every time you retrace your steps, or was there something peculiar about that one attempt? (see also: <a href="https://blog.kubukoz.com/preview/asking-better-questions/#reproducible">reproducible example</a>)</p>
+<p>Do you have any other information that could be relevant?</p>
+<h3 id="the-cliffhanger"><a class="zola-anchor" href="#the-cliffhanger" aria-label="Anchor link for: the-cliffhanger">The cliffhanger</a></h3>
+<p>After all, we're hoping to get a sequel - a response that explains it all, and a culmination of our characters' arcs.
+Before you submit your story for print, you can tease the reader a bit, by telling them what will happen if the villain isn't stopped:</p>
+<p>Is this issue critical for you? Does it block you? <strong>Do you have a workaround</strong> that you can apply in the meantime?
+Any alternatives that you can use - while the issue is being figured out - will be helpful to others who find themselves in an identical situation.</p>
+<p>Keep in mind, though - if you're going to mention that the issue is critical to you and your team, that doesn't give you any more right to a reply than anyone else. <strong><a href="https://blog.kubukoz.com/preview/asking-better-questions/#be-kind">Don't act entitled</a>!</strong></p>
+<h1 id="example"><a class="zola-anchor" href="#example" aria-label="Anchor link for: example">Example</a></h1>
+<p>An important part of every code-related question is an example. If you're asking a question in the style of &quot;this doesn't work&quot; or &quot;I want to do X&quot;, <strong>a good example is worth a thousand words</strong>.</p>
+<p>Not just <em>any</em> example, though - it should be:</p>
+<ul>
+<li>complete (also called self-contained or standalone).</li>
+<li>minimal</li>
+<li>reproducible</li>
+</ul>
+<p>Let's look at these traits in more detail.</p>
+<h2 id="complete"><a class="zola-anchor" href="#complete" aria-label="Anchor link for: complete">Complete</a></h2>
+<p>A good example specifies everything that's necessary to replicate the issue on another person's computer. This includes version numbers of relevant components, imports, compiler flags, your OS type... and <strong>the exact steps to follow</strong>.</p>
+<p>Ideally, your example will be self-contained enough that to reproduce the issue, the person reading the report should be able to <strong>run a single command</strong> and see the same result as you did.
+For example, a <code>nix run</code> call with a pinned <a rel="noopener" target="_blank" href="https://blog.kubukoz.com/flakes-first-steps">Nix Flake reference</a> is as complete as it gets. In the Scala ecosystem, recently it's been best practice to post <a rel="noopener" target="_blank" href="https://scala-cli.virtuslab.org/docs/cookbooks/gists/">a scala-cli Gist</a>.</p>
+<p>In case of open source projects, it can be very useful to write your reproduction in the style of a test case. Perhaps something that looks like this:</p>
+<blockquote>
+<p>When I do X, I see Y, but expect to see Z</p>
+</blockquote>
+<p>If you want, you can actually submit a draft Pull Request with <strong>a failing test</strong> that does that.</p>
+<h2 id="minimal"><a class="zola-anchor" href="#minimal" aria-label="Anchor link for: minimal">Minimal</a></h2>
+<p>Remove all unnecessary clutter from any examples you post.</p>
+<p>This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.</p>
+<p>Of course, if any of these is vital to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime. Anything else becomes a hindrance, so <strong>stick to the essentials</strong>.</p>
+<h2 id="reproducible"><a class="zola-anchor" href="#reproducible" aria-label="Anchor link for: reproducible">Reproducible</a></h2>
+<p>This may already be covered by the &quot;complete&quot; part, but consider whether your example will behave the same way tomorrow, in a leap year, on a Windows machine, or on Mars.</p>
+<p>Okay, fine - it doesn't <em>actually</em> have to run on Windows 💀 but it's imperative that the problem doesn't only happen &quot;sometimes&quot;, or that you <strong>make it blatantly obvious</strong> that it does.</p>
+<p>Last but not least, don't miss this crucial step:</p>
+<h3 id="actually-run-the-reproduction"><a class="zola-anchor" href="#actually-run-the-reproduction" aria-label="Anchor link for: actually-run-the-reproduction">Actually run the reproduction</a></h3>
+<p>While you're minimizing an issue, it's quite easy to accidentally remove a <strong>seemingly innocent, yet vital piece</strong> of the setup that actually plays a role in the issue - making the code work as designed, instead of showcasing a problem.</p>
+<p>I'm sometimes guilty of skipping this step myself (embarrassingly often, really), but I've also seen a number of people make the same mistake - after all, these examples are so small, so simple... how can they be wrong?</p>
+<p>Do yourself a favor, add this step to your checklist: when posting a reproduction, make sure you actually run it <strong>before you submit it</strong>. If you're changing it after submission, <strong>run it again</strong>. Make sure the output matches what you reported.</p>
+<h1 id="communication-style"><a class="zola-anchor" href="#communication-style" aria-label="Anchor link for: communication-style">Communication style</a></h1>
+<p>Last but not least, we need to make sure someone actually reads our question and decides to help us. <strong>Proper communication is key!</strong></p>
+<h2 id="be-kind"><a class="zola-anchor" href="#be-kind" aria-label="Anchor link for: be-kind">Be kind</a></h2>
+<p>This goes without saying: in a public forum, you're just a stranger on the Internet asking people to spend their time (a scarce resource) on <em>your needs</em>.
+It doesn't mean you shouldn't ask your question, of course - <strong>that's what these places are for</strong>! Just be mindful of your tone and phrasing to make sure it doesn't come off as demanding or entitled.</p>
+<p>Respect the time and effort of people who offer to help you: even if it's part of their job, you owe it to them not to abuse their good intentions.</p>
+<h2 id="be-clear"><a class="zola-anchor" href="#be-clear" aria-label="Anchor link for: be-clear">Be clear</a></h2>
+<p>Read your question in whole before you submit it.</p>
+<p>If you have the time, do some basic editing. There is no <em>single</em> right way to do it, and from this point you can go as far as you like (running a spellchecker, Grammarly, and so on), just like in any other form of writing.
+See if you can remove unnecessary, <del>redundant</del> words, break up longer sentences <del>in your explanations</del> or split your paragraphs into sections.</p>
+<p>However, <strong>don't sweat it</strong> - &quot;perfect&quot; is the enemy of &quot;done&quot;, and the fact that you're trying is already going to get appreciated!</p>
+<h2 id="don-t-waste-time"><a class="zola-anchor" href="#don-t-waste-time" aria-label="Anchor link for: don-t-waste-time">Don't waste time</a></h2>
+<p>Regardless of whether it's a public forum or a work Slack, it's best to avoid wasting time. On that front, one of the worst offenders are <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Round-trip_delay"><strong>roundtrips</strong></a>.
+Minimize the amount of roundtrips by making your question complete (see the parts about <a href="https://blog.kubukoz.com/preview/asking-better-questions/#due-dilligence">Due dilligence</a>, <a href="https://blog.kubukoz.com/preview/asking-better-questions/#context">Context</a>) - this will avoid unnecessary follow-up questions, and save time for both sides of the exchange.</p>
+<p>The most extreme example of a useless roundtrip is sending a message that <strong>just says &quot;Hello&quot;</strong>. <a rel="noopener" target="_blank" href="https://www.nohello.com">Don't do it</a> - the person reading that message will be forced to wait for the &quot;actual&quot; message you send, before they can even begin to try and help you. Even worse, they may see your message, start doing something else, then have to context switch again after you follow up with the question.</p>
+<p>Another example: &quot;Does anybody here know X?&quot; - that's not the question you <em>really</em> want to ask, is it? Add the actual question in a thread or start with it in the first place.</p>
+<h1 id="use-your-judgement"><a class="zola-anchor" href="#use-your-judgement" aria-label="Anchor link for: use-your-judgement">Use your judgement</a></h1>
+<blockquote>
+<p>Learn the rules like a pro, so you can break them like an artist.</p>
+<p>-Pablo Picasso</p>
+</blockquote>
+<p>Remember, these are just hints and ideas - you don't always have to follow all of them. In certain environments, you'll find it best not to overwhelm people with information about your issue (e.g. if you're asking for general advice on a Slack channel),
+and sometimes you have to be more vague because of e.g. <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Non-disclosure_agreement">NDA</a>s.</p>
+<p>In synchronous, private conversations with a coworker you know well, you probably don't need to structure your messages as much as on a GitHub issue, and you can use less formal language as well.
+You can also <strong>assume more</strong> about their knowledge of your problem and spare them the overview.</p>
+<p>Keep these tips in mind, but ultimately you'll have to follow your gut.</p>
+<h1 id="summary"><a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">Summary</a></h1>
+<p>I hope these suggestions give you a baseline for the questions you'll ask in your career.
+There's clearly more to it, and I'm not the first person to write about this problem either.</p>
+<p>You'll find a lot of overlap with documents like <a rel="noopener" target="_blank" href="http://www.catb.org/esr/faqs/smart-questions.html">&quot;How To Ask Questions The Smart Way&quot;</a> - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.</p>
+<p>Feel free to share this post with your peers if you wish they gave you better questions, just... <a rel="noopener" target="_blank" href="https://youtu.be/0wsKxLyYU7E?t=145">DBAA</a> 🙂
+I also recommend checking out the other sources listed below.</p>
+<p>Thanks for reading, and let me know what you think about the post!</p>
+<h1 id="sources"><a class="zola-anchor" href="#sources" aria-label="Anchor link for: sources">Sources</a></h1>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://www.chris-kipp.io/slides/open-source">What I’ve learned in open source, and why I think you should contribute.</a></li>
+<li><a rel="noopener" target="_blank" href="http://www.catb.org/esr/faqs/smart-questions.html">How to Ask Questions The Smart Way</a></li>
+<li><a rel="noopener" target="_blank" href="http://sscce.org/">Short, Self Contained, Correct (Compilable), Example</a></li>
+<li><a rel="noopener" target="_blank" href="https://jonskeet.uk/csharp/complete.html">Short but complete programs</a></li>
+<li><a rel="noopener" target="_blank" href="https://www.nohello.com">Don't Just Say &quot;Hello&quot; In Chat</a></li>
+<li><a rel="noopener" target="_blank" href="https://xyproblem.info/">The XY Problem</a></li>
+</ul>
+
+    </div>
+
+    
+    <div class="article-info">
+        
+        <div class="article-date"> 5 February 2023</div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="https://blog.kubukoz.com/preview/tags/development/">#development</a></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+  var disqus_config = function () {
+    this.page.url = "https://blog.kubukoz.com/preview";
+    this.page.identifier = '/asking-better-questions';
+  };
+
+  (function () {
+    // DON'T EDIT BELOW THIS LINE
+    var d = document,
+      s = d.createElement("script");
+    s.src = "https://kubukoz-blog.disqus.com/embed.js";
+    s.setAttribute("data-timestamp", +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+ 
+        </main>
+        <footer>
+            <p>
+                © Jakub Kozłowski (<a href="https://twitter.com/kubukoz">@kubukoz</a>) 2023<br>
+                Powered by <a target="_blank" href="https://getzola.org/">Zola</a>, Theme <a target="_blank" href="https://github.com/zbrox/anpu-zola-theme">Anpu</a>.
+            </p>
+            <p>
+                
+                
+            </p>
+        </footer>
+    </div>
+</body>
+<!-- Google Analytics Tracking code -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-55943015-8', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/search_index.en.js"/></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/search.js"/></script>
+</html>

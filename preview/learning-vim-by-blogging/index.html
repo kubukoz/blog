@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <title>Learning vim by blogging</title>
+    <meta name="description" content="I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I&#x27;ll be sharing my findings about Vim (neovim).
+This post will be written exclusively in (variants of) Vim.">
+
+    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/main.css">
+    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/custom.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.svg">
+
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.kubukoz.com/preview/atom.xml">
+    
+
+    
+    
+</head>
+<body>
+    
+    <div class="cover-image" style="background-image: url(&#x2F;images&#x2F;learning-vim-bg.jpg)"></div>
+    
+    <a class="skip-main" href="#main">Skip to content</a>
+    <div class="container">
+        <header>
+            <h1 class="site-header">
+                <a href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview">Jakub Kozłowski</a> | A 1.00000000000001x engineering blog
+            </h1>
+            <nav>
+                
+                
+                
+                <a  href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview&#x2F;talks&#x2F;">Talks</a>
+                
+                
+            </nav>
+        </header>
+        <div class="search-container">
+            <input id="searchbox" type="search" placeholder="Search">
+            <div class="search-results">
+                <div class="search-results__items">
+                </div>
+            </div>
+        </div>
+        <main id="main" tabindex="-1">
+            
+
+<article class="post">
+    <header>
+        <h1>Learning vim by blogging</h1>
+    </header>
+    <div class="content">
+        <p>I decided that writing about something is one of the easiest ways to learn it for a longer period of time. In this blog post, which I hope to update once in a while, I'll be sharing my findings about Vim (neovim).</p>
+<p>This post will be written exclusively in (variants of) Vim.</p>
+<span id="continue-reading"></span><h2 id="go-to-the-next-previous-occurrence-of-a-character"><a class="zola-anchor" href="#go-to-the-next-previous-occurrence-of-a-character" aria-label="Anchor link for: go-to-the-next-previous-occurrence-of-a-character">Go to the next/previous occurrence of a character</a></h2>
+<p>To go to the next occurrence of a character, use <code>t</code> (sets the cursor before the character) or <code>f</code> (on the character). To find the previous one, use <code>T</code> (after the character) or <code>F</code> (on the character).</p>
+<p>For example, in this line:</p>
+<pre data-lang="scala" class="language-scala z-code"><code class="language-scala" data-lang="scala"><span class="z-source z-scala"><span class="z-storage z-type z-function z-scala">def</span> <span class="z-entity z-name z-function z-scala">foo</span> <span class="z-keyword z-operator z-assignment z-scala">=</span> bar<span class="z-text z-xml"><span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-xml">cursor</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span></span><span class="z-text z-xml"> + 5
+</span></span></code></pre>
+<p>If I want to select <code>= bar</code> (space included), I can press <code>F=</code>.</p>
+<h2 id="copy-paste-to-clipboard"><a class="zola-anchor" href="#copy-paste-to-clipboard" aria-label="Anchor link for: copy-paste-to-clipboard">Copy/paste to clipboard</a></h2>
+<p>To copy to the buffer inside Vim, you press <code>y</code> after selecting some text. To copy it to the clipboard, you use <code>&quot;*y</code>. Similarly with <code>p</code> for pasting.</p>
+<h2 id="go-to-first-last-line-of-file"><a class="zola-anchor" href="#go-to-first-last-line-of-file" aria-label="Anchor link for: go-to-first-last-line-of-file">Go to first/last line of file</a></h2>
+<p>Press <code>gg</code> / <code>G</code>.</p>
+<h2 id="go-to-beginning-end-of-line"><a class="zola-anchor" href="#go-to-beginning-end-of-line" aria-label="Anchor link for: go-to-beginning-end-of-line">Go to beginning/end of line</a></h2>
+<p>Press <code>^</code> / <code>$</code>.</p>
+<p><code>g_</code> moves you to the last non-blank character.</p>
+<p><code>A</code> moves you to the end of the line and switches to editing (A as in Append), to do the same at the beginning use <code>I</code>.</p>
+<hr />
+<h2 id="links"><a class="zola-anchor" href="#links" aria-label="Anchor link for: links">Links</a></h2>
+<p><a rel="noopener" target="_blank" href="https://www.cyberciti.biz/faq/howto-unix-linux-vi-vim-jump-to-end-of-file/">vi / vim: Jump To End Of File Command</a></p>
+<p><a rel="noopener" target="_blank" href="https://stackoverflow.com/questions/2332513/vim-select-to-character-non-inclusive">vim: select to character, non-inclusive</a></p>
+
+    </div>
+
+    
+    <div class="article-info">
+        
+        <div class="article-date">30 April 2019</div>
+        
+        <div class="article-taxonomies">
+            
+            
+                <ul class="article-tags">
+                    
+                    <li><a href="https://blog.kubukoz.com/preview/tags/vim/">#vim</a></li>
+                    
+                    <li><a href="https://blog.kubukoz.com/preview/tags/text-editors/">#text-editors</a></li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+
+</article>
+
+
+<div id="disqus_thread"></div>
+<script>
+  /**
+   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+  var disqus_config = function () {
+    this.page.url = "https://blog.kubukoz.com/preview";
+    this.page.identifier = '/learning-vim-by-blogging';
+  };
+
+  (function () {
+    // DON'T EDIT BELOW THIS LINE
+    var d = document,
+      s = d.createElement("script");
+    s.src = "https://kubukoz-blog.disqus.com/embed.js";
+    s.setAttribute("data-timestamp", +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+ 
+        </main>
+        <footer>
+            <p>
+                © Jakub Kozłowski (<a href="https://twitter.com/kubukoz">@kubukoz</a>) 2023<br>
+                Powered by <a target="_blank" href="https://getzola.org/">Zola</a>, Theme <a target="_blank" href="https://github.com/zbrox/anpu-zola-theme">Anpu</a>.
+            </p>
+            <p>
+                
+                
+            </p>
+        </footer>
+    </div>
+</body>
+<!-- Google Analytics Tracking code -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-55943015-8', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/search_index.en.js"/></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/preview/search.js"/></script>
+</html>
