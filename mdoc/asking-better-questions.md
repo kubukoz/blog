@@ -95,9 +95,9 @@ Ensure that the problem is visible on **the latest available version** of the so
 
 Sometimes we use older versions of software without being aware of a more recent release,
 or there's been a change in the project that **hasn't yet been released** - we can only try it out after switching to a snapshot/nightly distribution channel.
-Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to try that for you.
+Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to run that step for you.
 
-Even if you're stuck on an older version, it's good to know whether the problem has been seen before.
+Even if you're stuck on an older version, it's good to know whether the problem has already been solved.
 
 ## Maybe it's you
 
@@ -126,7 +126,7 @@ What I _can_ give you, though, is a blueprint.
 
 Your question should tell a story. You're the main character, and the issue you're facing is the villain.
 
-Focusing on your story's most important plot points will make it easier to follow, and help make sure you don't miss any crucial details.
+Focusing on your story's most important plot points will make it **easier to follow**, and help make sure you don't miss any crucial details.
 
 ### Prologue
 
@@ -145,7 +145,7 @@ You were expecting everything would go according to the plan, but **something el
 
 ### The investigation
 
-You've already tried to overcome the problem - share what attempts you've made, and explain **why you think they weren't successful**. It can be helpful to rule out distractions and dead ends.
+You've already tried to overcome the problem - share your past attempts, and explain **why you think they weren't successful**. It can be helpful to rule out distractions and dead ends.
 
 Is there a pattern in what the issue looks like? Does it happen every time you retrace your steps, or was there something peculiar about that one attempt? (see also: [reproducible example](#reproducible))
 
@@ -156,11 +156,10 @@ Do you have any other information that could be relevant?
 After all, we're hoping to get a sequel - a response that explains it all, and a culmination of our characters' arcs.
 Before you submit your story for print, you can tease the reader a bit, by telling them what will happen if the villain isn't stopped:
 
-Is this issue critical for you? Does it block you? Do you have a workaround that you can apply in the meantime?
-
+Is this issue critical for you? Does it block you? **Do you have a workaround** that you can apply in the meantime?
 Any alternatives that you can use - while the issue is being figured out - will be helpful to others who find themselves in an identical situation.
 
-Keep in mind, though - if you're going to mention that the issue is critical to you and your team, that doesn't give you any more right to a reply than anyone else. [Don't act entitled](#be-kind)!
+Keep in mind, though - if you're going to mention that the issue is critical to you and your team, that doesn't give you any more right to a reply than anyone else. **[Don't act entitled](#be-kind)!**
 
 # Example
 
@@ -176,15 +175,16 @@ Let's look at these traits in more detail.
 
 ## Complete
 
-A good example specifies everything that's necessary to replicate the issue on another person's computer. This includes version numbers of relevant components, imports, compiler flags, your OS type... and the exact steps to follow.
+A good example specifies everything that's necessary to replicate the issue on another person's computer. This includes version numbers of relevant components, imports, compiler flags, your OS type... and **the exact steps to follow**.
 
-Ideally, your example will be self-contained enough that to reproduce the issue, the person reading the report should be able to **run a single command** and see the same result as you did. For example, a `nix run` call with a pinned [Nix Flake reference](https://blog.kubukoz.com/flakes-first-steps) is as complete as it gets. In the Scala ecosystem, recently it's been best practice to post [a scala-cli-compatible Gist](https://scala-cli.virtuslab.org/docs/cookbooks/gists/).
+Ideally, your example will be self-contained enough that to reproduce the issue, the person reading the report should be able to **run a single command** and see the same result as you did.
+For example, a `nix run` call with a pinned [Nix Flake reference](https://blog.kubukoz.com/flakes-first-steps) is as complete as it gets. In the Scala ecosystem, recently it's been best practice to post [a scala-cli Gist](https://scala-cli.virtuslab.org/docs/cookbooks/gists/).
 
-In case of open source projects, it can be very useful to write your reproduction in the style of a test case. For example:
+In case of open source projects, it can be very useful to write your reproduction in the style of a test case. Perhaps something that looks like this:
 
 > When I do X, I see Y, but expect to see Z
 
-Even better - you can actually submit a draft Pull Request with **a failing test** that does that.
+If you want, you can actually submit a draft Pull Request with **a failing test** that does that.
 
 ## Minimal
 
@@ -192,7 +192,7 @@ Remove all unnecessary clutter from any examples you post.
 
 This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.
 
-Of course, if any of these is essential to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime. Anything else becomes a hindrance, so **stick to the essentials**.
+Of course, if any of these is vital to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime. Anything else becomes a hindrance, so **stick to the essentials**.
 
 ## Reproducible
 
@@ -235,7 +235,7 @@ However, **don't sweat it** - "perfect" is the enemy of "done", and the fact tha
 Regardless of whether it's a public forum or a work Slack, it's best to avoid wasting time. On that front, one of the worst offenders are [**roundtrips**](https://en.wikipedia.org/wiki/Round-trip_delay).
 Minimize the amount of roundtrips by making your question complete (see the parts about [Due dilligence](#due-dilligence), [Context](#context)) - this will avoid unnecessary follow-up questions, and save time for both sides of the exchange.
 
-The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it][nohello] - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you.
+The most extreme example of a useless roundtrip is sending a message that **just says "Hello"**. [Don't do it][nohello] - the person reading that message will be forced to wait for the "actual" message you send, before they can even begin to try and help you. Even worse, they may see your message, start doing something else, then have to context switch again after you follow up with the question.
 
 Another example: "Does anybody here know X?" - that's not the question you _really_ want to ask, is it? Add the actual question in a thread or start with it in the first place.
 
@@ -256,10 +256,11 @@ Keep these tips in mind, but ultimately you'll have to follow your gut.
 # Summary
 
 I hope these suggestions give you a baseline for the questions you'll ask in your career.
-There's obviously more to it, and I'm not the first person to write about this problem either - you'll find a lot of overlap with documents like ["How To Ask Questions The Smart Way"][smart-questions] - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.
+There's clearly more to it, and I'm not the first person to write about this problem either.
+
+You'll find a lot of overlap with documents like ["How To Ask Questions The Smart Way"][smart-questions] - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.
 
 Feel free to share this post with your peers if you wish they gave you better questions, just... [DBAA](https://youtu.be/0wsKxLyYU7E?t=145) 🙂
-
 I also recommend checking out the other sources listed below.
 
 Thanks for reading, and let me know what you think about the post!
