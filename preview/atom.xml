@@ -15,7 +15,7 @@
 		<id>https://blog.kubukoz.com/preview/asking-better-questions/</id>
 		<content type="html">&lt;p&gt;From the very first day I started learning how to program, I had questions. &lt;strong&gt;So many questions!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I&#x27;m used to people asking for help many times a day.&lt;&#x2F;p&gt;
-&lt;p&gt;All of this is to say, I&#x27;ve asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple tips on how to ask better questions.
+&lt;p&gt;All of this is to say, I&#x27;ve asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple of tips on how to ask better questions.
 These tips will not only help you &lt;strong&gt;reach a solution sooner&lt;&#x2F;strong&gt;, but possibly a &lt;strong&gt;better solution altogether&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
 &lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;!-- todo: quick examples: instead of saying X say Y --&gt;
 &lt;!-- todo: cheatsheet at the end? --&gt;
@@ -31,7 +31,7 @@ These tips will not only help you &lt;strong&gt;reach a solution sooner&lt;&#x2F
 &lt;p&gt;To sum up, the practices described here can be used in a variety of contexts.&lt;&#x2F;p&gt;
 &lt;h1 id=&quot;due-dilligence&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#due-dilligence&quot; aria-label=&quot;Anchor link for: due-dilligence&quot;&gt;Due dilligence&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
 &lt;p&gt;Before submitting the question or issue, ensure you&#x27;ve done &lt;strong&gt;as much as you reasonably could&lt;&#x2F;strong&gt; by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.&lt;&#x2F;p&gt;
-&lt;p&gt;Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple things to try:&lt;&#x2F;p&gt;
+&lt;p&gt;Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple of things to try:&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;is-this-an-xy-problem&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#is-this-an-xy-problem&quot; aria-label=&quot;Anchor link for: is-this-an-xy-problem&quot;&gt;Is this an XY problem?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;The first thing you should check for is the possibility of asking a completely misguided question.&lt;&#x2F;p&gt;
 &lt;p&gt;It&#x27;s a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get &lt;strong&gt;hung up on that solution&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
@@ -52,9 +52,9 @@ Being aware of this pitfall is incredibly useful: we can fight against it.&lt;&#
 This will allow them to suggest a better way to do that, if there is one.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;search-around&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#search-around&quot; aria-label=&quot;Anchor link for: search-around&quot;&gt;Search around&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
-There are many places to look in, though, so here are a couple ideas to get you started.&lt;&#x2F;p&gt;
+There are many places to look in, though, so here are a couple of ideas to get you started.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;Search engines&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.&lt;&#x2F;p&gt;
+&lt;p&gt;Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple of pages of the results.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;strong&gt;Knowledge bases&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;For &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Open-source_software&quot;&gt;OSS&lt;&#x2F;a&gt; projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
 Maybe the bug you encountered has already been reported and then closed as &amp;quot;not a bug&amp;quot;.
