@@ -6,7 +6,7 @@ date = "2019-04-14"
 tags = ["scala", "functional-programming"]
 
 [extra]
-disqus = true
+disqus.enable = true
 cover = '/images/coherence-bg.jpg'
 +++
 

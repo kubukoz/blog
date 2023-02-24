@@ -6,7 +6,7 @@ date = "2018-12-02"
 tags = ["scala", "functional programming", "cats"]
 
 [extra]
-disqus = true
+disqus.enable = true
 cover = "/images/pure-function-bg.jpg"
 +++
 

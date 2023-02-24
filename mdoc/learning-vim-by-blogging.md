@@ -6,7 +6,7 @@ date = "2019-04-30"
 tags = ["vim", "text-editors"]
 
 [extra]
-disqus = true
+disqus.enable = true
 cover = "/images/learning-vim-bg.jpg"
 +++
 

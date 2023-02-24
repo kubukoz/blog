@@ -6,7 +6,8 @@ date = "2023-02-24"
 tags = ["development"]
 
 [extra]
-disqus = true
+disqus.enable = true
+disqus.ident_suffix = "?disqus_revision=1"
 +++
 
 From the very first day I started learning how to program, I had questions. **So many questions!**
