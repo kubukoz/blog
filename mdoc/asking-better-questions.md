@@ -265,6 +265,8 @@ I also recommend checking out the other sources listed below.
 
 Thanks for reading, and let me know what you think about the post!
 
+Many thanks to my friends [Chris Kipp](https://github.com/ckipp01), [Olivier Mélois](https://github.com/baccata) and [Gabriel Volpe](https://github.com/gvolpe/) for reviewing this post.
+
 # Sources
 
 - [What I’ve learned in open source, and why I think you should contribute.](https://www.chris-kipp.io/slides/open-source)
