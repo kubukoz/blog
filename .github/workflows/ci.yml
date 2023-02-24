@@ -11,19 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: cachix/install-nix-action@v18
       - uses: cachix/cachix-action@v11
         with:
           name: kubukoz
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Build
+      - name: Build (main)
+        if: github.ref == 'refs/heads/main'
         run: ./build.sh && cp -Lr ./result public
 
       - uses: JamesIves/github-pages-deploy-action@v4
-        name: Deploy
+        name: Deploy (main)
         if: github.ref == 'refs/heads/main'
         with:
           branch: gh-pages
           folder: ./public
+
+      - name: Build (preview)
+        if: github.event_name == 'pull_request'
+        run: ./build.sh '.?submodules=1#preview' && cp -Lr ./result public-preview
+
+      - uses: JamesIves/github-pages-deploy-action@v4
+        name: Deploy (preview)
+        if: github.event_name == 'pull_request'
+        with:
+          branch: gh-pages
+          target-folder: ./preview/
+          folder: ./public-preview
