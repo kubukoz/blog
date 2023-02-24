@@ -272,6 +272,7 @@ Many thanks to my friends [Chris Kipp](https://github.com/ckipp01), [Olivier Mé
 - [Short but complete programs](https://jonskeet.uk/csharp/complete.html)
 - [Don't Just Say "Hello" In Chat][nohello]
 - [The XY Problem][xyproblem]
+- [How do I ask a good question? By Stack Overflow](https://stackoverflow.com/help/how-to-ask)
 
 [smart-questions]: http://www.catb.org/esr/faqs/smart-questions.html
 [nohello]: https://www.nohello.com
