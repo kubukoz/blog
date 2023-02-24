@@ -70,8 +70,8 @@ or there&#x27;s been a change in the project that &lt;strong&gt;hasn&#x27;t yet 
 Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to run that step for you.&lt;&#x2F;p&gt;
 &lt;p&gt;Even if you&#x27;re stuck on an older version, it&#x27;s good to know whether the problem has already been solved.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;maybe-it-s-you&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#maybe-it-s-you&quot; aria-label=&quot;Anchor link for: maybe-it-s-you&quot;&gt;Maybe it&#x27;s you&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
-&lt;p&gt;Sometimes we just let our pride win and assume everyone is wrong - but not us, of course. &lt;strong&gt;Stay humble&lt;&#x2F;strong&gt;, remember that you&#x27;re not a machine, and consider the possibility that it was, in fact, you.
-Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes we are just wrong and don&#x27;t realize we&#x27;re the ones making a mistake, especially after a long session of debugging.
+&lt;strong&gt;Stay humble&lt;&#x2F;strong&gt;, take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.&lt;&#x2F;p&gt;
 &lt;p&gt;Nevertheless, &lt;strong&gt;don&#x27;t get blocked&lt;&#x2F;strong&gt; - if you honestly see no way forward, asking for help is the right call.
 If you&#x27;re not sure about something, just mention that in the question - you don&#x27;t have to know everything.
 You can even start by asking an easier, more general question, just to validate your understanding - these questions tend to get answered quicker.&lt;&#x2F;p&gt;
