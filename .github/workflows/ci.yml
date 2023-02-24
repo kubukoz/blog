@@ -29,12 +29,12 @@ jobs:
           folder: ./public
 
       - name: Build (preview)
-        if: github.ref != 'refs/heads/main'
+        if: github.event_name == 'pull_request'
         run: ./build.sh '.?submodules=1#preview' && cp -Lr ./result public-preview
 
       - uses: JamesIves/github-pages-deploy-action@v4
         name: Deploy (preview)
-        if: github.ref != 'refs/heads/main'
+        if: github.event_name == 'pull_request'
         with:
           branch: gh-pages
           target-folder: ./preview/
