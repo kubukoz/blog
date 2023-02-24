@@ -1,6 +1,6 @@
 +++
 title = "Asking better questions"
-date = "2023-02-05"
+date = "2023-02-24"
 
 [taxonomies]
 tags = ["development"]
