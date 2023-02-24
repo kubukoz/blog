@@ -101,8 +101,8 @@ Even if you're stuck on an older version, it's good to know whether the problem 
 
 ## Maybe it's you
 
-Sometimes we just let our pride win and assume everyone is wrong - but not us, of course. **Stay humble**, remember that you're not a machine, and consider the possibility that it was, in fact, you.
-Take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.
+Sometimes we are just wrong and don't realize we're the ones making a mistake, especially after a long session of debugging.
+**Stay humble**, take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.
 
 Nevertheless, **don't get blocked** - if you honestly see no way forward, asking for help is the right call.
 If you're not sure about something, just mention that in the question - you don't have to know everything.
