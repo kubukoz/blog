@@ -18,9 +18,6 @@ These tips will not only help you **reach a solution sooner**, but possibly a **
 
 <!-- more -->
 
-<!-- todo: quick examples: instead of saying X say Y -->
-<!-- todo: cheatsheet at the end? -->
-
 # What's a question?
 
 Before we get to the tips, I want to highlight what kind of questions this could be useful for.
