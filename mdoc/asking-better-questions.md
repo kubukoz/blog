@@ -13,7 +13,7 @@ From the very first day I started learning how to program, I had questions. **So
 
 Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I'm used to people asking for help many times a day.
 
-All of this is to say, I've asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple tips on how to ask better questions.
+All of this is to say, I've asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple of tips on how to ask better questions.
 These tips will not only help you **reach a solution sooner**, but possibly a **better solution altogether**.
 
 <!-- more -->
@@ -39,7 +39,7 @@ To sum up, the practices described here can be used in a variety of contexts.
 
 Before submitting the question or issue, ensure you've done **as much as you reasonably could** by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.
 
-Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple things to try:
+Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple of things to try:
 
 ## Is this an XY problem?
 
@@ -69,11 +69,11 @@ This will allow them to suggest a better way to do that, if there is one.
 ## Search around
 
 In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
-There are many places to look in, though, so here are a couple ideas to get you started.
+There are many places to look in, though, so here are a couple of ideas to get you started.
 
 **Search engines**
 
-Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple pages of the results.
+Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple of pages of the results.
 
 **Knowledge bases**
 
