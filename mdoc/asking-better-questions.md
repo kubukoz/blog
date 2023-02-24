@@ -268,6 +268,7 @@ Many thanks to my friends [Chris Kipp](https://github.com/ckipp01), [Olivier Mé
 
 - [What I’ve learned in open source, and why I think you should contribute.](https://www.chris-kipp.io/slides/open-source)
 - [How to Ask Questions The Smart Way][smart-questions]
+- [The Pocket Guide to Debugging](https://wizardzines.com/zines/debugging-guide/)
 - [Short, Self Contained, Correct (Compilable), Example](http://sscce.org/)
 - [Short but complete programs](https://jonskeet.uk/csharp/complete.html)
 - [Don't Just Say "Hello" In Chat][nohello]
