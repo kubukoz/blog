@@ -4,6 +4,10 @@
         <loc>https://blog.kubukoz.com/</loc>
     </url>
     <url>
+        <loc>https://blog.kubukoz.com/asking-better-questions/</loc>
+        <lastmod>2023-02-05</lastmod>
+    </url>
+    <url>
         <loc>https://blog.kubukoz.com/categories/</loc>
     </url>
     <url>
@@ -23,6 +27,9 @@
     </url>
     <url>
         <loc>https://blog.kubukoz.com/tags/cats/</loc>
+    </url>
+    <url>
+        <loc>https://blog.kubukoz.com/tags/development/</loc>
     </url>
     <url>
         <loc>https://blog.kubukoz.com/tags/functional-programming/</loc>

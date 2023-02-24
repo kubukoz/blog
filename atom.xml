@@ -5,8 +5,179 @@
 	<link href="https://blog.kubukoz.com/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://blog.kubukoz.com"/>
 	<generator uri="https://www.getzola.org/">Zola</generator>
-	<updated>2022-10-22T00:00:00+00:00</updated>
+	<updated>2023-02-05T00:00:00+00:00</updated>
 	<id>https://blog.kubukoz.com/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Asking better questions</title>
+		<published>2023-02-05T00:00:00+00:00</published>
+		<updated>2023-02-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://blog.kubukoz.com/asking-better-questions/" type="text/html"/>
+		<id>https://blog.kubukoz.com/asking-better-questions/</id>
+		<content type="html">&lt;p&gt;From the very first day I started learning how to program, I had questions. &lt;strong&gt;So many questions!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Thing is, after some time, as my career progressed, I ended up being on the receiving end of such questions more and more. That never changed - in fact, I&#x27;m used to people asking for help many times a day.&lt;&#x2F;p&gt;
+&lt;p&gt;All of this is to say, I&#x27;ve asked and been asked probably thousands of questions - good ones, but also bad ones, and I would like to share a couple of tips on how to ask better questions.
+These tips will not only help you &lt;strong&gt;reach a solution sooner&lt;&#x2F;strong&gt;, but possibly a &lt;strong&gt;better solution altogether&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;&lt;!-- todo: quick examples: instead of saying X say Y --&gt;
+&lt;!-- todo: cheatsheet at the end? --&gt;
+&lt;h1 id=&quot;what-s-a-question&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-s-a-question&quot; aria-label=&quot;Anchor link for: what-s-a-question&quot;&gt;What&#x27;s a question?&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Before we get to the tips, I want to highlight what kind of questions this could be useful for.&lt;&#x2F;p&gt;
+&lt;p&gt;In the context of this post, &amp;quot;asking a question&amp;quot; means any action that you perform to get help &lt;strong&gt;from other people&lt;&#x2F;strong&gt; in solving a problem.&lt;&#x2F;p&gt;
+&lt;p&gt;This includes, but is not limited to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;reporting an issue in a project (&amp;quot;the command X doesn&#x27;t work&amp;quot;, &amp;quot;can you add a Y function?&amp;quot;)&lt;&#x2F;li&gt;
+&lt;li&gt;requesting assistance in your work (&amp;quot;my code crashes&amp;quot;, &amp;quot;I can&#x27;t publish to Maven Central&amp;quot;)&lt;&#x2F;li&gt;
+&lt;li&gt;learning (&amp;quot;what does this function do?&amp;quot;, &amp;quot;what&#x27;s the best way to publish a Scala library?&amp;quot;)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;To sum up, the practices described here can be used in a variety of contexts.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;due-dilligence&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#due-dilligence&quot; aria-label=&quot;Anchor link for: due-dilligence&quot;&gt;Due dilligence&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Before submitting the question or issue, ensure you&#x27;ve done &lt;strong&gt;as much as you reasonably could&lt;&#x2F;strong&gt; by yourself. Reasonably - because nobody would want you to spend a week searching for an answer they could give you in five minutes.&lt;&#x2F;p&gt;
+&lt;p&gt;Many Open Source projects will have a checklist for this, and you can make your own if you like. Here are a couple of things to try:&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;is-this-an-xy-problem&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#is-this-an-xy-problem&quot; aria-label=&quot;Anchor link for: is-this-an-xy-problem&quot;&gt;Is this an XY problem?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The first thing you should check for is the possibility of asking a completely misguided question.&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s a common trap that you see a problem, come up with a solution, encounter a roadblock while trying to implement it... then get &lt;strong&gt;hung up on that solution&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Whereas it may be a genuinely legitimate way to get to your goal, it&#x27;s a good idea to take a step back and ponder:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Is this really the right way to approach this?&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;You may find &lt;strong&gt;that it&#x27;s not&lt;&#x2F;strong&gt; - that you&#x27;re jumping through hoops to make that solution match the problem, or trying to fit this problem into that solution.&lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re lucky, someone aware of this phenomenon will ask you: &lt;strong&gt;Is this an XY problem?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;From &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;xyproblem.info&#x2F;&quot;&gt;xyproblem.info&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The XY problem is asking about your attempted solution rather than your actual problem.
+This leads to enormous amounts of &lt;strong&gt;wasted time and energy&lt;&#x2F;strong&gt;, both on the part of people asking for help, and on the part of those providing help.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Once I learned about this, I started seeing myself and my peers fall into this trap &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Frequency_illusion&quot;&gt;unreasonably often&lt;&#x2F;a&gt;, and I agree with the statement above - it can be a massive waste of time.
+Being aware of this pitfall is incredibly useful: we can fight against it.&lt;&#x2F;p&gt;
+&lt;p&gt;Consider if you&#x27;re &lt;strong&gt;asking the right question&lt;&#x2F;strong&gt;. Give your audience a sneak peek of &amp;quot;the bigger picture&amp;quot; of what you&#x27;re trying to get done.
+This will allow them to suggest a better way to do that, if there is one.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;search-around&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#search-around&quot; aria-label=&quot;Anchor link for: search-around&quot;&gt;Search around&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;In general, exploration in search of a solution can be very productive, and serve as a great learning experience too.
+There are many places to look in, though, so here are a couple of ideas to get you started.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Search engines&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Use a search engine - it can be Google, Bing, DuckDuckGo, or whatever you use. Run some basic searches and sift through a couple of pages of the results.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Knowledge bases&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;For &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Open-source_software&quot;&gt;OSS&lt;&#x2F;a&gt; projects, this could be GitHub Issues or Discussions - maybe the question you meant to post has already been asked.
+Maybe the bug you encountered has already been reported and then closed as &amp;quot;not a bug&amp;quot;.
+Who knows, maybe it&#x27;s been fixed and will be available in the next release!&lt;&#x2F;p&gt;
+&lt;p&gt;At work, you can often find useful nuggets of information on Slack and your team&#x27;s Wiki.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Documentation&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you can find it, reach for the documentation. If you can&#x27;t - you can start by asking for instructions on where to get it.&lt;&#x2F;p&gt;
+&lt;p&gt;Documentation could also be code or a product brief. You may be able to gather some information about why what you&#x27;re trying to do doesn&#x27;t work, and maybe even figure out &lt;strong&gt;a way to fix it&lt;&#x2F;strong&gt; - always useful information to bring in a bug report.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;update-your-software&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#update-your-software&quot; aria-label=&quot;Anchor link for: update-your-software&quot;&gt;Update your software&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Ensure that the problem is visible on &lt;strong&gt;the latest available version&lt;&#x2F;strong&gt; of the software you&#x27;re having problems with.&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes we use older versions of software without being aware of a more recent release,
+or there&#x27;s been a change in the project that &lt;strong&gt;hasn&#x27;t yet been released&lt;&#x2F;strong&gt; - we can only try it out after switching to a snapshot&#x2F;nightly distribution channel.
+Doing that extra step to get these unreleased changes is usually not strictly necessary, but it may obviate the need for posting an issue, or at least for the maintainers to run that step for you.&lt;&#x2F;p&gt;
+&lt;p&gt;Even if you&#x27;re stuck on an older version, it&#x27;s good to know whether the problem has already been solved.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;maybe-it-s-you&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#maybe-it-s-you&quot; aria-label=&quot;Anchor link for: maybe-it-s-you&quot;&gt;Maybe it&#x27;s you&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Sometimes we are just wrong and don&#x27;t realize we&#x27;re the ones making a mistake, especially after a long session of debugging.
+&lt;strong&gt;Stay humble&lt;&#x2F;strong&gt;, take a break, look at the problem with fresh eyes and see if you find any flaws in your approach.&lt;&#x2F;p&gt;
+&lt;p&gt;Nevertheless, &lt;strong&gt;don&#x27;t get blocked&lt;&#x2F;strong&gt; - if you honestly see no way forward, asking for help is the right call.
+If you&#x27;re not sure about something, just mention that in the question - you don&#x27;t have to know everything.
+You can even start by asking an easier, more general question, just to validate your understanding - these questions tend to get answered quicker.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;context&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#context&quot; aria-label=&quot;Anchor link for: context&quot;&gt;Context&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;If you&#x27;ve done your research and still feel like you need help, now&#x27;s the time to start writing: gather all the useful information about your problem, and try to materialize that in your question.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-much-is-too-much&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-much-is-too-much&quot; aria-label=&quot;Anchor link for: how-much-is-too-much&quot;&gt;How much is too much?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Some questions certainly require more insight into the problem, while some can be answered just based on a single sentence. I generally practice the following approach:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Minimal, yet sufficient.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s deliberately vague - I&#x27;m afraid you&#x27;ll have to figure out how much detail to provide on a case-by-case basis, but usually you&#x27;ll need to post &lt;strong&gt;more information for more complex issues&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;What I &lt;em&gt;can&lt;&#x2F;em&gt; give you, though, is a blueprint.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;storyline&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#storyline&quot; aria-label=&quot;Anchor link for: storyline&quot;&gt;Storyline&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Your question should tell a story. You&#x27;re the main character, and the issue you&#x27;re facing is the villain.&lt;&#x2F;p&gt;
+&lt;p&gt;Focusing on your story&#x27;s most important plot points will make it &lt;strong&gt;easier to follow&lt;&#x2F;strong&gt;, and help make sure you don&#x27;t miss any crucial details.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;prologue&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#prologue&quot; aria-label=&quot;Anchor link for: prologue&quot;&gt;Prologue&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Provide some background to explain where the main character is coming from, and what their motivation is.
+State the problem you&#x27;re trying to solve, what you&#x27;re trying to achieve - &lt;strong&gt;focus on the end goal&lt;&#x2F;strong&gt;, not the implementation details (also see &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;asking-better-questions&#x2F;#is-this-an-xy-problem&quot;&gt;the XY problem&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;setup&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#setup&quot; aria-label=&quot;Anchor link for: setup&quot;&gt;Setup&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Then, there&#x27;s the setup of the story: &lt;strong&gt;how did you run into this problem?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Focus on the steps that took you there, without judgement: just state the facts of what you did that triggered the issue. How does the hero bump into the bad guy?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;plot-twist&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#plot-twist&quot; aria-label=&quot;Anchor link for: plot-twist&quot;&gt;Plot twist&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;You were expecting everything would go according to the plan, but &lt;strong&gt;something else happened&lt;&#x2F;strong&gt;. What does your ideal scenario look like, and what&#x27;s the reality?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-investigation&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-investigation&quot; aria-label=&quot;Anchor link for: the-investigation&quot;&gt;The investigation&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;You&#x27;ve already tried to overcome the problem - share your past attempts, and explain &lt;strong&gt;why you think they weren&#x27;t successful&lt;&#x2F;strong&gt;. It can be helpful to rule out distractions and dead ends.&lt;&#x2F;p&gt;
+&lt;p&gt;Is there a pattern in what the issue looks like? Does it happen every time you retrace your steps, or was there something peculiar about that one attempt? (see also: &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;asking-better-questions&#x2F;#reproducible&quot;&gt;reproducible example&lt;&#x2F;a&gt;)&lt;&#x2F;p&gt;
+&lt;p&gt;Do you have any other information that could be relevant?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-cliffhanger&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#the-cliffhanger&quot; aria-label=&quot;Anchor link for: the-cliffhanger&quot;&gt;The cliffhanger&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;After all, we&#x27;re hoping to get a sequel - a response that explains it all, and a culmination of our characters&#x27; arcs.
+Before you submit your story for print, you can tease the reader a bit, by telling them what will happen if the villain isn&#x27;t stopped:&lt;&#x2F;p&gt;
+&lt;p&gt;Is this issue critical for you? Does it block you? &lt;strong&gt;Do you have a workaround&lt;&#x2F;strong&gt; that you can apply in the meantime?
+Any alternatives that you can use - while the issue is being figured out - will be helpful to others who find themselves in an identical situation.&lt;&#x2F;p&gt;
+&lt;p&gt;Keep in mind, though - if you&#x27;re going to mention that the issue is critical to you and your team, that doesn&#x27;t give you any more right to a reply than anyone else. &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;asking-better-questions&#x2F;#be-kind&quot;&gt;Don&#x27;t act entitled&lt;&#x2F;a&gt;!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;example&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#example&quot; aria-label=&quot;Anchor link for: example&quot;&gt;Example&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;An important part of every code-related question is an example. If you&#x27;re asking a question in the style of &amp;quot;this doesn&#x27;t work&amp;quot; or &amp;quot;I want to do X&amp;quot;, &lt;strong&gt;a good example is worth a thousand words&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Not just &lt;em&gt;any&lt;&#x2F;em&gt; example, though - it should be:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;complete (also called self-contained or standalone).&lt;&#x2F;li&gt;
+&lt;li&gt;minimal&lt;&#x2F;li&gt;
+&lt;li&gt;reproducible&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Let&#x27;s look at these traits in more detail.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;complete&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#complete&quot; aria-label=&quot;Anchor link for: complete&quot;&gt;Complete&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;A good example specifies everything that&#x27;s necessary to replicate the issue on another person&#x27;s computer. This includes version numbers of relevant components, imports, compiler flags, your OS type... and &lt;strong&gt;the exact steps to follow&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Ideally, your example will be self-contained enough that to reproduce the issue, the person reading the report should be able to &lt;strong&gt;run a single command&lt;&#x2F;strong&gt; and see the same result as you did.
+For example, a &lt;code&gt;nix run&lt;&#x2F;code&gt; call with a pinned &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;flakes-first-steps&quot;&gt;Nix Flake reference&lt;&#x2F;a&gt; is as complete as it gets. In the Scala ecosystem, recently it&#x27;s been best practice to post &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;scala-cli.virtuslab.org&#x2F;docs&#x2F;cookbooks&#x2F;gists&#x2F;&quot;&gt;a scala-cli Gist&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In case of open source projects, it can be very useful to write your reproduction in the style of a test case. Perhaps something that looks like this:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When I do X, I see Y, but expect to see Z&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;If you want, you can actually submit a draft Pull Request with &lt;strong&gt;a failing test&lt;&#x2F;strong&gt; that does that.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;minimal&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#minimal&quot; aria-label=&quot;Anchor link for: minimal&quot;&gt;Minimal&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Remove all unnecessary clutter from any examples you post.&lt;&#x2F;p&gt;
+&lt;p&gt;This includes any unused imports or variables, library dependencies, local files, other pieces of your project, and so on.&lt;&#x2F;p&gt;
+&lt;p&gt;Of course, if any of these is vital to reproducing the issue, you can leave them in, but make sure they can be used by anyone anytime. Anything else becomes a hindrance, so &lt;strong&gt;stick to the essentials&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;reproducible&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#reproducible&quot; aria-label=&quot;Anchor link for: reproducible&quot;&gt;Reproducible&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This may already be covered by the &amp;quot;complete&amp;quot; part, but consider whether your example will behave the same way tomorrow, in a leap year, on a Windows machine, or on Mars.&lt;&#x2F;p&gt;
+&lt;p&gt;Okay, fine - it doesn&#x27;t &lt;em&gt;actually&lt;&#x2F;em&gt; have to run on Windows 💀 but it&#x27;s imperative that the problem doesn&#x27;t only happen &amp;quot;sometimes&amp;quot;, or that you &lt;strong&gt;make it blatantly obvious&lt;&#x2F;strong&gt; that it does.&lt;&#x2F;p&gt;
+&lt;p&gt;Last but not least, don&#x27;t miss this crucial step:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;actually-run-the-reproduction&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#actually-run-the-reproduction&quot; aria-label=&quot;Anchor link for: actually-run-the-reproduction&quot;&gt;Actually run the reproduction&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;While you&#x27;re minimizing an issue, it&#x27;s quite easy to accidentally remove a &lt;strong&gt;seemingly innocent, yet vital piece&lt;&#x2F;strong&gt; of the setup that actually plays a role in the issue - making the code work as designed, instead of showcasing a problem.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m sometimes guilty of skipping this step myself (embarrassingly often, really), but I&#x27;ve also seen a number of people make the same mistake - after all, these examples are so small, so simple... how can they be wrong?&lt;&#x2F;p&gt;
+&lt;p&gt;Do yourself a favor, add this step to your checklist: when posting a reproduction, make sure you actually run it &lt;strong&gt;before you submit it&lt;&#x2F;strong&gt;. If you&#x27;re changing it after submission, &lt;strong&gt;run it again&lt;&#x2F;strong&gt;. Make sure the output matches what you reported.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;communication-style&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#communication-style&quot; aria-label=&quot;Anchor link for: communication-style&quot;&gt;Communication style&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Last but not least, we need to make sure someone actually reads our question and decides to help us. &lt;strong&gt;Proper communication is key!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;be-kind&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#be-kind&quot; aria-label=&quot;Anchor link for: be-kind&quot;&gt;Be kind&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;This goes without saying: in a public forum, you&#x27;re just a stranger on the Internet asking people to spend their time (a scarce resource) on &lt;em&gt;your needs&lt;&#x2F;em&gt;.
+It doesn&#x27;t mean you shouldn&#x27;t ask your question, of course - &lt;strong&gt;that&#x27;s what these places are for&lt;&#x2F;strong&gt;! Just be mindful of your tone and phrasing to make sure it doesn&#x27;t come off as demanding or entitled.&lt;&#x2F;p&gt;
+&lt;p&gt;Respect the time and effort of people who offer to help you: even if it&#x27;s part of their job, you owe it to them not to abuse their good intentions.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;be-clear&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#be-clear&quot; aria-label=&quot;Anchor link for: be-clear&quot;&gt;Be clear&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Read your question in whole before you submit it.&lt;&#x2F;p&gt;
+&lt;p&gt;If you have the time, do some basic editing. There is no &lt;em&gt;single&lt;&#x2F;em&gt; right way to do it, and from this point you can go as far as you like (running a spellchecker, Grammarly, and so on), just like in any other form of writing.
+See if you can remove unnecessary, &lt;del&gt;redundant&lt;&#x2F;del&gt; words, break up longer sentences &lt;del&gt;in your explanations&lt;&#x2F;del&gt; or split your paragraphs into sections.&lt;&#x2F;p&gt;
+&lt;p&gt;However, &lt;strong&gt;don&#x27;t sweat it&lt;&#x2F;strong&gt; - &amp;quot;perfect&amp;quot; is the enemy of &amp;quot;done&amp;quot;, and the fact that you&#x27;re trying is already going to get appreciated!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;don-t-waste-time&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#don-t-waste-time&quot; aria-label=&quot;Anchor link for: don-t-waste-time&quot;&gt;Don&#x27;t waste time&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Regardless of whether it&#x27;s a public forum or a work Slack, it&#x27;s best to avoid wasting time. On that front, one of the worst offenders are &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Round-trip_delay&quot;&gt;&lt;strong&gt;roundtrips&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.
+Minimize the amount of roundtrips by making your question complete (see the parts about &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;asking-better-questions&#x2F;#due-dilligence&quot;&gt;Due dilligence&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;asking-better-questions&#x2F;#context&quot;&gt;Context&lt;&#x2F;a&gt;) - this will avoid unnecessary follow-up questions, and save time for both sides of the exchange.&lt;&#x2F;p&gt;
+&lt;p&gt;The most extreme example of a useless roundtrip is sending a message that &lt;strong&gt;just says &amp;quot;Hello&amp;quot;&lt;&#x2F;strong&gt;. &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.nohello.com&quot;&gt;Don&#x27;t do it&lt;&#x2F;a&gt; - the person reading that message will be forced to wait for the &amp;quot;actual&amp;quot; message you send, before they can even begin to try and help you. Even worse, they may see your message, start doing something else, then have to context switch again after you follow up with the question.&lt;&#x2F;p&gt;
+&lt;p&gt;Another example: &amp;quot;Does anybody here know X?&amp;quot; - that&#x27;s not the question you &lt;em&gt;really&lt;&#x2F;em&gt; want to ask, is it? Add the actual question in a thread or start with it in the first place.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;use-your-judgement&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#use-your-judgement&quot; aria-label=&quot;Anchor link for: use-your-judgement&quot;&gt;Use your judgement&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Learn the rules like a pro, so you can break them like an artist.&lt;&#x2F;p&gt;
+&lt;p&gt;-Pablo Picasso&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Remember, these are just hints and ideas - you don&#x27;t always have to follow all of them. In certain environments, you&#x27;ll find it best not to overwhelm people with information about your issue (e.g. if you&#x27;re asking for general advice on a Slack channel),
+and sometimes you have to be more vague because of e.g. &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Non-disclosure_agreement&quot;&gt;NDA&lt;&#x2F;a&gt;s.&lt;&#x2F;p&gt;
+&lt;p&gt;In synchronous, private conversations with a coworker you know well, you probably don&#x27;t need to structure your messages as much as on a GitHub issue, and you can use less formal language as well.
+You can also &lt;strong&gt;assume more&lt;&#x2F;strong&gt; about their knowledge of your problem and spare them the overview.&lt;&#x2F;p&gt;
+&lt;p&gt;Keep these tips in mind, but ultimately you&#x27;ll have to follow your gut.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;summary&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#summary&quot; aria-label=&quot;Anchor link for: summary&quot;&gt;Summary&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;I hope these suggestions give you a baseline for the questions you&#x27;ll ask in your career.
+There&#x27;s clearly more to it, and I&#x27;m not the first person to write about this problem either.&lt;&#x2F;p&gt;
+&lt;p&gt;You&#x27;ll find a lot of overlap with documents like &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.catb.org&#x2F;esr&#x2F;faqs&#x2F;smart-questions.html&quot;&gt;&amp;quot;How To Ask Questions The Smart Way&amp;quot;&lt;&#x2F;a&gt; - which is a good one, although I consider its tone a bit alienating to recommend it as a first point of contact.&lt;&#x2F;p&gt;
+&lt;p&gt;Feel free to share this post with your peers if you wish they gave you better questions, just... &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;0wsKxLyYU7E?t=145&quot;&gt;DBAA&lt;&#x2F;a&gt; 🙂
+I also recommend checking out the other sources listed below.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks for reading, and let me know what you think about the post!&lt;&#x2F;p&gt;
+&lt;p&gt;Many thanks to my friends &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;ckipp01&quot;&gt;Chris Kipp&lt;&#x2F;a&gt;, &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;baccata&quot;&gt;Olivier Mélois&lt;&#x2F;a&gt; and &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gvolpe&#x2F;&quot;&gt;Gabriel Volpe&lt;&#x2F;a&gt; for reviewing this post.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;sources&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#sources&quot; aria-label=&quot;Anchor link for: sources&quot;&gt;Sources&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.chris-kipp.io&#x2F;slides&#x2F;open-source&quot;&gt;What I’ve learned in open source, and why I think you should contribute.&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;www.catb.org&#x2F;esr&#x2F;faqs&#x2F;smart-questions.html&quot;&gt;How to Ask Questions The Smart Way&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;sscce.org&#x2F;&quot;&gt;Short, Self Contained, Correct (Compilable), Example&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;jonskeet.uk&#x2F;csharp&#x2F;complete.html&quot;&gt;Short but complete programs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.nohello.com&quot;&gt;Don&#x27;t Just Say &amp;quot;Hello&amp;quot; In Chat&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;xyproblem.info&#x2F;&quot;&gt;The XY Problem&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
 	<entry xml:lang="en">
 		<title>Nix Flakes: first steps</title>
 		<published>2022-10-22T00:00:00+00:00</published>
