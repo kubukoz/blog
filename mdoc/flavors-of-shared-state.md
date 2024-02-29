@@ -133,12 +133,14 @@ It... does work. Notably, we can't put the `refCounter.flatMap` part outside of 
 
 Let's hide the increments in a client middleware, to declutter the code a bit:
 
-```scala mdoc:compile-only
+```scala mdoc
 def withCount(client: Client[IO], counter: Counter): Client[IO] = Client { req =>
   counter.increment.toResource *>
     client.run(req)
 }
+```
 
+```scala mdoc:compile-only
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case _ =>
     refCounter.flatMap { c =>
@@ -172,7 +174,7 @@ In such a design, the http4s `Client` is nowhere to be seen - it's encapsulated 
 
 Well, that'd work, but it'd certainly go against the point of all this abstraction. Surely we can find something else.
 
-All we need is to propagate the `Counter` from our request handler to the client. If this sounds to you like a reader monad, that's certainly one tool to achieve this! However, we're not always going to be able to use it:
+All we need is to propagate the `Counter` from our request handler to the client. If this sounds to you like a `Reader` monad, that's certainly one tool to achieve this! However, we're not always going to be able to use it:
 
 - it implies that `UserService`'s methods have a reader monad in their return types
   - this means that we either use polymorphic effects (AKA Tagless Final), or hardcode the exact reader monad with the exact type of context that we we need (`Counter`)
@@ -203,4 +205,163 @@ We won't be doing that, then. So what are our demands?
 
 Readers with Java experience may recognize this as something similar to `ThreadLocal`. However, in Cats Effect we can't simply use a `ThreadLocal`, because a single request may be processed on any number of threads (and on non-JVM platforms like Scala.js, we might not have more than one thread to begin with). What we need is more like a... "fiber" local.
 
-Cats Effect provides an `IOLocal`.
+## Isolated state with `IOLocal`
+
+Cats Effect provides an `IOLocal`. It does exactly what we want! Let's implement the counter with it:
+
+```scala mdoc:silent
+import cats.effect.IOLocal
+
+val localCounter: IO[Counter] = IOLocal(0).map { ref =>
+  makeCounter(
+    ref.update(_ + 1),
+    ref.get
+  )
+}
+```
+
+Now, we can create one `IOLocal`-backed Counter for our entire application, and share it.
+As a good practice we'll reset each counter after each server request finishes processing (just in case any fibers are recycled between serial requests), but in reality it's likely that we'll just get a new fiber for each request.
+
+For this, we'll need to enhance our definition of `localCounter` with the ability to reset it after we're done. I'm choosing to do this by composition, although inheritance could also be a reasonable choice:
+
+```scala mdoc:silent
+import cats.~>
+import cats.effect.Resource
+
+case class CounterWithReset(c: Counter, withFreshCounter: IO ~> IO)
+
+val localCounterR: IO[CounterWithReset] = IOLocal(0).map { ref =>
+  val c = makeCounter(
+    ref.update(_ + 1),
+    ref.get
+  )
+
+  CounterWithReset(c, Resource.make(IO.unit)(_ => ref.reset).surroundK)
+}
+```
+
+We'll also need to enhance our router so that it actually resets the local. Let's make another middleware:
+
+```scala mdoc
+import cats.data.Kleisli
+import cats.data.OptionT
+
+def withCountReset(r: HttpRoutes[IO], c: CounterWithReset): HttpRoutes[IO] = Kleisli { req =>
+  OptionT {
+    c.withFreshCounter(r.run(req).value)
+  }
+}
+```
+
+If you want to be more concise:
+
+```scala mdoc:compile-only
+def withCountReset(r: HttpRoutes[IO], c: CounterWithReset): HttpRoutes[IO] =
+  r.mapF(_.mapK(c.withFreshCounter))
+```
+
+Now we're armed and we can get to the action:
+
+```scala mdoc:compile-only
+def appR(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
+  // 1
+  localCounterR.map { counterWithReset =>
+    val counter = counterWithReset.c
+
+    // 2
+    val client = withCount(rawClient, counter)
+
+    // 3
+    val r = routes(client)
+
+    // 4.
+    withCountReset(
+      r,
+      counterWithReset
+    )
+  }
+
+def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
+  case _ =>
+    sampleRequest(client) *>
+      sampleRequest(client) *>
+      IO.pure(Response())
+}
+```
+
+And we've achieved our desired goal! To sum up, here's what's happening:
+
+1. We create an `IOLocal`-based counter and open a scope of sharing by mapping on it. The resultant `IO` can be flatMapped on directly in your IOApp, as soon as you have a Client. If you only `flatMap` once, you'll have a globally-shared `IOLocal` (which is likely what you want).
+2. We wrap the "real" http4s Client with middleware that increments the count before sending any request.
+3. We pass the wrapped client to the routes. In the `UserService` example above, at this point we could deal with the construction of any `UserService` dependencies, and it'd only happen once, instead of on every request.
+4. We wrap the routes in middleware that resets the counter after processing each request.
+
+So... is that it? Well, sort of.
+
+## Child fibers
+
+In our desire to share the `Counter` instance across the entire app, we've forgot something important: we actually want some isolation. And yes, we do have isolation between the requests being processed by the application, but what if the request itself is split into multiple fibers?
+
+What if the route actually looks like this?
+
+```scala mdoc:compile-only
+def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
+  case _ =>
+    sampleRequest(client) &>
+      sampleRequest(client) *>
+      IO.pure(Response())
+}
+```
+
+It's a critical difference: the two requests will now be executed in parallel. Because `IOLocal` doesn't propagate changes from a child fiber to its parent, the global counter will now be unaffected by anything that's been forked! This could be a problem.
+
+Here's the thing: `Ref` didn't care about the fibers' family drama. If only we could pick and choose which parts of `IOLocal` and `Ref` we get...
+
+Well, why don't we? Why don't we put a `Ref` inside `IOLocal`? Let's ponder:
+
+`IOLocal[A]` ensures that updates of `A` are not propagated to parent/child fibers. This can be done without inspecting the internals of the `A` value, by relying on its immutability to avoid sharing changes.
+
+If `A` contains mutable state (which `Ref` pretty much is), you could mutate that state without ever calling `update` on the `IOLocal`... and it'll be visible in all offspring of the fiber that inserted that value.
+
+Here's what this trick would look like: we can use `CounterWithReset` to encapsulate the "swapping" of the Ref for each request:
+
+```scala mdoc:silent
+val localRefCounter: IO[CounterWithReset] =
+  // 1
+  Ref[IO].of(0).flatMap(IOLocal(_)).map { local =>
+    // 2
+    val c = makeCounter(
+      local.get.flatMap(_.update(_ + 1)),
+      local.get.flatMap(_.get)
+    )
+
+    // 3
+    val withFreshK = Resource.make(Ref[IO].of(0).flatMap(local.set))(_ => local.reset).surroundK
+
+    // 4
+    CounterWithReset(c, withFreshK)
+  }
+```
+
+This may be a lot to take, so let's go through the steps one by one:
+
+1. We create a `Ref` as an initial value for the `IOLocal`. You could avoid this by making the `IOLocal` store an `Option[Ref]`, but I figured this would make it easier to implement the other parts. That `Ref` is immediately flatMapped to create the `IOLocal`.
+2. We make a `Counter` instance based on the composed `IOLocal` and `Ref`. Neither of the methods of the counter actually update the Local: they both read from it and then behave just like a normal `Ref`-based counter would.
+3. Before each request, we'll create a fresh `Ref` and put it into the Local. Afterwards, we'll reset the Local to its previous state, for good measure.
+4. Finally, we return the counter with its reset button.
+
+The usage of `localRefCounter` is identical to that of `localCounterR`, so I'll skip it: simply replace `localCounterR.map` with `localRefCounter.map` and you'll see the updated semantics.
+
+## What about the opposite?
+
+Perhaps you were wondering if we can flip the order of "state carriers" around and have `Ref[IO, IOLocal[A]]`. I would be inclined to say no, because the standard `Ref` implementation relies on a CAS (compare and set) loop for its updates, and that might not play well with how `IOLocal` is implemented.
+
+## ???
+<!-- todo: title of this chapter -->
+
+<!-- todo: can we go deeper? what if you want to break the sharing for some reason? I guess you would then have to call the reset button again. At this point it should probably be part of the Counter API. Isn't this what Natchez's Trace[IO] does? -->
+
+## Comparison
+
+<!-- Summary of when you'd want to use one over the other -->
