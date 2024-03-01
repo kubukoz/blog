@@ -355,10 +355,27 @@ The usage of `localRefCounter` is identical to that of `localCounterR`, so I'll 
 
 ## What about the opposite?
 
-Perhaps you were wondering if we can flip the order of "state carriers" around and have `Ref[IO, IOLocal[A]]`. I would be inclined to say no, because the standard `Ref` implementation relies on a CAS (compare and set) loop for its updates, and that might not play well with how `IOLocal` is implemented.
+Perhaps you were wondering if we can flip the order of "state carriers" around and have `Ref[IO, IOLocal[A]]`. I would be inclined to say no, because the standard `Ref` implementation relies on a CAS (compare and set) loop for its updates, and that might not play well with how `IOLocal` is implemented. However, you're welcome to try... in a controlled environment :)
 
-## ???
-<!-- todo: title of this chapter -->
+## Can we go deeper?
+
+We've established that with the composition of `IOLocal` and `Ref` we have more control over when we "fork" the scope of our state than if we were using either of them separately.
+
+Just how much control are we talking, exactly?
+
+Turns out, we can freely "fork" whenever we want - just like we do in `withFreshK` - it's just a matter of exposing such a feature through our counter's API.
+
+```diff
+trait Counter {
+  def increment: IO[Unit]
+  def get: IO[Int]
++ def fork: IO ~> IO
+}
+```
+
+It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations. [Constraints liberate, liberties constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw).
+
+Of course, if you want to control the value that forked counters will start with, you'll need to further adjust the API to account for that feature. This is left as [an exercise for the reader](https://en.wikipedia.org/wiki/Small_matter_of_programming).
 
 <!-- todo: can we go deeper? what if you want to break the sharing for some reason? I guess you would then have to call the reset button again. At this point it should probably be part of the Counter API. Isn't this what Natchez's Trace[IO] does? -->
 
