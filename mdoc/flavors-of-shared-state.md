@@ -106,7 +106,7 @@ and our request handler may look like this (with http4s):
 
 ```scala mdoc:compile-only
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
-  case req =>
+  case _ =>
     sampleRequest(client) *>
       sampleRequest(client) *>
       IO.pure(Response())
@@ -117,7 +117,7 @@ Can we use `refCounter` for this purpose? Sure, why not. We'll increment before 
 
 ```scala mdoc
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
-  case req =>
+  case _ =>
     refCounter.flatMap { c =>
       c.increment *>
         sampleRequest(client) *>
