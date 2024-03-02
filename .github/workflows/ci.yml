@@ -1,21 +1,21 @@
 name: "Build"
 on:
   pull_request:
-    branches: ['**']
+    branches: ["**"]
   push:
-    branches: ['**']
-    tags: ['**']
+    branches: ["**"]
+    tags: ["**"]
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
-      - uses: cachix/cachix-action@v12
+      - uses: cachix/install-nix-action@v25
+      - uses: cachix/cachix-action@v14
         with:
           name: kubukoz
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Build (main)
         if: github.ref == 'refs/heads/main'
