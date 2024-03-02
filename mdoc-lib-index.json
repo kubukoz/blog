@@ -1,12 +1,12 @@
 {
-  "colorize-0.1": {
-    "version": "0.1.0",
-    "artifact": "org.polyvariant:colorize_2.13",
-    "sha256": "sha256-83Dy2yZQYkydCX6z6U+NkRh4Vv4Q1zYo9R99YOSVLKs="
+  "http4s-client-0.23.25": {
+    "version": "0.23.25",
+    "artifact": "org.http4s:http4s-client_3",
+    "sha256": "sha256-o/EEunfqW8ntriZTbHBDAcirEbUtQS6SJIOs5WJ4PD0="
   },
-  "colorize-0.3": {
-    "version": "0.3.2",
-    "artifact": "org.polyvariant:colorize_2.13",
-    "sha256": "sha256-US/y5JyD8mUSpqxPL/JvdMTA922ZtBJoDozg5bAdnzg="
+  "http4s-dsl-0.23.25": {
+    "version": "0.23.25",
+    "artifact": "org.http4s:http4s-dsl_3",
+    "sha256": "sha256-/1ttWk6zdBUoaPtgD0MJldBe9DCwBYwXM/YPB9dkP/c="
   }
 }

@@ -3,9 +3,9 @@ let
   mdoc = coursier-tools.make-runnable {
     launcher = coursier-tools.coursier-fetch {
       pname = "mdoc";
-      version = "2.3.6";
-      artifact = "org.scalameta:mdoc_2.13";
-      sha256 = "sha256-bEknmJunzR389zACjzeSSKGvl+fwW27lUKvtCGh9Y+A=";
+      version = "2.5.2";
+      artifact = "org.scalameta:mdoc_3";
+      sha256 = "sha256-w9SF5/voAWmdXB9WDA0CDxI1V3xnydy58YXjMN0wE38=";
     };
     mainClass = "mdoc.Main";
   };
