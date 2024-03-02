@@ -9,10 +9,10 @@ tags = [ "scala", "functional programming", "cats"]
 disqus.enable = true
 disqus.ident_suffix = "?disqus_revision=1"
 
-scalaLibs = ["cats-effect-3.5.3", "http4s-client-0.23.25"]
+scalaLibs = ["cats-effect-3.5.3", "http4s-client-0.23.25", "http4s-dsl-0.23.25"]
 +++
 
-In this post, we will explore the various ways to share state in a Cats Effect application, including their combinations.
+In this post, we will explore the various ways to share state in a [Cats Effect](https://typelevel.org/cats-effect) application.
 
 <!-- more -->
 
@@ -23,8 +23,7 @@ One may think that Functional Programming eliminates the need for shared state a
 As if that wasn't enough, sometimes we want to keep some state in our own application: even something like a "request counter", which keeps a running total of the requests handled by the service, requires some form of shared in-memory state.
 
 Then we have more complex concepts such as connections, resource pools, queues, rate limiters and so on, all of which are by nature stateful as well.
-
-<!-- this might need cleaning up but I think that's the gist -->
+Let's take Cats Effect for a spin and see what tools we can use to build such mechanisms.
 
 ## Working example: simple counter
 
@@ -66,15 +65,14 @@ val refCounter: IO[Counter] = Ref[IO].of(0).map { ref =>
 }
 ```
 
-We can now share that counter in a concurrent scenario:
+We can now instantiate such a counter and use it, including in concurrent scenarios:
 
 ```scala mdoc:silent
 import cats.implicits.*
 
 val useCounter = for {
   counter <- refCounter
-  _       <- counter.increment
-  _       <- counter.increment
+  _       <- counter.increment.parReplicateA(2)
   v       <- counter.get
 } yield v
 ```
@@ -95,7 +93,7 @@ What are the characteristics of this counter?
 
 That makes it suitable for a counter of all requests an application has received while it's up. However, let's imagine we need some more isolation: let's try to count all _client requests_ that we've made while handling a _server request_.
 
-A request handler may look like this (with http4s):
+We'll make the simplest client call possible:
 
 ```scala mdoc
 import org.http4s.*
@@ -104,32 +102,33 @@ import org.http4s.client.Client
 def sampleRequest(client: Client[IO]): IO[Unit] = client.run(Request()).use_
 ```
 
+and our request handler may look like this (with http4s):
+
 ```scala mdoc:compile-only
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
-  case _ =>
+  case req =>
     sampleRequest(client) *>
       sampleRequest(client) *>
       IO.pure(Response())
 }
 ```
 
-Can we use `refCounter` for this purpose? Sure, why not. We'll increment before the request, to avoid dealing with error handling. We'll also print the final value before returning the response:
+Can we use `refCounter` for this purpose? Sure, why not. We'll increment before the request, to avoid dealing with error handling. We'll also return the final value in the response:
 
 ```scala mdoc:compile-only
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
-  case _ =>
+  case req =>
     refCounter.flatMap { c =>
       c.increment *>
         sampleRequest(client) *>
         c.increment *>
         sampleRequest(client) *>
-        c.get.flatMap(IO.println) *>
-        IO.pure(Response())
+        c.get.map(_.show).map(Response().withEntity(_))
     }
 }
 ```
 
-It... does work. Notably, we can't put the `refCounter.flatMap` part outside of our router, as that'd make the counter shared across all requests.
+It... does work. Notably, we can't put the `refCounter.flatMap` part outside of our router, as that'd make the counter shared across all requests: remember, we wanted to isolate the counts of each request we handle.
 
 Let's hide the increments in a client middleware, to declutter the code a bit:
 
@@ -140,6 +139,8 @@ def withCount(client: Client[IO], counter: Counter): Client[IO] = Client { req =
 }
 ```
 
+Now here's the updated routing code:
+
 ```scala mdoc:compile-only
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case _ =>
@@ -148,24 +149,34 @@ def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
 
       sampleRequest(countedClient) *>
         sampleRequest(countedClient) *>
-        c.get.flatMap(IO.println) *>
-        IO.pure(Response())
+        c.get.map(_.show).map(Response().withEntity(_))
     }
 }
 ```
 
-It still feels cluttered, doesn't it? Also, that's probably the most obvious problem with our example - but there's an even more serious one that's likely to bite us in something real. Let's discuss that.
+It still feels cluttered, doesn't it? Also, that's probably the most obvious problem with our example - but there's an even more serious one that's likely to bite us when we try to build something real. Let's discuss that.
 
 In our example, the client calls are happening directly in the route (the request handler). However, in a real application it's very likely to be wrapped in at least one layer of abstraction: this could be a `UserService`, which would in turn use a `UserClient`, which would be the one actually using `Client`.
 
 It might look a little like this:
 
-```scala
+```scala mdoc:invisible
+case class SubscriptionExpired()
+trait UserService[F[_]] {
+  type User
+  def find(id: String): F[Option[User]]
+  def notify(u: User, e: SubscriptionExpired): F[Unit]
+}
+
+import org.http4s.dsl.io._
+```
+
+```scala mdoc:compile-only
 def routes(userService: UserService[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case POST -> Root / "users" / id =>
     userService.find(id).flatMap {
       case None => NotFound()
-      case Some(u) => userService.notify(u, SubscriptionExpired())
+      case Some(u) => userService.notify(u, SubscriptionExpired()) *> NoContent()
     }
 }
 ```
@@ -182,7 +193,7 @@ All we need is to propagate the `Counter` from our request handler to the client
 
 So let's not do that here. If we're not going to pass the counter as parameters (or a reader monad), could we inject the counter to the `UserService` at construction time, then?
 
-```scala
+```scala mdoc:compile-only
 def routes(mkUserService: Counter => UserService[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case POST -> Root / "users" / id =>
     refCounter.flatMap { counter =>
@@ -190,7 +201,7 @@ def routes(mkUserService: Counter => UserService[IO]): HttpRoutes[IO] = HttpRout
 
       userService.find(id).flatMap {
         case None => NotFound()
-        case Some(u) => userService.notify(u, SubscriptionExpired())
+        case Some(u) => userService.notify(u, SubscriptionExpired()) *> NoContent()
       }
     }
 }
@@ -203,7 +214,9 @@ We won't be doing that, then. So what are our demands?
 - The counter dependency should be hidden from intermediate layers of abstraction (only the client and router need to know about it)
 - The counter's state should be isolated between requests, including concurrent ones.
 
-Readers with Java experience may recognize this as something similar to `ThreadLocal`. However, in Cats Effect we can't simply use a `ThreadLocal`, because a single request may be processed on any number of threads (and on non-JVM platforms like Scala.js, we might not have more than one thread to begin with). What we need is more like a... "fiber" local.
+Readers with Java experience may recognize this as something similar to `ThreadLocal`. However, in Cats Effect we can't simply use a `ThreadLocal`, because due to its [fiber-based concurrency model](https://typelevel.org/cats-effect/docs/thread-model), a single request may be processed on any number of threads (and on non-JVM platforms like Scala.js, we might only have one thread to begin with).
+
+What we need is more of a... "fiber" local.
 
 ## Isolated state with `IOLocal`
 
@@ -273,7 +286,7 @@ def appR(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
     val client = withCount(rawClient, counter)
 
     // 3
-    val r = routes(client)
+    val r = routes(client, counter)
 
     // 4.
     withCountReset(
@@ -282,11 +295,11 @@ def appR(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
     )
   }
 
-def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
+def routes(client: Client[IO], c: Counter): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case _ =>
     sampleRequest(client) *>
       sampleRequest(client) *>
-      IO.pure(Response())
+      c.get.map(_.show).map(Response().withEntity(_))
 }
 ```
 
@@ -301,16 +314,17 @@ So... is that it? Well, sort of.
 
 ## Child fibers
 
-In our desire to share the `Counter` instance across the entire app, we've forgot something important: we actually want some isolation. And yes, we do have isolation between the requests being processed by the application, but what if the request itself is split into multiple fibers?
+In our desire to share the `Counter` instance across the entire app, we've forgotten something important: we actually want some isolation. And yes, we do have isolation between the requests being processed by the application, but what if the request itself is split into multiple fibers?
 
 What if the route actually looks like this?
 
 ```scala mdoc:compile-only
-def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
+def routes(client: Client[IO], c: Counter): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case _ =>
-    sampleRequest(client) &>
-      sampleRequest(client) *>
-      IO.pure(Response())
+    (
+      sampleRequest(client) &>
+      sampleRequest(client)
+    ) *> c.get.map(_.show).map(Response().withEntity(_))
 }
 ```
 
@@ -346,7 +360,7 @@ val localRefCounter: IO[CounterWithReset] =
 
 This may be a lot to take, so let's go through the steps one by one:
 
-1. We create a `Ref` as an initial value for the `IOLocal`. You could avoid this by making the `IOLocal` store an `Option[Ref]`, but I figured this would make it easier to implement the other parts. That `Ref` is immediately flatMapped to create the `IOLocal`.
+1. We create a `Ref` as an initial value for the `IOLocal`. You could avoid this by making the `IOLocal` store an `Option[Ref]`, but I figured this would make it easier to implement the other parts. That `Ref` is immediately used to create the `IOLocal`.
 2. We make a `Counter` instance based on the composed `IOLocal` and `Ref`. Neither of the methods of the counter actually update the Local: they both read from it and then behave just like a normal `Ref`-based counter would.
 3. Before each request, we'll create a fresh `Ref` and put it into the Local. Afterwards, we'll reset the Local to its previous state, for good measure.
 4. Finally, we return the counter with its reset button.
@@ -373,12 +387,29 @@ trait Counter {
 }
 ```
 
-It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations. [Constraints liberate, liberties constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw).
+It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations - [constraints liberate, liberties constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw).
 
 Of course, if you want to control the value that forked counters will start with, you'll need to further adjust the API to account for that feature. This is left as [an exercise for the reader](https://en.wikipedia.org/wiki/Small_matter_of_programming).
 
-<!-- todo: can we go deeper? what if you want to break the sharing for some reason? I guess you would then have to call the reset button again. At this point it should probably be part of the Counter API. Isn't this what Natchez's Trace[IO] does? -->
+### Trivia: Natchez's Trace algebra
+
+[The Natchez library](https://github.com/typelevel/natchez), which is used for distributed tracing, uses a similar idea in its `Trace` algebra:
+
+```scala
+trait Trace[F[_]] {
+  def span[A](name: String /*, ... */)(k: F[A]): F[A]
+  // other methods here
+}
+```
+
+Its two main implementations (based on `Kleisli` or `IOLocal`) both carry a `Span`, which is backed by mutable state - depending on the backend it's sometimes a `Ref`, sometimes a plain mutable object like an OpenTracing `Span`.
 
 ## Comparison
 
-<!-- Summary of when you'd want to use one over the other -->
+We've explored a bunch of options for sharing state, with various degrees of isolation. Which one should _you_ use?
+
+It depends on the problem you're trying to solve. If your goal is to share the state for the entire application (for example, for a client's rate limiter), `Ref` will do just fine. If you want to prioritize isolation and avoid any race conditions, `IOLocal` may work well for you. However, if you want more precise control and the ability to "disconnect" from a more "global" state, it's likely that you'll want to wrap some mutable state in an `IOLocal` - such as a `Ref`.
+
+Personally, I believe for most usecases in HTTP applications that desire "reader monad" semantics of state, `IOLocal` + `Ref` should be preferred over just `IOLocal`. Using the latter is likely to lead to subtle bugs, such as changes not being propagated upwards when a library down the call stack starts to involve concurrency.
+
+I hope this article helps you make an informed decision. Thanks for reading!
