@@ -1,6 +1,6 @@
 +++
 title = "Flavors of shared state in Cats Effect"
-date = "2024-03-01"
+date = "2024-03-02"
 
 [taxonomies]
 tags = [ "scala", "functional programming", "cats"]
