@@ -348,7 +348,7 @@ So... is that it? Well, sort of.
 
 ## Child fibers
 
-In our desire to share the `Counter` instance across the entire app, we've forgotten something important: we actually want some isolation. And yes, we do have isolation between the requests being processed by the application, but what if the request itself is split into multiple fibers?
+In our desire to share the `Counter` instance across the entire app, we've forgotten something important: we actually want some isolation. And yes, we do have isolation between the requests processed by the application, but what if the request itself is split into multiple fibers?
 
 What if the route actually looks like this?
 
@@ -481,7 +481,7 @@ trait Counter {
 
 It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations - [constraints liberate, liberties constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw).
 
-Of course, if you want to control the value that forked counters will start with, you'll need to further adjust the API to account for that feature. This is left as [an exercise for the reader](https://en.wikipedia.org/wiki/Small_matter_of_programming).
+Of course, if you want to control the value that forked counters will start with, you'll need to further adjust the API to accomodate that feature. This is left as [an exercise for the reader](https://en.wikipedia.org/wiki/Small_matter_of_programming).
 
 ### Trivia: Natchez's Trace algebra
 
