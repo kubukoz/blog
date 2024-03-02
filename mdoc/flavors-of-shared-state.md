@@ -9,7 +9,7 @@ tags = [ "scala", "functional programming", "cats"]
 disqus.enable = true
 disqus.ident_suffix = "?disqus_revision=1"
 
-scalaLibs = ["cats-effect-3.5.3", "http4s-client-0.23.25", "http4s-dsl-0.23.25"]
+scalaLibs = ["http4s-client-0.23.25", "http4s-dsl-0.23.25"]
 +++
 
 In this post, we will explore the various ways to share state in a [Cats Effect](https://typelevel.org/cats-effect) application.
@@ -115,7 +115,7 @@ def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
 
 Can we use `refCounter` for this purpose? Sure, why not. We'll increment before the request, to avoid dealing with error handling. We'll also return the final value in the response:
 
-```scala mdoc:compile-only
+```scala mdoc
 def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
   case req =>
     refCounter.flatMap { c =>
@@ -126,6 +126,34 @@ def routes(client: Client[IO]): HttpRoutes[IO] = HttpRoutes.of[IO] {
         c.get.map(_.show).map(Response().withEntity(_))
     }
 }
+```
+
+Let's try it out:
+
+```scala mdoc
+def testRoute(route: Client[IO] => IO[HttpRoutes[IO]]): IO[List[String]] = {
+  // our fake client, which simply succeeds
+  val c = Client.fromHttpApp[IO](HttpApp.pure(Response()))
+
+  // build the route: the "IO" part will be useful later
+  route(c).flatMap { handler =>
+    // run the route with a simple request and grab its body
+    val runAndGetBody = handler.orNotFound.run(Request()).flatMap(_.bodyText.compile.string)
+
+    // Run the request 10 times in parallel
+    runAndGetBody
+      .parReplicateA(10)
+  }
+}
+// validate results
+.flatTap {
+  case results if results.forall(_ == "2") => IO(println("Success!"))
+  case results                             => IO(println("Failure!"))
+}
+```
+
+```scala mdoc
+testRoute(client => IO.pure(routes(client))).unsafeRunSync()
 ```
 
 It... does work. Notably, we can't put the `refCounter.flatMap` part outside of our router, as that'd make the counter shared across all requests: remember, we wanted to isolate the counts of each request we handle.
@@ -168,7 +196,7 @@ trait UserService[F[_]] {
   def notify(u: User, e: SubscriptionExpired): F[Unit]
 }
 
-import org.http4s.dsl.io._
+import org.http4s.dsl.io.*
 ```
 
 ```scala mdoc:compile-only
@@ -276,7 +304,7 @@ def withCountReset(r: HttpRoutes[IO], c: CounterWithReset): HttpRoutes[IO] =
 
 Now we're armed and we can get to the action:
 
-```scala mdoc:compile-only
+```scala mdoc
 def appR(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
   // 1
   localCounterR.map { counterWithReset =>
@@ -310,6 +338,12 @@ And we've achieved our desired goal! To sum up, here's what's happening:
 3. We pass the wrapped client to the routes. In the `UserService` example above, at this point we could deal with the construction of any `UserService` dependencies, and it'd only happen once, instead of on every request.
 4. We wrap the routes in middleware that resets the counter after processing each request.
 
+Let's test that as well:
+
+```scala mdoc
+testRoute(appR).unsafeRunSync()
+```
+
 So... is that it? Well, sort of.
 
 ## Child fibers
@@ -328,7 +362,34 @@ def routes(client: Client[IO], c: Counter): HttpRoutes[IO] = HttpRoutes.of[IO] {
 }
 ```
 
-It's a critical difference: the two requests will now be executed in parallel. Because `IOLocal` doesn't propagate changes from a child fiber to its parent, the global counter will now be unaffected by anything that's been forked! This could be a problem.
+It's a critical difference: the two requests will now be executed in parallel. Because `IOLocal` doesn't propagate changes from a child fiber to its parent, the global counter will now be unaffected by anything that's been forked! This could be a problem. And it is!
+
+<details style="background-color: #eee">
+
+<summary style="display: list-item">Some boilerplate to prepare for that test run</summary>
+
+```scala mdoc
+def appRWithParallel(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
+  localCounterR.map { counterWithReset =>
+    val counter = counterWithReset.c
+    val client = withCount(rawClient, counter)
+    val r = routesWithParallel(client, counter)
+    withCountReset(r, counterWithReset)
+  }
+
+def routesWithParallel(client: Client[IO], c: Counter): HttpRoutes[IO] = HttpRoutes.of[IO] {
+  case _ =>
+    (
+      sampleRequest(client) &>
+      sampleRequest(client)
+    ) *> c.get.map(_.show).map(Response().withEntity(_))
+}
+```
+</details>
+
+```scala mdoc
+testRoute(appRWithParallel).unsafeRunSync()
+```
 
 Here's the thing: `Ref` didn't care about the fibers' family drama. If only we could pick and choose which parts of `IOLocal` and `Ref` we get...
 
@@ -365,7 +426,38 @@ This may be a lot to take, so let's go through the steps one by one:
 3. Before each request, we'll create a fresh `Ref` and put it into the Local. Afterwards, we'll reset the Local to its previous state, for good measure.
 4. Finally, we return the counter with its reset button.
 
-The usage of `localRefCounter` is identical to that of `localCounterR`, so I'll skip it: simply replace `localCounterR.map` with `localRefCounter.map` and you'll see the updated semantics.
+The usage of `localRefCounter` is identical to that of `localCounterR`.
+
+<details style="background-color: #eee">
+
+<summary style="display: list-item">Some boilerplate to prepare for that test run</summary>
+
+```scala mdoc
+def appRWithParallelAndRef(rawClient: Client[IO]): IO[HttpRoutes[IO]] =
+  localRefCounter.map { counterWithReset =>
+    val counter = counterWithReset.c
+    val client = withCount(rawClient, counter)
+    val r = routesWithParallelAndRef(client, counter)
+    withCountReset(r, counterWithReset)
+  }
+
+def routesWithParallelAndRef(client: Client[IO], c: Counter): HttpRoutes[IO] = HttpRoutes.of[IO] {
+  case _ =>
+    (
+      sampleRequest(client) &>
+      sampleRequest(client)
+    ) *> c.get.map(_.show).map(Response().withEntity(_))
+}
+```
+</details>
+
+Does it resolve the issue?
+
+```scala mdoc
+testRoute(appRWithParallelAndRef).unsafeRunSync()
+```
+
+Apparently, it does!
 
 ## What about the opposite?
 

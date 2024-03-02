@@ -1,9 +1,4 @@
 {
-  "cats-effect-3.5.3": {
-    "version": "3.5.3",
-    "artifact": "org.typelevel:cats-effect_3",
-    "sha256": "sha256-mGGf9kD963e5CdYfby/kzBhKaT3yEujjR0gKDR5xviI="
-  },
   "http4s-client-0.23.25": {
     "version": "0.23.25",
     "artifact": "org.http4s:http4s-client_3",
