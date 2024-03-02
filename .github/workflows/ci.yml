@@ -30,7 +30,7 @@ jobs:
 
       - name: Build (preview)
         if: github.event_name == 'pull_request'
-        run: ./build.sh '.?submodules=1#preview' && cp -Lr ./result public-preview
+        run: ./build.sh 'preview' && cp -Lr ./result public-preview
 
       - uses: JamesIves/github-pages-deploy-action@v4
         name: Deploy (preview)
