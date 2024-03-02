@@ -496,7 +496,7 @@ trait Trace[F[_]] {
 
 Its two main implementations (based on `Kleisli` or `IOLocal`) both carry a `Span`, which is backed by mutable state - depending on the backend it's sometimes a `Ref`, sometimes a plain mutable object like an OpenTracing `Span`.
 
-## Comparison
+## Summary
 
 We've explored a bunch of options for sharing state, with various degrees of isolation. Which one should _you_ use?
 
@@ -507,6 +507,8 @@ Personally, I believe for most usecases in HTTP applications that desire "reader
 Keep in mind: Cats Effect has other building blocks for concurrent applications, and some of them might be better suited for solving certain types of problems. I encourage you to check out [the documentation](https://typelevel.org/cats-effect/docs/std/atomic-cell) to learn more about them.
 
 I hope this article helps you make an informed decision. Thanks for reading!
+
+## Links
 
 Here are the links from this post:
 
