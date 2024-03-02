@@ -1,21 +1,20 @@
 name: "Build"
 on:
   pull_request:
-    branches: ['**']
+    branches: ["**"]
   push:
-    branches: ['**']
-    tags: ['**']
+    branches: ["main"]
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
-      - uses: cachix/cachix-action@v12
+      - uses: cachix/install-nix-action@v25
+      - uses: cachix/cachix-action@v14
         with:
           name: kubukoz
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Build (main)
         if: github.ref == 'refs/heads/main'
@@ -30,7 +29,7 @@ jobs:
 
       - name: Build (preview)
         if: github.event_name == 'pull_request'
-        run: ./build.sh '.?submodules=1#preview' && cp -Lr ./result public-preview
+        run: ./build.sh 'preview' && cp -Lr ./result public-preview
 
       - uses: JamesIves/github-pages-deploy-action@v4
         name: Deploy (preview)
