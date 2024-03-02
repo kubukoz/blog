@@ -2,4 +2,4 @@
 
 PACKAGE_PATH="$1"
 
-nix build "git+file://$(pwd)?shallow=1&submodules${PACKAGE_PATH:-}" --print-build-logs
+nix build "git+file://$(pwd)/.?shallow=1&submodules=1${PACKAGE_PATH:-}" --print-build-logs
