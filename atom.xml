@@ -5,8 +5,28 @@
     <link rel="self" type="application/atom+xml" href="https://blog.kubukoz.com/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://blog.kubukoz.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2023-02-24T00:00:00+00:00</updated>
+    <updated>2024-03-02T00:00:00+00:00</updated>
     <id>https://blog.kubukoz.com/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Flavors of shared state in Cats Effect</title>
+        <published>2024-03-02T00:00:00+00:00</published>
+        <updated>2024-03-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.kubukoz.com/flavors-of-shared-state/"/>
+        <id>https://blog.kubukoz.com/flavors-of-shared-state/</id>
+        
+        <summary type="html">&lt;p&gt;In this post, we will explore the various ways to share state in a &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;flavors-of-shared-state&#x2F;cats-effect&quot;&gt;Cats Effect&lt;&#x2F;a&gt; application.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Asking better questions</title>
         <published>2023-02-24T00:00:00+00:00</published>

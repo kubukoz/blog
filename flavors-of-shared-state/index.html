@@ -9,12 +9,12 @@
     <title>Flavors of shared state in Cats Effect</title>
     <meta name="description" content="In this post, we will explore the various ways to share state in a Cats Effect application.">
 
-    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/main.css">
-    <link rel="stylesheet" href="https://blog.kubukoz.com/preview/custom.css">
+    <link rel="stylesheet" href="https://blog.kubukoz.com/main.css">
+    <link rel="stylesheet" href="https://blog.kubukoz.com/custom.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.svg">
 
     
-        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.kubukoz.com/preview/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://blog.kubukoz.com/atom.xml">
     
 
     
@@ -26,13 +26,13 @@
     <div class="container">
         <header>
             <h1 class="site-header">
-                <a href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview">Jakub Kozłowski</a> | A 1.00000000000001x engineering blog
+                <a href="https:&#x2F;&#x2F;blog.kubukoz.com">Jakub Kozłowski</a> | A 1.00000000000001x engineering blog
             </h1>
             <nav>
                 
                 
                 
-                <a  href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview&#x2F;talks&#x2F;">Talks</a>
+                <a  href="https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;talks&#x2F;">Talks</a>
                 
                 
             </nav>
@@ -52,7 +52,7 @@
         <h1>Flavors of shared state in Cats Effect</h1>
     </header>
     <div class="content">
-        <p>In this post, we will explore the various ways to share state in a <a href="https://blog.kubukoz.com/preview/flavors-of-shared-state/cats-effect">Cats Effect</a> application.</p>
+        <p>In this post, we will explore the various ways to share state in a <a href="https://blog.kubukoz.com/flavors-of-shared-state/cats-effect">Cats Effect</a> application.</p>
 <span id="continue-reading"></span><h1 id="introduction-why-do-we-need-shared-state"><a class="zola-anchor" href="#introduction-why-do-we-need-shared-state" aria-label="Anchor link for: introduction-why-do-we-need-shared-state">Introduction: why do we need shared state?</a></h1>
 <p>One may think that Functional Programming eliminates the need for shared state altogether - however, sooner or later, we have to interact with the so called &quot;Real World&quot;. Turns out, the world is <del>a JoJo reference</del> a stateful thing, so interacting with it requires some form of <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/concepts#effects">effects</a>.</p>
 <p>As if that wasn't enough, sometimes we want to keep some state in our own application: even something like a &quot;request counter&quot;, which keeps a running total of the requests handled by the service, requires some form of shared in-memory state.</p>
@@ -439,11 +439,11 @@ As a good practice we'll reset each counter after each server request finishes p
             
                 <ul class="article-tags">
                     
-                    <li><a href="https://blog.kubukoz.com/preview/tags/scala/">#scala</a></li>
+                    <li><a href="https://blog.kubukoz.com/tags/scala/">#scala</a></li>
                     
-                    <li><a href="https://blog.kubukoz.com/preview/tags/functional-programming/">#functional programming</a></li>
+                    <li><a href="https://blog.kubukoz.com/tags/functional-programming/">#functional programming</a></li>
                     
-                    <li><a href="https://blog.kubukoz.com/preview/tags/cats/">#cats</a></li>
+                    <li><a href="https://blog.kubukoz.com/tags/cats/">#cats</a></li>
                     
                 </ul>
             
@@ -460,7 +460,7 @@ As a good practice we'll reset each counter after each server request finishes p
    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
 
   var disqus_config = function () {
-    this.page.url = "https://blog.kubukoz.com/preview/flavors-of-shared-state?disqus_revision=1";
+    this.page.url = "https://blog.kubukoz.com/flavors-of-shared-state?disqus_revision=1";
     this.page.identifier = '/flavors-of-shared-state?disqus_revision=1';
   };
 
@@ -504,7 +504,7 @@ As a good practice we'll reset each counter after each server request finishes p
     ga('send', 'pageview');
 
 </script>
-<script type="text/javascript" src="https://blog.kubukoz.com/preview/elasticlunr.min.js"></script>
-<script type="text/javascript" src="https://blog.kubukoz.com/preview/search_index.en.js"/></script>
-<script type="text/javascript" src="https://blog.kubukoz.com/preview/search.js"/></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/search_index.en.js"/></script>
+<script type="text/javascript" src="https://blog.kubukoz.com/search.js"/></script>
 </html>
