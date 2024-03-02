@@ -412,12 +412,13 @@ As a good practice we'll reset each counter after each server request finishes p
 </span></span><span class="z-source z-scala"><span class="z-meta z-class z-body z-scala"><span class="z-punctuation z-section z-braces z-end z-scala">}</span></span>
 </span></code></pre>
 <p>Its two main implementations (based on <code>Kleisli</code> or <code>IOLocal</code>) both carry a <code>Span</code>, which is backed by mutable state - depending on the backend it's sometimes a <code>Ref</code>, sometimes a plain mutable object like an OpenTracing <code>Span</code>.</p>
-<h2 id="comparison"><a class="zola-anchor" href="#comparison" aria-label="Anchor link for: comparison">Comparison</a></h2>
+<h2 id="summary"><a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">Summary</a></h2>
 <p>We've explored a bunch of options for sharing state, with various degrees of isolation. Which one should <em>you</em> use?</p>
 <p>It depends on the problem you're trying to solve. If your goal is to share the state for the entire application (for example, for a client's rate limiter), <code>Ref</code> will do just fine. If you want to prioritize isolation and avoid any race conditions, <code>IOLocal</code> may work well for you. However, if you want more precise control and the ability to &quot;disconnect&quot; from a more &quot;global&quot; state, it's likely that you'll want to wrap some mutable state in an <code>IOLocal</code> - such as a <code>Ref</code>.</p>
 <p>Personally, I believe for most usecases in HTTP applications that desire &quot;reader monad&quot; semantics of state, <code>IOLocal</code> + <code>Ref</code> should be preferred over just <code>IOLocal</code>. Using the latter is likely to lead to subtle bugs, such as changes not being propagated upwards when a library down the call stack starts to involve concurrency.</p>
 <p>Keep in mind: Cats Effect has other building blocks for concurrent applications, and some of them might be better suited for solving certain types of problems. I encourage you to check out <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/std/atomic-cell">the documentation</a> to learn more about them.</p>
 <p>I hope this article helps you make an informed decision. Thanks for reading!</p>
+<h2 id="links"><a class="zola-anchor" href="#links" aria-label="Anchor link for: links">Links</a></h2>
 <p>Here are the links from this post:</p>
 <ul>
 <li><a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/concepts#effects">What are effects?</a></li>
