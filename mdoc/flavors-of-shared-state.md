@@ -12,13 +12,13 @@ disqus.ident_suffix = "?disqus_revision=1"
 scalaLibs = ["http4s-client-0.23.25", "http4s-dsl-0.23.25"]
 +++
 
-In this post, we will explore the various ways to share state in a [Cats Effect](https://typelevel.org/cats-effect) application.
+In this post, we will explore the various ways to share state in a [Cats Effect](cats-effect) application.
 
 <!-- more -->
 
 # Introduction: why do we need shared state?
 
-One may think that Functional Programming eliminates the need for shared state altogether - however, sooner or later, we have to interact with the so called "Real World". Turns out, the world is ~~a JoJo reference~~ a stateful thing, so interacting with it requires some form of [effects](https://typelevel.org/cats-effect/docs/concepts#effects).
+One may think that Functional Programming eliminates the need for shared state altogether - however, sooner or later, we have to interact with the so called "Real World". Turns out, the world is ~~a JoJo reference~~ a stateful thing, so interacting with it requires some form of [effects][effects].
 
 As if that wasn't enough, sometimes we want to keep some state in our own application: even something like a "request counter", which keeps a running total of the requests handled by the service, requires some form of shared in-memory state.
 
@@ -242,7 +242,7 @@ We won't be doing that, then. So what are our demands?
 - The counter dependency should be hidden from intermediate layers of abstraction (only the client and router need to know about it)
 - The counter's state should be isolated between requests, including concurrent ones.
 
-Readers with Java experience may recognize this as something similar to `ThreadLocal`. However, in Cats Effect we can't simply use a `ThreadLocal`, because due to its [fiber-based concurrency model](https://typelevel.org/cats-effect/docs/thread-model), a single request may be processed on any number of threads (and on non-JVM platforms like Scala.js, we might only have one thread to begin with).
+Readers with Java experience may recognize this as something similar to `ThreadLocal`. However, in Cats Effect we can't simply use a `ThreadLocal`, because due to its [fiber-based concurrency model][ce-thread-model], a single request may be processed on any number of threads (and on non-JVM platforms like Scala.js, we might only have one thread to begin with).
 
 What we need is more of a... "fiber" local.
 
@@ -479,13 +479,13 @@ trait Counter {
 }
 ```
 
-It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations - [constraints liberate, liberties constrain](https://www.youtube.com/watch?v=GqmsQeSzMdw).
+It's worth noting that at this point we cannot really implement a valid `Counter` based on just a `Ref` - by giving out API more power, we've constrained the number of valid implementations - [constraints liberate, liberties constrain][constraints-liberate].
 
 Of course, if you want to control the value that forked counters will start with, you'll need to further adjust the API to accomodate that feature. This is left as [an exercise for the reader](https://en.wikipedia.org/wiki/Small_matter_of_programming).
 
 ### Trivia: Natchez's Trace algebra
 
-[The Natchez library](https://github.com/typelevel/natchez), which is used for distributed tracing, uses a similar idea in its `Trace` algebra:
+[The Natchez library][natchez], which is used for distributed tracing, uses a similar idea in its `Trace` algebra:
 
 ```scala
 trait Trace[F[_]] {
@@ -504,4 +504,18 @@ It depends on the problem you're trying to solve. If your goal is to share the s
 
 Personally, I believe for most usecases in HTTP applications that desire "reader monad" semantics of state, `IOLocal` + `Ref` should be preferred over just `IOLocal`. Using the latter is likely to lead to subtle bugs, such as changes not being propagated upwards when a library down the call stack starts to involve concurrency.
 
+Keep in mind: Cats Effect has other building blocks for concurrent applications, and some of them might be better suited for solving certain types of problems. I encourage you to check out [the documentation](https://typelevel.org/cats-effect/docs/std/atomic-cell) to learn more about them.
+
 I hope this article helps you make an informed decision. Thanks for reading!
+
+Here are the links from this post:
+
+- [What are effects?][effects]
+- [Cats Effect's thread model][ce-thread-model]
+- [Constraints liberate, liberties constrain - Runar Bjarnason's talk][constraints-liberate]
+- [Natchez library][natchez]
+
+[effects]: https://typelevel.org/cats-effect/docs/concepts#effects
+[ce-thread-model]: https://typelevel.org/cats-effect/docs/thread-model
+[constraints-liberate]: https://www.youtube.com/watch?v=GqmsQeSzMdw
+[natchez]: https://github.com/typelevel/natchez
