@@ -3,8 +3,7 @@ on:
   pull_request:
     branches: ["**"]
   push:
-    branches: ["**"]
-    tags: ["**"]
+    branches: ["main"]
 jobs:
   ci:
     name: CI
