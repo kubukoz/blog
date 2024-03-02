@@ -23,7 +23,7 @@
         <link rel="alternate" type="text/html" href="https://blog.kubukoz.com/preview/flavors-of-shared-state/"/>
         <id>https://blog.kubukoz.com/preview/flavors-of-shared-state/</id>
         
-        <summary type="html">&lt;p&gt;In this post, we will explore the various ways to share state in a &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;typelevel.org&#x2F;cats-effect&quot;&gt;Cats Effect&lt;&#x2F;a&gt; application.&lt;&#x2F;p&gt;
+        <summary type="html">&lt;p&gt;In this post, we will explore the various ways to share state in a &lt;a href=&quot;https:&#x2F;&#x2F;blog.kubukoz.com&#x2F;preview&#x2F;flavors-of-shared-state&#x2F;cats-effect&quot;&gt;Cats Effect&lt;&#x2F;a&gt; application.&lt;&#x2F;p&gt;
 </summary>
         
     </entry>

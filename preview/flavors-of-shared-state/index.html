@@ -52,7 +52,7 @@
         <h1>Flavors of shared state in Cats Effect</h1>
     </header>
     <div class="content">
-        <p>In this post, we will explore the various ways to share state in a <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect">Cats Effect</a> application.</p>
+        <p>In this post, we will explore the various ways to share state in a <a href="https://blog.kubukoz.com/preview/flavors-of-shared-state/cats-effect">Cats Effect</a> application.</p>
 <span id="continue-reading"></span><h1 id="introduction-why-do-we-need-shared-state"><a class="zola-anchor" href="#introduction-why-do-we-need-shared-state" aria-label="Anchor link for: introduction-why-do-we-need-shared-state">Introduction: why do we need shared state?</a></h1>
 <p>One may think that Functional Programming eliminates the need for shared state altogether - however, sooner or later, we have to interact with the so called &quot;Real World&quot;. Turns out, the world is <del>a JoJo reference</del> a stateful thing, so interacting with it requires some form of <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/concepts#effects">effects</a>.</p>
 <p>As if that wasn't enough, sometimes we want to keep some state in our own application: even something like a &quot;request counter&quot;, which keeps a running total of the requests handled by the service, requires some form of shared in-memory state.</p>
@@ -416,7 +416,15 @@ As a good practice we'll reset each counter after each server request finishes p
 <p>We've explored a bunch of options for sharing state, with various degrees of isolation. Which one should <em>you</em> use?</p>
 <p>It depends on the problem you're trying to solve. If your goal is to share the state for the entire application (for example, for a client's rate limiter), <code>Ref</code> will do just fine. If you want to prioritize isolation and avoid any race conditions, <code>IOLocal</code> may work well for you. However, if you want more precise control and the ability to &quot;disconnect&quot; from a more &quot;global&quot; state, it's likely that you'll want to wrap some mutable state in an <code>IOLocal</code> - such as a <code>Ref</code>.</p>
 <p>Personally, I believe for most usecases in HTTP applications that desire &quot;reader monad&quot; semantics of state, <code>IOLocal</code> + <code>Ref</code> should be preferred over just <code>IOLocal</code>. Using the latter is likely to lead to subtle bugs, such as changes not being propagated upwards when a library down the call stack starts to involve concurrency.</p>
+<p>Keep in mind: Cats Effect has other building blocks for concurrent applications, and some of them might be better suited for solving certain types of problems. I encourage you to check out <a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/std/atomic-cell">the documentation</a> to learn more about them.</p>
 <p>I hope this article helps you make an informed decision. Thanks for reading!</p>
+<p>Here are the links from this post:</p>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/concepts#effects">What are effects?</a></li>
+<li><a rel="noopener" target="_blank" href="https://typelevel.org/cats-effect/docs/thread-model">Cats Effect's thread model</a></li>
+<li><a rel="noopener" target="_blank" href="https://www.youtube.com/watch?v=GqmsQeSzMdw">Constraints liberate, liberties constrain - Runar Bjarnason's talk</a></li>
+<li><a rel="noopener" target="_blank" href="https://github.com/typelevel/natchez">Natchez library</a></li>
+</ul>
 
     </div>
 
