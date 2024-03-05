@@ -253,10 +253,10 @@ Cats Effect provides an `IOLocal`. It does exactly what we want! Let's implement
 ```scala mdoc:silent
 import cats.effect.IOLocal
 
-val localCounter: IO[Counter] = IOLocal(0).map { ref =>
+val localCounter: IO[Counter] = IOLocal(0).map { local =>
   makeCounter(
-    ref.update(_ + 1),
-    ref.get
+    local.update(_ + 1),
+    local.get
   )
 }
 ```
@@ -272,13 +272,13 @@ import cats.effect.Resource
 
 case class CounterWithReset(c: Counter, withFreshCounter: IO ~> IO)
 
-val localCounterR: IO[CounterWithReset] = IOLocal(0).map { ref =>
+val localCounterR: IO[CounterWithReset] = IOLocal(0).map { local =>
   val c = makeCounter(
-    ref.update(_ + 1),
-    ref.get
+    local.update(_ + 1),
+    local.get
   )
 
-  CounterWithReset(c, Resource.make(IO.unit)(_ => ref.reset).surroundK)
+  CounterWithReset(c, Resource.make(IO.unit)(_ => local.reset).surroundK)
 }
 ```
 
