@@ -261,7 +261,7 @@ val talks = List(
       Link.slides(
         "https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks"
       ),
-      Link.recording("https://vimeo.com/368027707")
+      Link.recording("https://www.youtube.com/watch?v=v9nv3dfYfw4")
     )
   ),
   TalkEntry(

@@ -136,7 +136,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="LX&amp;nbsp;Scala (Lisbon, Portugal)">🇵🇹&nbsp;LX&nbsp;Scala</span><span>, </span><span title="Scala&amp;nbsp;Italy (Bologna, Italy)">🇮🇹&nbsp;Scala&nbsp;Italy</span></p>
       </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks">slides</a></span><span> | </span><span><a href="https://vimeo.com/368027707">recording</a></span></span></td>
+      <td><span><span><a href="https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=v9nv3dfYfw4">recording</a></span></span></td>
     </tr>
     <tr>
       <td>
