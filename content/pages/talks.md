@@ -28,7 +28,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
       </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/calico-intro/slides/build/">slides</a></span><span> | </span><span><a href="https://kubukoz.github.io/talks/calico-intro/client/dist/">demo</a></span></span></td>
+      <td><span><span><a href="https://kubukoz.github.io/talks/calico-intro/slides/build/">slides</a></span><span> | </span><span><a href="https://kubukoz.github.io/talks/calico-intro/client/dist/">demo</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=JP1FRRatcgI">recording</a></span></span></td>
     </tr>
     <tr>
       <td>

@@ -124,7 +124,8 @@ val talks = List(
       Link.slides(
         "https://kubukoz.github.io/talks/calico-intro/slides/build/"
       ),
-      Link.demo("https://kubukoz.github.io/talks/calico-intro/client/dist/")
+      Link.demo("https://kubukoz.github.io/talks/calico-intro/client/dist/"),
+      Link.recording("https://www.youtube.com/watch?v=JP1FRRatcgI")
     )
   ),
   TalkEntry(
