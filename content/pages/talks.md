@@ -176,7 +176,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
     </tr>
     <tr>
       <td>
-        <p><b>Typelevel alchemist</b><span> (2018)</span></p>
+        <p><b>Typelevel alchemist (workshop)</b><span> (2018)</span></p>
       </td>
       <td>
         <p><span title="Scala Wave (Gdańsk, Poland)">🇵🇱&nbsp;Scala&nbsp;Wave</span></p>

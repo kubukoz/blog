@@ -315,7 +315,7 @@ val talks = List(
     )
   ),
   TalkEntry(
-    "Typelevel alchemist",
+    "Typelevel alchemist (workshop)",
     NonEmptyList.of(2018),
     NonEmptyList.of(Event.scalaWave),
     List(
