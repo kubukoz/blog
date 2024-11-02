@@ -1,6 +1,6 @@
-//> using scala "2.13.10"
-//> using lib "com.lihaoyi::os-lib:0.9.0"
-//> using lib "com.lihaoyi::upickle:2.0.0"
+//> using scala "3.5.2"
+//> using dep com.lihaoyi::os-lib:0.9.0
+//> using dep com.lihaoyi::upickle:2.0.0
 import upickle.default._
 
 val sourceFile = os.pwd / os.RelPath(args(0))
