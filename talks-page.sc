@@ -222,7 +222,7 @@ val talks = List(
   TalkEntry(
     "Keep your sanity with compositional tracing",
     NonEmptyList.of(2020),
-    NonEmptyList.of(Event("Typevel Summit", Location.newyork)),
+    NonEmptyList.of(Event("Typelevel Summit", Location.newyork)),
     List(
       Link.slides(
         "https://speakerdeck.com/kubukoz/keep-your-sanity-with-compositional-tracing"

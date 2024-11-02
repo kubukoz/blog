@@ -107,7 +107,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
         <p><b>Keep your sanity with compositional tracing</b><span> (2020)</span></p>
       </td>
       <td>
-        <p><span title="Typevel&amp;nbsp;Summit (New York, USA)">🇺🇸&nbsp;Typevel&nbsp;Summit</span></p>
+        <p><span title="Typelevel&amp;nbsp;Summit (New York, USA)">🇺🇸&nbsp;Typelevel&nbsp;Summit</span></p>
       </td>
       <td><span><span><a href="https://speakerdeck.com/kubukoz/keep-your-sanity-with-compositional-tracing">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=CKS8c1di3Z0">recording</a></span></span></td>
     </tr>
