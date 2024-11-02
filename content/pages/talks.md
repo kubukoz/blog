@@ -125,7 +125,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
         <p><b>A sky full of streams</b><span> (2019)</span></p>
       </td>
       <td>
-        <p><span title="Scala World (Penrith, UK)">🇬🇧&nbsp;Scala&nbsp;World</span></p>
+        <p><span title="Scala World (Penrith, UK)">🇬🇧&nbsp;Scala&nbsp;World</span><span>, </span><span title="London Scala Community Day (London, UK)">🇬🇧&nbsp;London&nbsp;Scala&nbsp;Community&nbsp;Day</span></p>
       </td>
       <td><span><span><a href="https://speakerdeck.com/kubukoz/a-sky-full-of-streams">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=oluPEFlXumw">recording</a></span></span></td>
     </tr>

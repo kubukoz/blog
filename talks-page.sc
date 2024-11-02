@@ -245,7 +245,10 @@ val talks = List(
   TalkEntry(
     "A sky full of streams",
     NonEmptyList.of(2019),
-    NonEmptyList.of(Event("Scala World", Location.penrith)),
+    NonEmptyList.of(
+      Event("Scala World", Location.penrith),
+      Event("London Scala Community Day", Location.london)
+    ),
     List(
       Link.slides(
         "https://speakerdeck.com/kubukoz/a-sky-full-of-streams"
