@@ -6,6 +6,8 @@
 import cats.data.NonEmptyList
 import cats.syntax.all.*
 
+extension(s: String) { def nonBreaking = s.replace(" ", "&nbsp;") }
+
 case class Link(
     url: String,
     title: String
@@ -90,7 +92,6 @@ case class Event(
     location: Location
 ) {
   def remote = copy(location = location.remote)
-  def nonBreaking = copy(name = name.replace(" ", "&nbsp;"))
 }
 
 object Event {
@@ -385,9 +386,8 @@ val columns = List[(String, TalkEntry => Tag)](
   "Events" -> { talk =>
     p(
       talk.events
-        .map(_.nonBreaking)
         .map { e =>
-          val nameMain = raw(s"${e.location.emoji}&nbsp;${e.name}")
+          val nameMain = raw(s"${e.location.emoji}&nbsp;${e.name.nonBreaking}")
           val nameFull = s"${e.name} (${e.location.full})"
 
           span(
