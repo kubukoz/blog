@@ -23,6 +23,24 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
   <tbody>
     <tr>
       <td>
+        <p><b>All the projects I didn't finish, and why it was worth it</b><span> (2025)</span></p>
+      </td>
+      <td>
+        <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
+      </td>
+      <td><span><span><a href="#">👨‍🍳 cooking...</a></span></span></td>
+    </tr>
+    <tr>
+      <td>
+        <p><b>Scala Native and Nix - a match made in heaven??</b><span> (2024)</span></p>
+      </td>
+      <td>
+        <p><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+      </td>
+      <td><span><span><a href="#">👨‍🍳 cooking...</a></span></span></td>
+    </tr>
+    <tr>
+      <td>
         <p><b>Calico - the functional frontend library you didn't know you needed</b><span> (2024)</span></p>
       </td>
       <td>
