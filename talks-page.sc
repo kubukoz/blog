@@ -17,6 +17,7 @@ object Link {
   def slides(url: String) = Link(url, "slides")
   def demo(url: String) = Link(url, "demo")
   def recording(url: String) = Link(url, "recording")
+  def cooking = Link("#", "👨‍🍳 cooking...")
 }
 
 case class Location(
@@ -102,6 +103,7 @@ object Event {
   val lxScala = Event("LX Scala", Location.lisbon)
   val scalaua = Event("Scala UA", Location.kiyv)
   val ksug = Event("Kraków Scala User Group", Location.krakow)
+  val wsug = Event("Wrocław Scala User Group", Location.wroclaw)
 }
 
 case class TalkEntry(
@@ -112,6 +114,22 @@ case class TalkEntry(
 )
 
 val talks = List(
+  TalkEntry(
+    "All the projects I didn't finish, and why it was worth it",
+    NonEmptyList.of(2025),
+    NonEmptyList.of(Event.scalar),
+    List(
+      Link.cooking
+    )
+  ),
+  TalkEntry(
+    "Scala Native and Nix - a match made in heaven??",
+    NonEmptyList.of(2024),
+    NonEmptyList.of(Event.wsug),
+    List(
+      Link.cooking
+    )
+  ),
   TalkEntry(
     "Calico - the functional frontend library you didn't know you needed",
     NonEmptyList.of(2024),
@@ -163,7 +181,7 @@ val talks = List(
     NonEmptyList.of(2023),
     NonEmptyList.of(
       Event.scalar,
-      Event("Wrocław Scala User Group", Location.wroclaw)
+      Event.wsug
     ),
     List(
       Link(
