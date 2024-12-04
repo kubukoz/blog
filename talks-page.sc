@@ -9,15 +9,17 @@ import cats.syntax.all.*
 extension(s: String) { def nonBreaking = s.replace(" ", "&nbsp;") }
 
 case class Link(
-    url: String,
+    url: Option[String],
     title: String
 )
 
 object Link {
-  def slides(url: String) = Link(url, "slides")
-  def demo(url: String) = Link(url, "demo")
-  def recording(url: String) = Link(url, "recording")
-  def cooking = Link("#", "👨‍🍳 cooking...")
+  def apply(url: String, title: String): Link = Link(url.some, title)
+
+  def slides(url: String) = Link(url.some, "slides")
+  def demo(url: String) = Link(url.some, "demo")
+  def recording(url: String) = Link(url.some, "recording")
+  def cooking = Link(none, "👨‍🍳 cooking...")
 }
 
 case class Location(
@@ -425,7 +427,7 @@ val columns = List[(String, TalkEntry => Tag)](
     span(
       talk.links
         .map { link =>
-          span(a(href := link.url, link.title)) :: Nil
+          span(a(link.url.map(href := _), link.title)) :: Nil
         }
         .intercalate(span(" | ") :: Nil)
     )
