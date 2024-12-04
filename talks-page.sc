@@ -431,7 +431,12 @@ val columns = List[(String, TalkEntry => Tag)](
     span(
       talk.links
         .map { link =>
-          span(a(link.url.map(href := _), link.title)) :: Nil
+          span.apply {
+            link.url match {
+              case Some(url) => a(href := url, link.title)
+              case None      => link.title
+            }
+          } :: Nil
         }
         .intercalate(span(" | ") :: Nil)
     )
