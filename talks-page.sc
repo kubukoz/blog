@@ -433,7 +433,7 @@ val columns = List[(String, TalkEntry => Tag)](
         .map { link =>
           span.apply {
             link.url match {
-              case Some(url) => a(href := url, link.title)
+              case Some(url) => a(href := url, link.title, target := "_blank")
               case None      => link.title
             }
           } :: Nil
