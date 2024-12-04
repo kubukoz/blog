@@ -28,7 +28,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
       </td>
-      <td><span><span><a href="#">👨‍🍳 cooking...</a></span></span></td>
+      <td><span><span><a>👨‍🍳 cooking...</a></span></span></td>
     </tr>
     <tr>
       <td>
@@ -37,7 +37,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
       </td>
-      <td><span><span><a href="#">👨‍🍳 cooking...</a></span></span></td>
+      <td><span><span><a>👨‍🍳 cooking...</a></span></span></td>
     </tr>
     <tr>
       <td>
