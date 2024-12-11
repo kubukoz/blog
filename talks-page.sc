@@ -23,7 +23,7 @@ object Link {
   def slides(url: String) = Link(url.some, "slides")
   def demo(url: String) = Link(url.some, "demo")
   def recording(url: String) = Link(url.some, "recording")
-  def cooking = Link(none, "👨‍🍳 cooking...")
+  def cooking(tag: String) = Link(none, s"$tag 👨‍🍳 cooking...")
 }
 
 case class Location(
@@ -125,7 +125,7 @@ val talks = List(
     NonEmptyList.of(2025),
     NonEmptyList.of(Event.scalar),
     List(
-      Link.cooking
+      Link.cooking(tag = "")
     )
   ),
   TalkEntry(
@@ -133,7 +133,10 @@ val talks = List(
     NonEmptyList.of(2024),
     NonEmptyList.of(Event.wsug),
     List(
-      Link.cooking
+      Link.slides(
+        "https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven"
+      ),
+      Link.cooking(tag = "recording: ")
     )
   ),
   TalkEntry(
