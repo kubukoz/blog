@@ -136,7 +136,7 @@ val talks = List(
       Link.slides(
         "https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven"
       ),
-      Link.cooking(tag = "recording: ")
+      Link.recording("https://www.youtube.com/watch?v=old8N9u3QKU")
     )
   ),
   TalkEntry(

@@ -37,7 +37,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
       </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven" target="_blank">slides</a></span><span> | </span><span>recording: 👨‍🍳 cooking...</span></span></td>
+      <td><span><span><a href="https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=old8N9u3QKU" target="_blank">recording</a></span></span></td>
     </tr>
     <tr>
       <td>
