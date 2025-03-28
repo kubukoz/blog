@@ -28,7 +28,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
       </td>
-      <td><span><span> 👨‍🍳 cooking...</span></span></td>
+      <td><span><span><a href="https://speakerdeck.com/kubukoz/all-the-projects-i-didnt-finish-and-why-it-was-worth-it" target="_blank">slides</a></span></span></td>
     </tr>
     <tr>
       <td>

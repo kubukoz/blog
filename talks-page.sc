@@ -125,7 +125,9 @@ val talks = List(
     NonEmptyList.of(2025),
     NonEmptyList.of(Event.scalar),
     List(
-      Link.cooking(tag = "")
+      Link.slides(
+        "https://speakerdeck.com/kubukoz/all-the-projects-i-didnt-finish-and-why-it-was-worth-it"
+      )
     )
   ),
   TalkEntry(
