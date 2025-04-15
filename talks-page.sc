@@ -127,7 +127,8 @@ val talks = List(
     List(
       Link.slides(
         "https://speakerdeck.com/kubukoz/all-the-projects-i-didnt-finish-and-why-it-was-worth-it"
-      )
+      ),
+      Link.recording("https://www.youtube.com/watch?v=EjY7ELQKSFM")
     )
   ),
   TalkEntry(
