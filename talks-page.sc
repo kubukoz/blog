@@ -92,6 +92,8 @@ object Location {
   val minsk =
     Location("🇧🇾", "Minsk, Belarus")
 
+  val lausanne =
+    Location("🇨🇭", "Lausanne, Switzerland")
 }
 
 case class Event(
@@ -110,6 +112,7 @@ object Event {
   val scalaua = Event("Scala UA", Location.kiyv)
   val ksug = Event("Kraków Scala User Group", Location.krakow)
   val wsug = Event("Wrocław Scala User Group", Location.wroclaw)
+  def scaladays(location: Location) = Event("Scala Days", location)
 }
 
 case class TalkEntry(
@@ -120,6 +123,14 @@ case class TalkEntry(
 )
 
 val talks = List(
+  TalkEntry(
+    "Are You Tall Enough for This Ride? Real-world Challenges in Code Generation",
+    NonEmptyList.of(2025),
+    NonEmptyList.of(Event.scaladays(Location.lausanne)),
+    List(
+      Link.slides("https://polyvariant.github.io/are-you-tall-enough")
+    )
+  ),
   TalkEntry(
     "All the projects I didn't finish, and why it was worth it",
     NonEmptyList.of(2025),

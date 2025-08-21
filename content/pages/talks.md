@@ -23,6 +23,15 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
   <tbody>
     <tr>
       <td>
+        <p><b>Are You Tall Enough for This Ride? Real-world Challenges in Code Generation</b><span> (2025)</span></p>
+      </td>
+      <td>
+        <p><span title="Scala Days (Lausanne, Switzerland)">🇨🇭&nbsp;Scala&nbsp;Days</span></p>
+      </td>
+      <td><span><span><a href="https://polyvariant.github.io/are-you-tall-enough" target="_blank">slides</a></span></span></td>
+    </tr>
+    <tr>
+      <td>
         <p><b>All the projects I didn't finish, and why it was worth it</b><span> (2025)</span></p>
       </td>
       <td>
