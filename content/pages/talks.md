@@ -28,7 +28,7 @@ Here's a list of all the talks I've given to date, with slides and videos if ava
       <td>
         <p><span title="Scala Days (Lausanne, Switzerland)">🇨🇭&nbsp;Scala&nbsp;Days</span></p>
       </td>
-      <td><span><span><a href="https://polyvariant.github.io/are-you-tall-enough" target="_blank">slides</a></span></span></td>
+      <td><span><span><a href="https://polyvariant.github.io/are-you-tall-enough" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=5bUuGhSmrIU" target="_blank">recording</a></span></span></td>
     </tr>
     <tr>
       <td>

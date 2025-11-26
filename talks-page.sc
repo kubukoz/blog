@@ -1,4 +1,4 @@
-//> using scala 3.5.2
+//> using scala 3.7.4
 //> using toolkit default
 //> using toolkit typelevel:default
 //> using dep com.lihaoyi::scalatags:0.13.1
@@ -128,7 +128,8 @@ val talks = List(
     NonEmptyList.of(2025),
     NonEmptyList.of(Event.scaladays(Location.lausanne)),
     List(
-      Link.slides("https://polyvariant.github.io/are-you-tall-enough")
+      Link.slides("https://polyvariant.github.io/are-you-tall-enough"),
+      Link.recording("https://www.youtube.com/watch?v=5bUuGhSmrIU")
     )
   ),
   TalkEntry(
