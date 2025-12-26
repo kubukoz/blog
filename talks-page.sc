@@ -514,8 +514,23 @@ val rows = talks.map { talk =>
   )
 }
 
+object stats {
+  val totalTalks = talks.size
+  val totalEvents = talks.flatMap(_.events.toList).size
+  val totalOnsiteCountries = talks
+    .flatMap(_.events.toList)
+    .map(_.location)
+    .collect { case Location.Onsite(_, country) =>
+      country
+    }
+    .distinct
+    .size
+}
 val output =
   div(
+    p(
+      s"I've presented ${stats.totalTalks} talks at ${stats.totalEvents} events across ${stats.totalOnsiteCountries} countries."
+    ),
     p(
       "Here's a list of all the talks I've given to date, with slides and videos if available."
     ),

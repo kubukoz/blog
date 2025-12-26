@@ -11,6 +11,7 @@ cover = "/images/talks-bg.jpg"
 
 <!-- GENERATED TALKS BEGIN -->
 <div>
+  <p>I've presented 25 talks at 36 events across 14 countries.</p>
   <p>Here's a list of all the talks I've given to date, with slides and videos if available.</p>
   <table>
     <thead>
