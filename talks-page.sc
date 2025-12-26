@@ -2,6 +2,10 @@
 //> using toolkit default
 //> using toolkit typelevel:default
 //> using dep com.lihaoyi::scalatags:0.13.1
+//> using dep org.jsoup:jsoup:1.21.2
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import scala.annotation.tailrec
 
 import cats.data.NonEmptyList
 import cats.syntax.all.*
@@ -429,6 +433,13 @@ val output = table(
   tbody(rows)
 )
 
+def pretty(html: String): String = {
+  val doc: Document = Jsoup.parse(html)
+  doc.outputSettings().prettyPrint(true)
+  doc.outputSettings().indentAmount(2) // adjust as needed
+  doc.body().html()
+}
+
 def insertInto(page: String, content: String) = {
   def pattern(inside: String) =
     s"""<!-- GENERATED TALKS BEGIN -->$inside<!-- GENERATED TALKS END -->"""
@@ -440,5 +451,5 @@ val path = os.pwd / "content" / "pages" / "talks.md"
 
 os.write.over(
   path,
-  insertInto(os.read(path), output.render)
+  insertInto(os.read(path), pretty(output.render))
 )
