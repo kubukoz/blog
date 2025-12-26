@@ -10,7 +10,7 @@ import scala.annotation.tailrec
 import cats.data.NonEmptyList
 import cats.syntax.all.*
 
-extension(s: String) { def nonBreaking = s.replace(" ", "&nbsp;") }
+extension (s: String) { def nonBreaking = s.replace(" ", "&nbsp;") }
 
 case class Link(
     url: Option[String],
@@ -26,84 +26,123 @@ object Link {
   def cooking(tag: String) = Link(none, s"$tag 👨‍🍳 cooking...")
 }
 
-case class Location(
-    emoji: String,
-    full: String
-) {
-  def remote =
-    Location(s"🌎/$emoji", s"Remote / $full")
+enum Country(val flag: String) {
+  case Poland extends Country("🇵🇱")
+  case Japan extends Country("🇯🇵")
+  case Germany extends Country("🇩🇪")
+  case Ukraine extends Country("🇺🇦")
+  case UK extends Country("🇬🇧")
+  case Portugal extends Country("🇵🇹")
+  case Norway extends Country("🇳🇴")
+  case USA extends Country("🇺🇸")
+  case Australia extends Country("🇦🇺")
+  case France extends Country("🇫🇷")
+  case Italy extends Country("🇮🇹")
+  case Slovenia extends Country("🇸🇮")
+  case Ireland extends Country("🇮🇪")
+  case Belarus extends Country("🇧🇾")
+  case Switzerland extends Country("🇨🇭")
+
+  def name: String = productPrefix
+}
+
+enum Location {
+  def emoji: String = this match {
+    case Onsite(_, country) => country.flag
+    case Remote(base)       => s"🌎/${base.emoji}"
+  }
+
+  def full: String = this match {
+    case Onsite(city, country) => this.baseLocation
+    case Remote(base)          => s"Remote / ${base.baseLocation}"
+  }
+
+  @tailrec
+  private def baseLocation: String = this match {
+    case Onsite(city, country) => s"${city.foldMap(_ + ", ")}${country.name}"
+    case Remote(base)          => base.baseLocation
+  }
+
+  case Onsite(city: Option[String], country: Country)
+  case Remote(base: Location)
+
+  def remote: Location = Location.Remote(this)
 }
 
 object Location {
+
+  private def apply(city: String, country: Country) = Onsite(city.some, country)
+
   val warsaw =
-    Location("🇵🇱", "Warsaw, Poland")
+    Location("Warsaw", Country.Poland)
 
   val wroclaw =
-    Location("🇵🇱", "Wrocław, Poland")
+    Location("Wrocław", Country.Poland)
 
   val tokyo =
-    Location("🇯🇵", "Tokyo, Japan")
+    Location("Tokyo", Country.Japan)
 
   val berlin =
-    Location("🇩🇪", "Berlin, Germany")
+    Location("Berlin", Country.Germany)
 
   val kiyv =
-    Location("🇺🇦", "Kiyv, Ukraine")
+    Location("Kiyv", Country.Ukraine)
 
   val london =
-    Location("🇬🇧", "London, UK")
+    Location("London", Country.UK)
 
   val krakow =
-    Location("🇵🇱", "Kraków, Poland")
+    Location("Kraków", Country.Poland)
 
   val lisbon =
-    Location("🇵🇹", "Lisbon, Portugal")
+    Location("Lisbon", Country.Portugal)
 
   val gdansk =
-    Location("🇵🇱", "Gdańsk, Poland")
+    Location("Gdańsk", Country.Poland)
 
   val oslo =
-    Location("🇳🇴", "Oslo, Norway")
+    Location("Oslo", Country.Norway)
 
   val boulder =
-    Location("🇺🇸", "Boulder, USA")
+    Location("Boulder", Country.USA)
 
   val australia =
-    Location("🇦🇺", "Australia")
+    Location.Onsite(city = None, country = Country.Australia)
 
   val penrith =
-    Location("🇬🇧", "Penrith, UK")
+    Location("Penrith", Country.UK)
 
   val lyon =
-    Location("🇫🇷", "Lyon, France")
+    Location("Lyon", Country.France)
 
   val bologna =
-    Location("🇮🇹", "Bologna, Italy")
+    Location("Bologna", Country.Italy)
 
   val ljubljana =
-    Location("🇸🇮", "Ljubljana, Slovenia")
+    Location("Ljubljana", Country.Slovenia)
 
   val dublin =
-    Location("🇮🇪", "Dublin, Ireland")
+    Location("Dublin", Country.Ireland)
 
   val newyork =
-    Location("🇺🇸", "New York, USA")
+    Location("New York", Country.USA)
 
   val minsk =
-    Location("🇧🇾", "Minsk, Belarus")
+    Location("Minsk", Country.Belarus)
 
   val lausanne =
-    Location("🇨🇭", "Lausanne, Switzerland")
+    Location("Lausanne", Country.Switzerland)
 }
 
 case class Event(
     name: String,
     location: Location
 ) {
-  def remote = copy(location = location.remote)
+  def remote: Event = copy(location = location.remote)
 }
 
 object Event {
+
   val artOfScala = Event("Art of Scala", Location.warsaw)
   val scalar = Event("Scalar", Location.warsaw)
   val scalaWave = Event("Scala Wave", Location.gdansk)
