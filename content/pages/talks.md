@@ -7,245 +7,246 @@ path = "talks"
 cover = "/images/talks-bg.jpg"
 +++
 
-Here's a list of all the talks I've given to date, with slides and videos if available.
-
 <!-- This is generated using talks-page.sc. Manual edits will be lost. -->
 
 <!-- GENERATED TALKS BEGIN -->
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Events</th>
-      <th>Links</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <p><b>Are You Tall Enough for This Ride? Real-world Challenges in Code Generation</b><span> (2025)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala Days (Lausanne, Switzerland)">🇨🇭&nbsp;Scala&nbsp;Days</span></p>
-      </td>
-      <td><span><span><a href="https://polyvariant.github.io/are-you-tall-enough" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=5bUuGhSmrIU" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>All the projects I didn't finish, and why it was worth it</b><span> (2025)</span></p>
-      </td>
-      <td>
-        <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/all-the-projects-i-didnt-finish-and-why-it-was-worth-it" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=EjY7ELQKSFM" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Scala Native and Nix - a match made in heaven??</b><span> (2024)</span></p>
-      </td>
-      <td>
-        <p><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=old8N9u3QKU" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Calico - the functional frontend library you didn't know you needed</b><span> (2024)</span></p>
-      </td>
-      <td>
-        <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/calico-intro/slides/build/" target="_blank">slides</a></span><span> | </span><span><a href="https://kubukoz.github.io/talks/calico-intro/client/dist/" target="_blank">demo</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=JP1FRRatcgI" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Foraging into embedded lands - writing Playdate games in Scala</b><span> (2024)</span></p>
-      </td>
-      <td>
-        <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/foraging-into-embedded-lands-the-path-to-writing-playdate-games-in-scala" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=paHZkg8Py1U" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Let's build an IDE!</b><span> (2023)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala in the City (London, UK)">🇬🇧&nbsp;Scala&nbsp;in&nbsp;the&nbsp;City</span></p>
-      </td>
-      <td><span><span><a href="https://gist.github.com/kubukoz/5779d7d275e2c2241a1b2535235cf3a2" target="_blank">slides</a></span><span> | </span><span><a href="https://github.com/kubukoz/badlang/tree/smol" target="_blank">code</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=VVHDWtcPkk4" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Adventures in the land of Language Servers</b><span> (2023)</span></p>
-      </td>
-      <td>
-        <p><span title="Lambda Days (Kraków, Poland)">🇵🇱&nbsp;Lambda&nbsp;Days</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/adventures-in-the-land-of-language-servers" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=HF0xVrBZqtI" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Pain-free APIs with Smithy4s</b><span> (2023)</span></p>
-      </td>
-      <td>
-        <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span><span>, </span><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/pain-free-apis-with-smithy4s" target="_blank">slides (EN)</a></span><span> | </span><span><a href="https://speakerdeck.com/kubukoz/uwolnij-swoje-api-od-bolu-z-smithy4s-c06de564-4646-422e-befd-dabd4579e5e1" target="_blank">slides (PL)</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=LvCDzDYfgsI" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Things I didn't want to know about JVM bytecode but learned anyway</b><span> (2022)</span></p>
-      </td>
-      <td>
-        <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/things-jvm/dist" target="_blank">slides</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Nix for Scala folks</b><span> (2022)</span></p>
-      </td>
-      <td>
-        <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/nix-for-scala-folks" target="_blank">slides</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Connecting the dots - building and structuring a functional application in Scala</b><span> (2021)</span></p>
-      </td>
-      <td>
-        <p><span title="YOW! Lambda Jam (Remote / Australia)">🌎/🇦🇺&nbsp;YOW!&nbsp;Lambda&nbsp;Jam</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/connecting-the-dots-building-and-structuring-a-functional-application-in-scala" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=JbMjq8VehLc" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Irresistible party tricks with cats-tagless</b><span> (2020)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala UA (Remote / Kiyv, Ukraine)">🌎/🇺🇦&nbsp;Scala&nbsp;UA</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/irresistible-party-tricks-with-cats-tagless" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=rzS9lkg3Cf8" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Keep your sanity with compositional tracing</b><span> (2020)</span></p>
-      </td>
-      <td>
-        <p><span title="Typelevel Summit (New York, USA)">🇺🇸&nbsp;Typelevel&nbsp;Summit</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/keep-your-sanity-with-compositional-tracing" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=CKS8c1di3Z0" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Introduction to interruption</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="Functional Scala (London, UK)">🇬🇧&nbsp;Functional&nbsp;Scala</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/introduction-to-interruption" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=EQWAQF6Yj5Q" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>A sky full of streams</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala World (Penrith, UK)">🇬🇧&nbsp;Scala&nbsp;World</span><span>, </span><span title="London Scala Community Day (London, UK)">🇬🇧&nbsp;London&nbsp;Scala&nbsp;Community&nbsp;Day</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/a-sky-full-of-streams" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=oluPEFlXumw" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Flawless testing for the functional folks</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="LX Scala (Lisbon, Portugal)">🇵🇹&nbsp;LX&nbsp;Scala</span><span>, </span><span title="Scala Italy (Bologna, Italy)">🇮🇹&nbsp;Scala&nbsp;Italy</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=v9nv3dfYfw4" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>A server is just a function: introduction to http4s</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="Kraków Scala User Group (Kraków, Poland)">🇵🇱&nbsp;Kraków&nbsp;Scala&nbsp;User&nbsp;Group</span><span>, </span><span title="Lambda Conf (Boulder, USA)">🇺🇸&nbsp;Lambda&nbsp;Conf</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/a-server-is-just-a-function-introduction-to-http4s" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=9YsZ8loRVDA" target="_blank">recording 1</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=jwKzluH5jFg" target="_blank">recording 2</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Conquering concurrency with functional programming</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span><span>, </span><span title="Scala UA (Kiyv, Ukraine)">🇺🇦&nbsp;Scala&nbsp;UA</span></p>
-      </td>
-      <td><span><span><a href="https://speakerdeck.com/kubukoz/conquering-concurrency-with-functional-programming" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=6z6C1EmxzaI" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=fZO2lV2xjEo" target="_blank">recording 2</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Lightweight, functional microservices with http4s and doobie</b><span> (2019)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala Night (Minsk, Belarus)">🇧🇾&nbsp;Scala&nbsp;Night</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/http4s-doobie-micro/slides/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=fQfMiUDsLv4" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Incremental purity</b><span> (2018)</span></p>
-      </td>
-      <td>
-        <p><span title="Dublin Scala User Group (Dublin, Ireland)">🇮🇪&nbsp;Dublin&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/incremental-purity/slides/" target="_blank">slides</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Typelevel alchemist (workshop)</b><span> (2018)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala Wave (Gdańsk, Poland)">🇵🇱&nbsp;Scala&nbsp;Wave</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/typelevel-alchemist/slides" target="_blank">slides</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Legacy code from day one</b><span> (2018)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala Matsuri (Tokyo, Japan)">🇯🇵&nbsp;Scala&nbsp;Matsuri</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/legacy-code-from-day-1/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=6FYISbNdanE" target="_blank">recording</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Fantastic monads and where to find them</b><span> (2017/2018)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala UA (Kiyv, Ukraine)">🇺🇦&nbsp;Scala&nbsp;UA</span><span>, </span><span title="BeeScala (Ljubljana, Slovenia)">🇸🇮&nbsp;BeeScala</span><span>, </span><span title="flatMap(Oslo) (Oslo, Norway)">🇳🇴&nbsp;flatMap(Oslo)</span><span>, </span><span title="LX Scala (Lisbon, Portugal)">🇵🇹&nbsp;LX&nbsp;Scala</span><span>, </span><span title="Berlin Scala User Group (Berlin, Germany)">🇩🇪&nbsp;Berlin&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/fantastic-monads-and-where-to-find-them/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=hOvyL28t0Yc" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=HMs_F7LXTak" target="_blank">recording 2</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>7 sins of a Scala beginner</b><span> (2016/2017)</span></p>
-      </td>
-      <td>
-        <p><span title="Scala Wave (Gdańsk, Poland)">🇵🇱&nbsp;Scala&nbsp;Wave</span><span>, </span><span title="ScalaIO (Lyon, France)">🇫🇷&nbsp;ScalaIO</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/seven-sins-of-a-scala-developer/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtu.be/8ZAKrcnQ7Ww" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=Z2YzCzfUNNk" target="_blank">recording 2</a></span></span></td>
-    </tr>
-    <tr>
-      <td>
-        <p><b>Macro sourcery</b><span> (2016)</span></p>
-      </td>
-      <td>
-        <p><span title="Functional Tricity (Gdańsk, Poland)">🇵🇱&nbsp;Functional&nbsp;Tricity</span><span>, </span><span title="Kraków Scala User Group (Kraków, Poland)">🇵🇱&nbsp;Kraków&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
-      </td>
-      <td><span><span><a href="https://kubukoz.github.io/talks/macro-sourcery/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=-ayx8NIDv4Q" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=KvZlYAOtzmU" target="_blank">recording 2</a></span></span></td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <p>Here's a list of all the talks I've given to date, with slides and videos if available.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Events</th>
+        <th>Links</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p><b>Are You Tall Enough for This Ride? Real-world Challenges in Code Generation</b><span> (2025)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala Days (Lausanne, Switzerland)">🇨🇭&nbsp;Scala&nbsp;Days</span></p>
+        </td>
+        <td><span><span><a href="https://polyvariant.github.io/are-you-tall-enough" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=5bUuGhSmrIU" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>All the projects I didn't finish, and why it was worth it</b><span> (2025)</span></p>
+        </td>
+        <td>
+          <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/all-the-projects-i-didnt-finish-and-why-it-was-worth-it" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=EjY7ELQKSFM" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Scala Native and Nix - a match made in heaven??</b><span> (2024)</span></p>
+        </td>
+        <td>
+          <p><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/scala-native-and-nix-a-match-made-in-heaven" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=old8N9u3QKU" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Calico - the functional frontend library you didn't know you needed</b><span> (2024)</span></p>
+        </td>
+        <td>
+          <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/calico-intro/slides/build/" target="_blank">slides</a></span><span> | </span><span><a href="https://kubukoz.github.io/talks/calico-intro/client/dist/" target="_blank">demo</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=JP1FRRatcgI" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Foraging into embedded lands - writing Playdate games in Scala</b><span> (2024)</span></p>
+        </td>
+        <td>
+          <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/foraging-into-embedded-lands-the-path-to-writing-playdate-games-in-scala" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=paHZkg8Py1U" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Let's build an IDE!</b><span> (2023)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala in the City (London, UK)">🇬🇧&nbsp;Scala&nbsp;in&nbsp;the&nbsp;City</span></p>
+        </td>
+        <td><span><span><a href="https://gist.github.com/kubukoz/5779d7d275e2c2241a1b2535235cf3a2" target="_blank">slides</a></span><span> | </span><span><a href="https://github.com/kubukoz/badlang/tree/smol" target="_blank">code</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=VVHDWtcPkk4" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Adventures in the land of Language Servers</b><span> (2023)</span></p>
+        </td>
+        <td>
+          <p><span title="Lambda Days (Kraków, Poland)">🇵🇱&nbsp;Lambda&nbsp;Days</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/adventures-in-the-land-of-language-servers" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=HF0xVrBZqtI" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Pain-free APIs with Smithy4s</b><span> (2023)</span></p>
+        </td>
+        <td>
+          <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span><span>, </span><span title="Wrocław Scala User Group (Wrocław, Poland)">🇵🇱&nbsp;Wrocław&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/pain-free-apis-with-smithy4s" target="_blank">slides (EN)</a></span><span> | </span><span><a href="https://speakerdeck.com/kubukoz/uwolnij-swoje-api-od-bolu-z-smithy4s-c06de564-4646-422e-befd-dabd4579e5e1" target="_blank">slides (PL)</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=LvCDzDYfgsI" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Things I didn't want to know about JVM bytecode but learned anyway</b><span> (2022)</span></p>
+        </td>
+        <td>
+          <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/things-jvm/dist" target="_blank">slides</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Nix for Scala folks</b><span> (2022)</span></p>
+        </td>
+        <td>
+          <p><span title="Art of Scala (Warsaw, Poland)">🇵🇱&nbsp;Art&nbsp;of&nbsp;Scala</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/nix-for-scala-folks" target="_blank">slides</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Connecting the dots - building and structuring a functional application in Scala</b><span> (2021)</span></p>
+        </td>
+        <td>
+          <p><span title="YOW! Lambda Jam (Remote / Australia)">🌎/🇦🇺&nbsp;YOW!&nbsp;Lambda&nbsp;Jam</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/connecting-the-dots-building-and-structuring-a-functional-application-in-scala" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=JbMjq8VehLc" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Irresistible party tricks with cats-tagless</b><span> (2020)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala UA (Remote / Kiyv, Ukraine)">🌎/🇺🇦&nbsp;Scala&nbsp;UA</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/irresistible-party-tricks-with-cats-tagless" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=rzS9lkg3Cf8" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Keep your sanity with compositional tracing</b><span> (2020)</span></p>
+        </td>
+        <td>
+          <p><span title="Typelevel Summit (New York, USA)">🇺🇸&nbsp;Typelevel&nbsp;Summit</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/keep-your-sanity-with-compositional-tracing" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=CKS8c1di3Z0" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Introduction to interruption</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="Functional Scala (London, UK)">🇬🇧&nbsp;Functional&nbsp;Scala</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/introduction-to-interruption" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=EQWAQF6Yj5Q" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>A sky full of streams</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala World (Penrith, UK)">🇬🇧&nbsp;Scala&nbsp;World</span><span>, </span><span title="London Scala Community Day (London, UK)">🇬🇧&nbsp;London&nbsp;Scala&nbsp;Community&nbsp;Day</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/a-sky-full-of-streams" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=oluPEFlXumw" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Flawless testing for the functional folks</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="LX Scala (Lisbon, Portugal)">🇵🇹&nbsp;LX&nbsp;Scala</span><span>, </span><span title="Scala Italy (Bologna, Italy)">🇮🇹&nbsp;Scala&nbsp;Italy</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/flawless-testing-for-the-functional-folks" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=v9nv3dfYfw4" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>A server is just a function: introduction to http4s</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="Kraków Scala User Group (Kraków, Poland)">🇵🇱&nbsp;Kraków&nbsp;Scala&nbsp;User&nbsp;Group</span><span>, </span><span title="Lambda Conf (Boulder, USA)">🇺🇸&nbsp;Lambda&nbsp;Conf</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/a-server-is-just-a-function-introduction-to-http4s" target="_blank">slides</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=9YsZ8loRVDA" target="_blank">recording 1</a></span><span> | </span><span><a href="https://www.youtube.com/watch?v=jwKzluH5jFg" target="_blank">recording 2</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Conquering concurrency with functional programming</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="Scalar (Warsaw, Poland)">🇵🇱&nbsp;Scalar</span><span>, </span><span title="Scala UA (Kiyv, Ukraine)">🇺🇦&nbsp;Scala&nbsp;UA</span></p>
+        </td>
+        <td><span><span><a href="https://speakerdeck.com/kubukoz/conquering-concurrency-with-functional-programming" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=6z6C1EmxzaI" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=fZO2lV2xjEo" target="_blank">recording 2</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Lightweight, functional microservices with http4s and doobie</b><span> (2019)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala Night (Minsk, Belarus)">🇧🇾&nbsp;Scala&nbsp;Night</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/http4s-doobie-micro/slides/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=fQfMiUDsLv4" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Incremental purity</b><span> (2018)</span></p>
+        </td>
+        <td>
+          <p><span title="Dublin Scala User Group (Dublin, Ireland)">🇮🇪&nbsp;Dublin&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/incremental-purity/slides/" target="_blank">slides</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Typelevel alchemist (workshop)</b><span> (2018)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala Wave (Gdańsk, Poland)">🇵🇱&nbsp;Scala&nbsp;Wave</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/typelevel-alchemist/slides" target="_blank">slides</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Legacy code from day one</b><span> (2018)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala Matsuri (Tokyo, Japan)">🇯🇵&nbsp;Scala&nbsp;Matsuri</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/legacy-code-from-day-1/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=6FYISbNdanE" target="_blank">recording</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Fantastic monads and where to find them</b><span> (2017/2018)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala UA (Kiyv, Ukraine)">🇺🇦&nbsp;Scala&nbsp;UA</span><span>, </span><span title="BeeScala (Ljubljana, Slovenia)">🇸🇮&nbsp;BeeScala</span><span>, </span><span title="flatMap(Oslo) (Oslo, Norway)">🇳🇴&nbsp;flatMap(Oslo)</span><span>, </span><span title="LX Scala (Lisbon, Portugal)">🇵🇹&nbsp;LX&nbsp;Scala</span><span>, </span><span title="Berlin Scala User Group (Berlin, Germany)">🇩🇪&nbsp;Berlin&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/fantastic-monads-and-where-to-find-them/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=hOvyL28t0Yc" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=HMs_F7LXTak" target="_blank">recording 2</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>7 sins of a Scala beginner</b><span> (2016/2017)</span></p>
+        </td>
+        <td>
+          <p><span title="Scala Wave (Gdańsk, Poland)">🇵🇱&nbsp;Scala&nbsp;Wave</span><span>, </span><span title="ScalaIO (Lyon, France)">🇫🇷&nbsp;ScalaIO</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/seven-sins-of-a-scala-developer/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtu.be/8ZAKrcnQ7Ww" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=Z2YzCzfUNNk" target="_blank">recording 2</a></span></span></td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Macro sourcery</b><span> (2016)</span></p>
+        </td>
+        <td>
+          <p><span title="Functional Tricity (Gdańsk, Poland)">🇵🇱&nbsp;Functional&nbsp;Tricity</span><span>, </span><span title="Kraków Scala User Group (Kraków, Poland)">🇵🇱&nbsp;Kraków&nbsp;Scala&nbsp;User&nbsp;Group</span></p>
+        </td>
+        <td><span><span><a href="https://kubukoz.github.io/talks/macro-sourcery/slides/#/" target="_blank">slides</a></span><span> | </span><span><a href="https://youtube.com/watch?v=-ayx8NIDv4Q" target="_blank">recording 1</a></span><span> | </span><span><a href="https://youtube.com/watch?v=KvZlYAOtzmU" target="_blank">recording 2</a></span></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <!-- GENERATED TALKS END -->

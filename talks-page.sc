@@ -475,10 +475,16 @@ val rows = talks.map { talk =>
   )
 }
 
-val output = table(
-  thead(header),
-  tbody(rows)
-)
+val output =
+  div(
+    p(
+      "Here's a list of all the talks I've given to date, with slides and videos if available."
+    ),
+    table(
+      thead(header),
+      tbody(rows)
+    )
+  )
 
 def pretty(html: String): String = {
   val doc: Document = Jsoup.parse(html)
