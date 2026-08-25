@@ -16,6 +16,11 @@ BUCKET="${2:-talks-backup-855041393262}"
 export AWS_PROFILE="${AWS_PROFILE:-default}"
 export AWS_REGION="${AWS_REGION:-eu-central-1}"
 
+# A stale session token in the environment shadows the profile's long-lived
+# keys and makes every request fail with ExpiredToken. Drop them so the
+# credentials in ~/.aws/credentials are what actually gets used.
+unset AWS_SESSION_TOKEN AWS_SECURITY_TOKEN AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+
 shopt -s nullglob
 fail=0
 
